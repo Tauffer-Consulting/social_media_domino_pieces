@@ -1,0 +1,15 @@
+{
+    "name": "InstagramPostImagePiece",
+    "description": "Publish an image to an Instagram account",
+    "tags": [
+        "Instagram"
+    ],
+    "style": {
+        "node_label": "Instagram Post Image Piece",
+        "node_type": "default",
+        "node_style": {
+            "backgroundColor": "#b3cde8"
+        },
+        "icon_class_name": "fas fa-database"
+    }
+}

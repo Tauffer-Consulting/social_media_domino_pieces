@@ -1,0 +1,19 @@
+{
+    "name": "EmailSenderPiece",
+    "description": "Email sender",
+    "container_resources": {
+        "use_gpu": false,
+        "requests": {
+            "cpu": "100m",
+            "memory": "100Mi"
+        },
+        "limits": {
+            "cpu": "500m",
+            "memory": "200Mi"
+        }
+    },
+    "style": {
+        "node_label": "Email sender Piece",
+        "icon_class_name": "fa-regular fa-envelope"
+    }
+}
