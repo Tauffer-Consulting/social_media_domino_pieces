@@ -1,14 +1,34 @@
 {
     "group0": {
         "dependency": {
-            "dockerfile": null,
-            "requirements_file": "requirements_0.txt"
+            "dockerfile": "Dockerfile_youtube",
+            "requirements_file": null
         },
         "pieces": [
-            "ExampleSimplePiece"
+            "YoutubeListVideosPiece",
+            "YoutubeDownloadPiece"
         ],
         "secrets": [
-            "EXAMPLE_OPERATOR_SECRET_1"
-        ]
+            "YOUTUBE_API_KEY"
+        ],
+        "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:0.1.0-group0"
+    },
+    "group1": {
+        "dependency": {
+            "dockerfile": null,
+            "requirements_file": null
+        },
+        "pieces": [
+            "InstagramPostImagePiece",
+            "EmailSenderPiece"
+        ],
+        "secrets": [
+            "EMAIL_SENDER_ACCOUNT",
+            "APP_SECRET",
+            "ACCESS_TOKEN",
+            "EMAIL_SENDER_PASSWORD",
+            "APP_ID"
+        ],
+        "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:0.1.0-group1"
     }
 }

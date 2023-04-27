@@ -1,26 +1,24 @@
 {
-    "ExampleSimplePiece": {
-        "name": "ExampleSimplePiece",
+    "YoutubeListVideosPiece": {
+        "name": "YoutubeListVideosPiece",
         "dependency": {
-            "dockerfile": null,
-            "requirements_file": "requirements_0.txt"
+            "dockerfile": "Dockerfile_youtube",
+            "requirements_file": null
         },
-        "tags": [
-            "Example"
-        ],
+        "tags": [],
         "style": {
-            "node_label": "Simple Piece",
+            "node_label": "Youtube list videos",
             "node_type": "default",
             "node_style": {
                 "backgroundColor": "#ebebeb"
             },
             "useIcon": true,
-            "icon_class_name": "fas fa-database",
+            "icon_class_name": "fa-brands fa-youtube",
             "iconStyle": {
                 "cursor": "pointer"
             }
         },
-        "description": "This is an example of a simple Domino Piece",
+        "description": "List videos from youtube channel.",
         "container_resources": {
             "requests": {
                 "cpu": "100m",
@@ -33,40 +31,226 @@
         },
         "input_schema": {
             "title": "InputModel",
+            "description": "Input data for YoutubeListVideosPiece",
             "type": "object",
             "properties": {
-                "distribution_name": {
-                    "description": "Name of the distribution to sample from",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/DistributionType"
-                        }
-                    ]
-                },
-                "distribution_mean": {
-                    "title": "Distribution Mean",
-                    "description": "Distribution mean",
-                    "type": "number"
-                },
-                "distribution_sd": {
-                    "title": "Distribution Sd",
-                    "description": "Distribution standard deviation",
-                    "default": 1.0,
-                    "exclusiveMinimum": 0.0,
-                    "type": "number"
+                "channel_id": {
+                    "title": "Channel Id",
+                    "description": "The Id of the Youtube channel.",
+                    "type": "string"
                 }
             },
             "required": [
-                "distribution_name",
-                "distribution_mean"
+                "channel_id"
+            ]
+        },
+        "output_schema": {
+            "title": "OutputModel",
+            "description": "Output data for YoutubeListVideosPiece",
+            "type": "object",
+            "properties": {
+                "message": {
+                    "title": "Message",
+                    "description": "Output message to log",
+                    "default": "",
+                    "type": "string"
+                },
+                "videos_list": {
+                    "title": "Videos List",
+                    "description": "A list containing information about videos.",
+                    "type": "array",
+                    "items": {}
+                }
+            },
+            "required": [
+                "videos_list"
+            ]
+        },
+        "secrets_schema": {
+            "title": "SecretsModel",
+            "description": "Secrets data for YoutubeListVideosPiece",
+            "type": "object",
+            "properties": {
+                "YOUTUBE_API_KEY": {
+                    "title": "Youtube Api Key",
+                    "description": "The Youtube Data API Key.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "YOUTUBE_API_KEY"
+            ]
+        }
+    },
+    "InstagramPostImagePiece": {
+        "name": "InstagramPostImagePiece",
+        "dependency": {
+            "dockerfile": null,
+            "requirements_file": null
+        },
+        "tags": [
+            "Instagram"
+        ],
+        "style": {
+            "node_label": "Instagram Post Image Piece",
+            "node_type": "default",
+            "node_style": {
+                "backgroundColor": "#b3cde8"
+            },
+            "useIcon": true,
+            "icon_class_name": "fas fa-database",
+            "iconStyle": {
+                "cursor": "pointer"
+            }
+        },
+        "description": "Publish an image to an Instagram account",
+        "input_schema": {
+            "title": "InputModel",
+            "description": "Publish an image on Intagram",
+            "type": "object",
+            "properties": {
+                "image_url": {
+                    "title": "Image Url",
+                    "description": "public URL of the image",
+                    "type": "string"
+                },
+                "caption": {
+                    "title": "Caption",
+                    "description": "post caption",
+                    "type": "string"
+                },
+                "facebook_page_name": {
+                    "title": "Facebook Page Name",
+                    "description": "Facebook page connected to the Instagram account",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "image_url",
+                "facebook_page_name"
+            ]
+        },
+        "output_schema": {
+            "title": "OutputModel",
+            "description": "Publish an image on Intagram",
+            "type": "object",
+            "properties": {
+                "message": {
+                    "title": "Message",
+                    "description": "output message to log",
+                    "default": "",
+                    "type": "string"
+                },
+                "post_id": {
+                    "title": "Post Id",
+                    "description": "post ID",
+                    "type": "string"
+                }
+            }
+        },
+        "secrets_schema": {
+            "title": "SecretsModel",
+            "description": "Example Piece Secrets",
+            "type": "object",
+            "properties": {
+                "APP_ID": {
+                    "title": "App Id",
+                    "description": "ID from a Facebook App",
+                    "type": "string"
+                },
+                "APP_SECRET": {
+                    "title": "App Secret",
+                    "description": "secret from a Facebook App",
+                    "type": "string"
+                },
+                "ACCESS_TOKEN": {
+                    "title": "Access Token",
+                    "description": "access_token getted from a Facebook App",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "APP_ID",
+                "APP_SECRET",
+                "ACCESS_TOKEN"
+            ]
+        }
+    },
+    "EmailSenderPiece": {
+        "name": "EmailSenderPiece",
+        "dependency": {
+            "dockerfile": null,
+            "requirements_file": null
+        },
+        "tags": [],
+        "style": {
+            "node_label": "Email sender Piece",
+            "node_type": "default",
+            "node_style": {
+                "backgroundColor": "#ebebeb"
+            },
+            "useIcon": true,
+            "icon_class_name": "fa-regular fa-envelope",
+            "iconStyle": {
+                "cursor": "pointer"
+            }
+        },
+        "description": "Email sender",
+        "container_resources": {
+            "use_gpu": false,
+            "requests": {
+                "cpu": "100m",
+                "memory": "100Mi"
+            },
+            "limits": {
+                "cpu": "500m",
+                "memory": "200Mi"
+            }
+        },
+        "input_schema": {
+            "title": "InputModel",
+            "description": "Input data for EmailSenderPiece",
+            "type": "object",
+            "properties": {
+                "email_provider": {
+                    "description": "The email provider to use.",
+                    "default": "gmail",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/ProviderType"
+                        }
+                    ]
+                },
+                "email_receivers": {
+                    "title": "Email Receivers",
+                    "description": "The receivers of the email, as comma-separated values.",
+                    "type": "string"
+                },
+                "email_subject": {
+                    "title": "Email Subject",
+                    "description": "The subject of the email.",
+                    "type": "string"
+                },
+                "email_body": {
+                    "title": "Email Body",
+                    "description": "The body of the email.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "email_receivers",
+                "email_subject",
+                "email_body"
             ],
             "definitions": {
-                "DistributionType": {
-                    "title": "DistributionType",
+                "ProviderType": {
+                    "title": "ProviderType",
                     "description": "An enumeration.",
                     "enum": [
-                        "gaussian",
-                        "poisson"
+                        "gmail",
+                        "outlook",
+                        "office365",
+                        "yahoo"
                     ],
                     "type": "string"
                 }
@@ -74,37 +258,147 @@
         },
         "output_schema": {
             "title": "OutputModel",
+            "description": "Output data for EmailSenderPiece",
+            "type": "object",
+            "properties": {
+                "message": {
+                    "title": "Message",
+                    "description": "Output message to log.",
+                    "default": "",
+                    "type": "string"
+                },
+                "success": {
+                    "title": "Success",
+                    "description": "The result of the email sending task.",
+                    "type": "boolean"
+                },
+                "error": {
+                    "title": "Error",
+                    "description": "The error message, if any.",
+                    "default": "",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "success"
+            ]
+        },
+        "secrets_schema": {
+            "title": "SecretsModel",
+            "description": "Secrets data for EmailSenderPiece",
+            "type": "object",
+            "properties": {
+                "EMAIL_SENDER_ACCOUNT": {
+                    "title": "Email Sender Account",
+                    "description": "The email sender account.",
+                    "type": "string"
+                },
+                "EMAIL_SENDER_PASSWORD": {
+                    "title": "Email Sender Password",
+                    "description": "The email sender password",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "EMAIL_SENDER_ACCOUNT",
+                "EMAIL_SENDER_PASSWORD"
+            ]
+        }
+    },
+    "YoutubeDownloadPiece": {
+        "name": "YoutubeDownloadPiece",
+        "dependency": {
+            "dockerfile": "Dockerfile_youtube",
+            "requirements_file": null
+        },
+        "tags": [],
+        "style": {
+            "node_label": "Youtube Download Piece",
+            "node_type": "default",
+            "node_style": {
+                "backgroundColor": "#ebebeb"
+            },
+            "useIcon": true,
+            "icon_class_name": "fa-brands fa-youtube",
+            "iconStyle": {
+                "cursor": "pointer"
+            }
+        },
+        "description": "Downloads content from youtube videos as audio or video files.",
+        "container_resources": {
+            "requests": {
+                "cpu": "100m",
+                "memory": "128Mi"
+            },
+            "limits": {
+                "cpu": "500m",
+                "memory": "512Mi"
+            }
+        },
+        "input_schema": {
+            "title": "InputModel",
+            "description": "Input data for YoutubeDownloadPiece",
+            "type": "object",
+            "properties": {
+                "url": {
+                    "title": "Url",
+                    "description": "The url of the video to be downloaded.",
+                    "minLength": 1,
+                    "maxLength": 65536,
+                    "format": "uri",
+                    "type": "string"
+                },
+                "output_type": {
+                    "description": "The type of output file to be downloaded.",
+                    "default": "audio",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/OutputTypeType"
+                        }
+                    ]
+                },
+                "output_file_name": {
+                    "title": "Output File Name",
+                    "description": "The name of the output file. If not provided, the formatted name of the video will be used.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "url"
+            ],
+            "definitions": {
+                "OutputTypeType": {
+                    "title": "OutputTypeType",
+                    "description": "An enumeration.",
+                    "enum": [
+                        "audio",
+                        "video"
+                    ],
+                    "type": "string"
+                }
+            }
+        },
+        "output_schema": {
+            "title": "OutputModel",
+            "description": "Output data for YoutubeDownloadPiece",
             "type": "object",
             "properties": {
                 "message": {
                     "title": "Message",
                     "description": "Output message to log",
+                    "default": "",
                     "type": "string"
                 },
-                "sample_result": {
-                    "title": "Sample Result",
-                    "description": "The result of this Piece's processing",
+                "file_path": {
+                    "title": "File Path",
+                    "description": "The path to the downloaded file",
                     "type": "string"
                 }
             },
             "required": [
-                "message",
-                "sample_result"
+                "file_path"
             ]
         },
-        "secrets_schema": {
-            "title": "SecretsModel",
-            "type": "object",
-            "properties": {
-                "EXAMPLE_OPERATOR_SECRET_1": {
-                    "title": "Example Operator Secret 1",
-                    "description": "A secret necessary to run this Piece",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "EXAMPLE_OPERATOR_SECRET_1"
-            ]
-        }
+        "secrets_schema": null
     }
 }
