@@ -12,25 +12,33 @@ class YoutubeDownloadPiece(BasePiece):
     def piece_function(self, input_model: InputModel):
         # File type
         if input_model.output_type == "audio":
-            format = "bestaudio/best"
-            file_ext = "mp3"
+            options={
+                "format": "bestaudio/best",
+                "keepvideo": False,
+                "postprocessors": [{
+                    "key": "FFmpegExtractAudio",
+                    "preferredcodec": "mp3",
+                }]
+            }
         else:
-            format = "bestvideo+bestaudio/best"
-            file_ext = "mp4"
-
+            options={
+                "format": "bestvideo+bestaudio/best",
+                "postprocessors": [{
+                    "key": "FFmpegVideoConvertor",
+                    "preferedformat": "mp4"
+                }]
+            }
+        
         # File name
         video_info = youtube_dl.YoutubeDL().extract_info(url=input_model.url, download=False)
         if input_model.output_file_name:
-            filename = f"{input_model.output_file_name}.{file_ext}"
+            filename = f"{input_model.output_file_name}"
         else:
-            filename = f"{video_info['title']}.{file_ext}"
+            filename = f"{video_info['title']}"
 
         output_file_path = f"{self.results_path}/{filename}"
-        options={
-            'format': format,
-            'keepvideo': False,
-            'outtmpl': output_file_path,
-        }
+
+        options['outtmpl'] = output_file_path
 
         # Download the content
         with youtube_dl.YoutubeDL(options) as ydl:
