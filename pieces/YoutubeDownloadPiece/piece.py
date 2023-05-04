@@ -20,6 +20,7 @@ class YoutubeDownloadPiece(BasePiece):
                     "preferredcodec": "mp3",
                 }]
             }
+            file_format = ".mp3"
         else:
             options={
                 "format": "bestvideo+bestaudio/best",
@@ -28,6 +29,7 @@ class YoutubeDownloadPiece(BasePiece):
                     "preferedformat": "mp4"
                 }]
             }
+            file_format = ".mp4"
         
         # File name
         video_info = youtube_dl.YoutubeDL().extract_info(url=input_model.url, download=False)
@@ -37,8 +39,10 @@ class YoutubeDownloadPiece(BasePiece):
             filename = f"{video_info['title']}"
 
         output_file_path = f"{self.results_path}/{filename}"
+        self.logger.info("\n#####\n AQUIII \n#####\n")
 
         options['outtmpl'] = output_file_path
+        output_file_path += file_format
 
         # Download the content
         with youtube_dl.YoutubeDL(options) as ydl:
