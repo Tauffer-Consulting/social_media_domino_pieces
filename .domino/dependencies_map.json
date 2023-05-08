@@ -24,8 +24,8 @@
         ],
         "secrets": [
             "EMAIL_SENDER_ACCOUNT",
-            "ACCESS_TOKEN",
             "EMAIL_SENDER_PASSWORD",
+            "ACCESS_TOKEN",
             "APP_SECRET",
             "APP_ID"
         ],
