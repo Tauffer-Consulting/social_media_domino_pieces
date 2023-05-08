@@ -1,4 +1,4 @@
-FROM taufferconsulting/flowui-airflow-pod:latest
+FROM ghcr.io/tauffer-consulting/domino-airflow-pod:latest
 
 # Install specific requirements
 RUN apt update
