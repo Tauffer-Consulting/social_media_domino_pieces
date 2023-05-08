@@ -14,6 +14,7 @@
     },
     "style": {
         "node_label": "Email sender Piece",
-        "icon_class_name": "fa-regular fa-envelope"
+        "icon_class_name": "fas fa-envelope",
+        "use_icon": true
     }
 }

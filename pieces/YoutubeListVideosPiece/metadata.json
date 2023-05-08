@@ -16,6 +16,6 @@
     },
     "style": {
         "node_label": "Youtube list videos",
-        "icon_class_name": "fa-brands fa-youtube"
+        "icon_class_name": "fab fa-youtube"
     }
 }
