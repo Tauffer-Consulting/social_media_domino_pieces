@@ -13,7 +13,7 @@
                 "backgroundColor": "#ebebeb"
             },
             "useIcon": true,
-            "icon_class_name": "fa-brands fa-youtube",
+            "icon_class_name": "fab fa-youtube",
             "iconStyle": {
                 "cursor": "pointer"
             }
@@ -98,7 +98,7 @@
                 "backgroundColor": "#b3cde8"
             },
             "useIcon": true,
-            "icon_class_name": "fas fa-database",
+            "icon_class_name": "fab fa-instagram",
             "iconStyle": {
                 "cursor": "pointer"
             }
@@ -190,10 +190,11 @@
                 "backgroundColor": "#ebebeb"
             },
             "useIcon": true,
-            "icon_class_name": "fa-regular fa-envelope",
+            "icon_class_name": "fas fa-envelope",
             "iconStyle": {
                 "cursor": "pointer"
-            }
+            },
+            "use_icon": true
         },
         "description": "Email sender",
         "container_resources": {
@@ -319,7 +320,7 @@
                 "backgroundColor": "#ebebeb"
             },
             "useIcon": true,
-            "icon_class_name": "fa-brands fa-youtube",
+            "icon_class_name": "fas fa-download",
             "iconStyle": {
                 "cursor": "pointer"
             }
