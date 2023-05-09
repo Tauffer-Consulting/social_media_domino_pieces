@@ -28,5 +28,6 @@ class SecretsModel(BaseModel):
     Secrets data for YoutubeListVideosPiece
     """
     YOUTUBE_API_KEY: str = Field(
+        default=None,
         description="The Youtube Data API Key."
     )

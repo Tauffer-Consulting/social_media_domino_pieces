@@ -14,7 +14,7 @@ class YoutubeListVideosPiece(BasePiece):
 
     def piece_function(self, input_model: InputModel):
         # Get credentials and create API client
-        api_key = os.environ.get("YOUTUBE_API_KEY", None)
+        api_key = self.secrets.YOUTUBE_API_KEY
         client = googleapiclient.discovery.build(
             serviceName="youtube",
             version="v3",
@@ -26,12 +26,13 @@ class YoutubeListVideosPiece(BasePiece):
         while True:
             request = client.search().list(
                 # part="snippet,id",
-                part="id",
+                part="snippet",
                 type="video",
                 channelId=input_model.channel_id,
                 # publishedAfter="2022-12-01T00:00:00Z",  TODO: add this
                 # publishedBefore=,                       TODO: add this
                 maxResults=50,
+                order="date"
             )
             response = request.execute()
             new_ids = [i["id"]["videoId"] for i in response["items"]]
@@ -60,7 +61,6 @@ class YoutubeListVideosPiece(BasePiece):
                 "duration": i["contentDetails"]["duration"],
                 "viewCount": i["statistics"]["viewCount"],
                 "likeCount": i["statistics"]["likeCount"],
-                "dislikeCount": i["statistics"]["dislikeCount"],
                 "commentCount": i["statistics"]["commentCount"],
             })
 
