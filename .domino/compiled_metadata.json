@@ -76,10 +76,7 @@
                     "description": "The Youtube Data API Key.",
                     "type": "string"
                 }
-            },
-            "required": [
-                "YOUTUBE_API_KEY"
-            ]
+            }
         }
     },
     "InstagramPostImagePiece": {

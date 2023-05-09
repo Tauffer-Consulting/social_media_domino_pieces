@@ -24,10 +24,10 @@
         ],
         "secrets": [
             "APP_SECRET",
-            "EMAIL_SENDER_PASSWORD",
             "APP_ID",
+            "ACCESS_TOKEN",
             "EMAIL_SENDER_ACCOUNT",
-            "ACCESS_TOKEN"
+            "EMAIL_SENDER_PASSWORD"
         ],
         "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:0.1.3-group1"
     }
