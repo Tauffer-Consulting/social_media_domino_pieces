@@ -5,3 +5,4 @@ Domino Pieces for popular social media tasks
 - **InstagramPostImagePiece** - Posts an image to Instagram
 - **YoutubeDownloadPiece** - Downloads a video from Youtube
 - **YoutubeListVideosPiece** - Lists videos from a Youtube channel
+- **ImgurUploaderPiece** -  Uploads an image to Imgur
