@@ -23,9 +23,9 @@
             "EmailSenderPiece"
         ],
         "secrets": [
-            "APP_SECRET",
-            "ACCESS_TOKEN",
             "EMAIL_SENDER_PASSWORD",
+            "ACCESS_TOKEN",
+            "APP_SECRET",
             "APP_ID",
             "EMAIL_SENDER_ACCOUNT"
         ],
