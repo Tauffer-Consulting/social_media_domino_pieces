@@ -2,7 +2,7 @@
     "name": "ImgurUploaderPiece",
     "description": "This Piece upload an image to Imgur.",
     "dependency": {
-        "requirements_file": "requirements_ImgurUpload.txt"
+        "requirements_file": "requirements_ImgurUploader.txt"
     },
     
     "style": {
