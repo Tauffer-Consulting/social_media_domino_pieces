@@ -1,0 +1,12 @@
+{
+    "name": "ImgurUploaderPiece",
+    "description": "This Piece upload an image to Imgur.",
+    "dependency": {
+        "requirements_file": "requirements_ImgurUpload.txt"
+    },
+    
+    "style": {
+        "node_label": "Imgur Uploader Piece",
+        "icon_class_name": "fas fa-file-contract"
+    }
+}
