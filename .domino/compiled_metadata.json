@@ -1,24 +1,24 @@
 {
-    "YoutubeListVideosPiece": {
-        "name": "YoutubeListVideosPiece",
+    "YoutubeDownloadPiece": {
+        "name": "YoutubeDownloadPiece",
         "dependency": {
             "dockerfile": "Dockerfile_youtube",
             "requirements_file": null
         },
         "tags": [],
         "style": {
-            "node_label": "Youtube list videos",
+            "node_label": "Youtube Download Piece",
             "node_type": "default",
             "node_style": {
                 "backgroundColor": "#ebebeb"
             },
             "useIcon": true,
-            "icon_class_name": "fab fa-youtube",
+            "icon_class_name": "fas fa-download",
             "iconStyle": {
                 "cursor": "pointer"
             }
         },
-        "description": "List videos from youtube channel.",
+        "description": "Downloads content from youtube videos as audio or video files.",
         "container_resources": {
             "requests": {
                 "cpu": "100m",
@@ -31,22 +31,50 @@
         },
         "input_schema": {
             "title": "InputModel",
-            "description": "Input data for YoutubeListVideosPiece",
+            "description": "Input data for YoutubeDownloadPiece",
             "type": "object",
             "properties": {
-                "channel_id": {
-                    "title": "Channel Id",
-                    "description": "The Id of the Youtube channel.",
+                "url": {
+                    "title": "Url",
+                    "description": "The url of the video to be downloaded.",
+                    "minLength": 1,
+                    "maxLength": 65536,
+                    "format": "uri",
+                    "type": "string"
+                },
+                "output_type": {
+                    "description": "The type of output file to be downloaded.",
+                    "default": "audio",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/OutputTypeType"
+                        }
+                    ]
+                },
+                "output_file_name": {
+                    "title": "Output File Name",
+                    "description": "The name of the output file. If not provided, the formatted name of the video will be used.",
                     "type": "string"
                 }
             },
             "required": [
-                "channel_id"
-            ]
+                "url"
+            ],
+            "definitions": {
+                "OutputTypeType": {
+                    "title": "OutputTypeType",
+                    "description": "An enumeration.",
+                    "enum": [
+                        "audio",
+                        "video"
+                    ],
+                    "type": "string"
+                }
+            }
         },
         "output_schema": {
             "title": "OutputModel",
-            "description": "Output data for YoutubeListVideosPiece",
+            "description": "Output data for YoutubeDownloadPiece",
             "type": "object",
             "properties": {
                 "message": {
@@ -55,29 +83,17 @@
                     "default": "",
                     "type": "string"
                 },
-                "videos_list": {
-                    "title": "Videos List",
-                    "description": "A list containing information about videos.",
-                    "type": "array",
-                    "items": {}
+                "file_path": {
+                    "title": "File Path",
+                    "description": "The path to the downloaded file",
+                    "type": "string"
                 }
             },
             "required": [
-                "videos_list"
+                "file_path"
             ]
         },
-        "secrets_schema": {
-            "title": "SecretsModel",
-            "description": "Secrets data for YoutubeListVideosPiece",
-            "type": "object",
-            "properties": {
-                "YOUTUBE_API_KEY": {
-                    "title": "Youtube Api Key",
-                    "description": "The Youtube Data API Key.",
-                    "type": "string"
-                }
-            }
-        }
+        "secrets_schema": null
     },
     "InstagramPostImagePiece": {
         "name": "InstagramPostImagePiece",
@@ -303,26 +319,26 @@
             ]
         }
     },
-    "YoutubeDownloadPiece": {
-        "name": "YoutubeDownloadPiece",
+    "YoutubeListVideosPiece": {
+        "name": "YoutubeListVideosPiece",
         "dependency": {
             "dockerfile": "Dockerfile_youtube",
             "requirements_file": null
         },
         "tags": [],
         "style": {
-            "node_label": "Youtube Download Piece",
+            "node_label": "Youtube list videos",
             "node_type": "default",
             "node_style": {
                 "backgroundColor": "#ebebeb"
             },
             "useIcon": true,
-            "icon_class_name": "fas fa-download",
+            "icon_class_name": "fab fa-youtube",
             "iconStyle": {
                 "cursor": "pointer"
             }
         },
-        "description": "Downloads content from youtube videos as audio or video files.",
+        "description": "List videos from youtube channel.",
         "container_resources": {
             "requests": {
                 "cpu": "100m",
@@ -335,50 +351,22 @@
         },
         "input_schema": {
             "title": "InputModel",
-            "description": "Input data for YoutubeDownloadPiece",
+            "description": "Input data for YoutubeListVideosPiece",
             "type": "object",
             "properties": {
-                "url": {
-                    "title": "Url",
-                    "description": "The url of the video to be downloaded.",
-                    "minLength": 1,
-                    "maxLength": 65536,
-                    "format": "uri",
-                    "type": "string"
-                },
-                "output_type": {
-                    "description": "The type of output file to be downloaded.",
-                    "default": "audio",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/OutputTypeType"
-                        }
-                    ]
-                },
-                "output_file_name": {
-                    "title": "Output File Name",
-                    "description": "The name of the output file. If not provided, the formatted name of the video will be used.",
+                "channel_id": {
+                    "title": "Channel Id",
+                    "description": "The Id of the Youtube channel.",
                     "type": "string"
                 }
             },
             "required": [
-                "url"
-            ],
-            "definitions": {
-                "OutputTypeType": {
-                    "title": "OutputTypeType",
-                    "description": "An enumeration.",
-                    "enum": [
-                        "audio",
-                        "video"
-                    ],
-                    "type": "string"
-                }
-            }
+                "channel_id"
+            ]
         },
         "output_schema": {
             "title": "OutputModel",
-            "description": "Output data for YoutubeDownloadPiece",
+            "description": "Output data for YoutubeListVideosPiece",
             "type": "object",
             "properties": {
                 "message": {
@@ -387,16 +375,97 @@
                     "default": "",
                     "type": "string"
                 },
-                "file_path": {
-                    "title": "File Path",
-                    "description": "The path to the downloaded file",
+                "videos_list": {
+                    "title": "Videos List",
+                    "description": "A list containing information about videos.",
+                    "type": "array",
+                    "items": {}
+                }
+            },
+            "required": [
+                "videos_list"
+            ]
+        },
+        "secrets_schema": {
+            "title": "SecretsModel",
+            "description": "Secrets data for YoutubeListVideosPiece",
+            "type": "object",
+            "properties": {
+                "YOUTUBE_API_KEY": {
+                    "title": "Youtube Api Key",
+                    "description": "The Youtube Data API Key.",
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "ImgurUploaderPiece": {
+        "name": "ImgurUploaderPiece",
+        "dependency": {
+            "dockerfile": null,
+            "requirements_file": "requirements_ImgurUploader.txt"
+        },
+        "tags": [],
+        "style": {
+            "node_label": "Imgur Uploader Piece",
+            "node_type": "default",
+            "node_style": {
+                "backgroundColor": "#ebebeb"
+            },
+            "useIcon": true,
+            "icon_class_name": "fas fa-file-contract",
+            "iconStyle": {
+                "cursor": "pointer"
+            }
+        },
+        "description": "This Piece upload an image to Imgur.",
+        "input_schema": {
+            "title": "InputModel",
+            "type": "object",
+            "properties": {
+                "image_path": {
+                    "title": "Image Path",
+                    "description": "The path to your local image",
                     "type": "string"
                 }
             },
             "required": [
-                "file_path"
+                "image_path"
             ]
         },
-        "secrets_schema": null
+        "output_schema": {
+            "title": "OutputModel",
+            "type": "object",
+            "properties": {
+                "image_url": {
+                    "title": "Image Url",
+                    "description": "The URL to your uploaded image",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "image_url"
+            ]
+        },
+        "secrets_schema": {
+            "title": "SecretsModel",
+            "type": "object",
+            "properties": {
+                "CLIENT_ID": {
+                    "title": "Client Id",
+                    "description": "The app client ID",
+                    "type": "string"
+                },
+                "CLIENT_SECRET": {
+                    "title": "Client Secret",
+                    "description": "The app client secret",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "CLIENT_ID",
+                "CLIENT_SECRET"
+            ]
+        }
     }
 }
