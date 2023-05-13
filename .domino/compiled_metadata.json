@@ -93,7 +93,8 @@
                 "file_path"
             ]
         },
-        "secrets_schema": null
+        "secrets_schema": null,
+        "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/YoutubeDownloadPiece"
     },
     "InstagramPostImagePiece": {
         "name": "InstagramPostImagePiece",
@@ -187,7 +188,8 @@
                 "APP_SECRET",
                 "ACCESS_TOKEN"
             ]
-        }
+        },
+        "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/InstagramPostImagePiece"
     },
     "EmailSenderPiece": {
         "name": "EmailSenderPiece",
@@ -317,7 +319,8 @@
                 "EMAIL_SENDER_ACCOUNT",
                 "EMAIL_SENDER_PASSWORD"
             ]
-        }
+        },
+        "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/EmailSenderPiece"
     },
     "YoutubeListVideosPiece": {
         "name": "YoutubeListVideosPiece",
@@ -397,7 +400,8 @@
                     "type": "string"
                 }
             }
-        }
+        },
+        "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/YoutubeListVideosPiece"
     },
     "ImgurUploaderPiece": {
         "name": "ImgurUploaderPiece",
@@ -466,6 +470,7 @@
                 "CLIENT_ID",
                 "CLIENT_SECRET"
             ]
-        }
+        },
+        "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/ImgurUploaderPiece"
     }
 }
