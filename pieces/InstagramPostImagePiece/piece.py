@@ -13,9 +13,15 @@ class InstagramPostImagePiece(BasePiece):
     @staticmethod
     def make_api_call(url:str, endpoint_query_params:str, request_method='get'):
         if request_method == 'get':
-            data = requests.get(url=url, params=endpoint_query_params)
+            try:
+                data = requests.get(url=url, params=endpoint_query_params)
+            except Exception as e:
+                print(e)
         elif request_method == 'post':
-            data = requests.post(url=url, params=endpoint_query_params)
+            try:
+                data = requests.post(url=url, params=endpoint_query_params)
+            except Exception as e:
+                print(e)
         else:
             raise ValueError('request_method must be: "get" or "post"')
 
@@ -28,15 +34,22 @@ class InstagramPostImagePiece(BasePiece):
         return response
 
     @classmethod
+    def get_long_lived_access_token(cls, app_id:str, app_secret:str, access_token:str):
+        url = cls.endpoint_base_path + 'oauth/access_token'
+        endpoint_query_params = f'grant_type=fb_exchange_token&client_id={app_id}&client_secret={app_secret}&fb_exchange_token={access_token}'
+        response = cls.make_api_call(url=url, endpoint_query_params=endpoint_query_params, request_method='get')
+        return response['json_content']['access_token']
+
+    @classmethod
     def get_page_id(cls, access_token:str, facebook_page_name:str):
         url = cls.endpoint_base_path + 'me/accounts'
         endpoint_query_params = f'access_token={access_token}'
 
         response = cls.make_api_call(url=url, endpoint_query_params=endpoint_query_params, request_method='get')
 
-        for dicio in response['json_content']['data']:
-            if dicio['name'] == facebook_page_name:
-                return dicio['id']
+        for i in response['json_content']['data']:
+            if i['name'] == facebook_page_name:
+                return i['id']
         
         raise Exception(f'Page "{facebook_page_name}" not found')
     
@@ -71,15 +84,22 @@ class InstagramPostImagePiece(BasePiece):
 
     def piece_function(self, input_model: InputModel):
         
+        app_id = self.secrets.APP_ID
+        app_secret = self.secrets.APP_SECRET
         access_token = self.secrets.ACCESS_TOKEN
 
-        page_id = self.get_page_id(access_token=access_token, facebook_page_name=input_model.facebook_page_name)
+        long_lived_access_token = self.secrets.ACCESS_TOKEN = self.get_long_lived_access_token(app_id=app_id, app_secret=app_secret, access_token=access_token)
 
-        instagram_business_account = self.get_instagram_business_account(access_token=access_token, page_id=page_id)
+        page_id = self.get_page_id(access_token=long_lived_access_token, facebook_page_name=input_model.facebook_page_name)
 
-        container_id = self.create_container(access_token=access_token, instagram_business_account=instagram_business_account, image_url=input_model.image_url, caption=input_model.caption)
+        instagram_business_account = self.get_instagram_business_account(access_token=long_lived_access_token, page_id=page_id)
 
-        post_id = self.publish_container(access_token=access_token, instagram_business_account=instagram_business_account, container_id=container_id)
+        caption = f"{input_model.caption_header}\n{input_model.caption}" if input_model.caption_header else input_model.caption
+        caption += f"\n{input_model.caption_footer}" if input_model.caption_footer else ""
+
+        container_id = self.create_container(access_token=long_lived_access_token, instagram_business_account=instagram_business_account, image_url=input_model.image_url, caption=caption)
+
+        post_id = self.publish_container(access_token=long_lived_access_token, instagram_business_account=instagram_business_account, container_id=container_id)
 
 
         return OutputModel(
