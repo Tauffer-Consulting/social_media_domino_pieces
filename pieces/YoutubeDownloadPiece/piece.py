@@ -39,8 +39,6 @@ class YoutubeDownloadPiece(BasePiece):
             filename = f"{video_info['title']}"
 
         output_file_path = f"{self.results_path}/{filename}"
-        self.logger.info("\n#####\n AQUIII \n#####\n")
-
         options['outtmpl'] = output_file_path
         output_file_path += file_format
 
