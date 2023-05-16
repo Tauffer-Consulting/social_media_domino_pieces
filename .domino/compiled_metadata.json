@@ -53,7 +53,7 @@
                 },
                 "output_file_name": {
                     "title": "Output File Name",
-                    "description": "The name of the output file. If not provided, the formatted name of the video will be used.",
+                    "description": "The name of the output file. If not provided, the formatted name of the video will be used. Do not pass the format extension of the file.",
                     "type": "string"
                 }
             },
@@ -128,9 +128,19 @@
                     "description": "public URL of the image",
                     "type": "string"
                 },
+                "caption_header": {
+                    "title": "Caption Header",
+                    "description": "optional header of the caption",
+                    "type": "string"
+                },
                 "caption": {
                     "title": "Caption",
                     "description": "post caption",
+                    "type": "string"
+                },
+                "caption_footer": {
+                    "title": "Caption Footer",
+                    "description": "optional footer of the caption",
                     "type": "string"
                 },
                 "facebook_page_name": {
@@ -417,7 +427,7 @@
                 "backgroundColor": "#ebebeb"
             },
             "useIcon": true,
-            "icon_class_name": "fas fa-file-contract",
+            "icon_class_name": "fas fa-cloud-arrow-up",
             "iconStyle": {
                 "cursor": "pointer"
             }
@@ -425,6 +435,7 @@
         "description": "This Piece upload an image to Imgur.",
         "input_schema": {
             "title": "InputModel",
+            "description": "Imgur Uploader Piece Input",
             "type": "object",
             "properties": {
                 "image_path": {
@@ -439,6 +450,7 @@
         },
         "output_schema": {
             "title": "OutputModel",
+            "description": "Imgur Uploader Piece Output",
             "type": "object",
             "properties": {
                 "image_url": {
@@ -453,6 +465,7 @@
         },
         "secrets_schema": {
             "title": "SecretsModel",
+            "description": "Imgur Uploader Piece Secrets",
             "type": "object",
             "properties": {
                 "CLIENT_ID": {
@@ -472,5 +485,87 @@
             ]
         },
         "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/ImgurUploaderPiece"
+    },
+    "InstagramGetMediaPiece": {
+        "name": "InstagramGetMediaPiece",
+        "dependency": {
+            "dockerfile": null,
+            "requirements_file": null
+        },
+        "tags": [
+            "Instagram"
+        ],
+        "style": {
+            "node_label": "Instagram Get Media",
+            "node_type": "default",
+            "node_style": {
+                "backgroundColor": "#b3cde8"
+            },
+            "useIcon": true,
+            "icon_class_name": "fab fa-instagram",
+            "iconStyle": {
+                "cursor": "pointer"
+            }
+        },
+        "description": "Get all media information about the instagram account",
+        "input_schema": {
+            "title": "InputModel",
+            "description": "Get Instagram Media Input",
+            "type": "object",
+            "properties": {
+                "facebook_page_name": {
+                    "title": "Facebook Page Name",
+                    "description": "Facebook page connected to the Instagram account",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "facebook_page_name"
+            ]
+        },
+        "output_schema": {
+            "title": "OutputModel",
+            "description": "Get Instagram Media Output",
+            "type": "object",
+            "properties": {
+                "media_list": {
+                    "title": "Media List",
+                    "description": "list of Instagram media posts",
+                    "type": "array",
+                    "items": {}
+                }
+            },
+            "required": [
+                "media_list"
+            ]
+        },
+        "secrets_schema": {
+            "title": "SecretsModel",
+            "description": "Get Instagram Media Secrets",
+            "type": "object",
+            "properties": {
+                "APP_ID": {
+                    "title": "App Id",
+                    "description": "ID from a Facebook App",
+                    "type": "string"
+                },
+                "APP_SECRET": {
+                    "title": "App Secret",
+                    "description": "secret from a Facebook App",
+                    "type": "string"
+                },
+                "ACCESS_TOKEN": {
+                    "title": "Access Token",
+                    "description": "access_token getted from a Facebook App",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "APP_ID",
+                "APP_SECRET",
+                "ACCESS_TOKEN"
+            ]
+        },
+        "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/InstagramGetMediaPiece"
     }
 }
