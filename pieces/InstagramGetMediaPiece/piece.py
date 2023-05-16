@@ -1,10 +1,9 @@
 from domino.base_piece import BasePiece
 from .models import InputModel, OutputModel
+import requests
+import json
 
-import requests, json
-from urllib.parse import quote, urljoin
-
-class InstagramPostImagePiece(BasePiece):
+class InstagramGetMediaPiece(BasePiece):
 
     host_domain = 'https://graph.facebook.com/'
     graph_api_version = 'v15.0'
@@ -25,11 +24,10 @@ class InstagramPostImagePiece(BasePiece):
         else:
             raise ValueError('request_method must be: "get" or "post"')
 
-        response = dict()
-        response['json_content'] = json.loads(data.content)
-        response['json_content_pretty'] = json.dumps(json.loads(data.content), indent=2)
+        response = {}
         response['url'] = url
         response['endpoint_query_params'] = endpoint_query_params
+        response['json_content'] = json.loads(data.content)
     
         return response
 
@@ -55,32 +53,21 @@ class InstagramPostImagePiece(BasePiece):
     
     @classmethod
     def get_instagram_business_account(cls, access_token:str, page_id:str):
-        url = urljoin(cls.endpoint_base_path, page_id)
+        url = f'{cls.endpoint_base_path}{page_id}'
         endpoint_query_params = f'access_token={access_token}&fields=instagram_business_account'
 
         response = cls.make_api_call(url=url, endpoint_query_params=endpoint_query_params, request_method='get')
 
         return response['json_content']['instagram_business_account']['id']
-    
+
     @classmethod
-    def create_container(cls, access_token:str, instagram_business_account:str, image_url:str, caption:str):
-        caption = quote(caption, safe='') #HTML URL encode for the caption parameter
+    def get_media_list(cls, access_token:str, instagram_business_account:str):
+        url = f'{cls.endpoint_base_path}{instagram_business_account}/media'
+        endpoint_query_params = f'access_token={access_token}&fields=id,media_type,permalink,timestamp,caption'
 
-        url = urljoin(cls.endpoint_base_path, f'{instagram_business_account}/media') 
-        endpoint_query_params = f'image_url={image_url}&caption={caption}&access_token={access_token}'
+        response = cls.make_api_call(url=url, endpoint_query_params=endpoint_query_params, request_method='get')
 
-        response = cls.make_api_call(url=url, endpoint_query_params=endpoint_query_params, request_method='post')
-        
-        return response['json_content']['id']
-    
-    @classmethod
-    def publish_container(cls, access_token:str, instagram_business_account:str, container_id:str):
-        url = urljoin(cls.endpoint_base_path, f'{instagram_business_account}/media_publish')
-        endpoint_query_params = f'creation_id={container_id}&access_token={access_token}'
-
-        response = cls.make_api_call(url=url, endpoint_query_params=endpoint_query_params, request_method='post')
-
-        return response['json_content']['id']
+        return response['json_content']['data']
 
     def piece_function(self, input_model: InputModel):
         
@@ -94,15 +81,8 @@ class InstagramPostImagePiece(BasePiece):
 
         instagram_business_account = self.get_instagram_business_account(access_token=long_lived_access_token, page_id=page_id)
 
-        caption = f"{input_model.caption_header}\n{input_model.caption}" if input_model.caption_header else input_model.caption
-        caption += f"\n{input_model.caption_footer}" if input_model.caption_footer else ""
-
-        container_id = self.create_container(access_token=long_lived_access_token, instagram_business_account=instagram_business_account, image_url=input_model.image_url, caption=caption)
-
-        post_id = self.publish_container(access_token=long_lived_access_token, instagram_business_account=instagram_business_account, container_id=container_id)
-
+        media_list = self.get_media_list(access_token=long_lived_access_token, instagram_business_account=instagram_business_account)
 
         return OutputModel(
-            message="Post successfully completed!",
-            post_id=post_id
+            media_list=media_list
         )

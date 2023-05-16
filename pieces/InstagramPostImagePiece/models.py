@@ -7,15 +7,23 @@ class InputModel(BaseModel):
     """
     image_url: str = Field(
         ...,
-        description='public URL of the image'
+        description="public URL of the image"
+    )
+    caption_header: str = Field(
+        default=None,
+        description="optional header of the caption"
     )
     caption: str = Field(
         default = None,
-        description='post caption'
+        description="post caption"
+    )
+    caption_footer: str = Field(
+        default=None,
+        description="optional footer of the caption"
     )
     facebook_page_name: str = Field(
         ...,
-        description = 'Facebook page connected to the Instagram account'
+        description = "Facebook page connected to the Instagram account"
     )
 
 class OutputModel(BaseModel):
@@ -38,13 +46,13 @@ class SecretsModel(BaseModel):
     """
     APP_ID: str = Field(
         ...,
-        description = 'ID from a Facebook App'
+        description = "ID from a Facebook App"
     )
     APP_SECRET: str = Field(
         ...,
-        description = 'secret from a Facebook App'
+        description = "secret from a Facebook App"
     )
     ACCESS_TOKEN: str = Field(
         ...,
-        description='access_token getted from a Facebook App'
+        description="access_token getted from a Facebook App"
     )

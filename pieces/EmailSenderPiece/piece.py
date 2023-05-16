@@ -35,15 +35,18 @@ class EmailSenderPiece(BasePiece):
 
         context = ssl.create_default_context()
 
+        self.logger.info("Sending email")
         try:
             with smtplib.SMTP_SSL(email_server, 465, context=context) as service:
                 service.login(email_account, email_password)
                 service.sendmail(email_account, email_receivers, email_message.as_string())
             msg = "Email sent successfully."
+            self.logger.info(msg)
             success = True
             error = ""
         except Exception as e:
             msg = "Error sending email."
+            self.logger.info(msg)
             success = False
             error = str(e)
             print(error)
