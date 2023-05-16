@@ -1,11 +1,11 @@
 {
-    "name": "InstagramPostImagePiece",
-    "description": "Publish an image to an Instagram account",
+    "name": "InstagramGetMediaPiece",
+    "description": "Get all media information about the instagram account",
     "tags": [
         "Instagram"
     ],
     "style": {
-        "node_label": "Instagram Post Image Piece",
+        "node_label": "Instagram Get Media",
         "node_type": "default",
         "node_style": {
             "backgroundColor": "#b3cde8"
