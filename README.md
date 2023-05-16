@@ -3,6 +3,7 @@ Domino Pieces for popular social media tasks
 
 - **EmailSenderPiece** - Sends an email to a specified email address
 - **InstagramPostImagePiece** - Posts an image to Instagram
+- **InstagramGetMediaPiece** - Get all media information about the instagram account
 - **YoutubeDownloadPiece** - Downloads a video from Youtube
 - **YoutubeListVideosPiece** - Lists videos from a Youtube channel
 - **ImgurUploaderPiece** -  Uploads an image to Imgur
