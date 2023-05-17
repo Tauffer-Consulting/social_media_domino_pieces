@@ -427,7 +427,7 @@
                 "backgroundColor": "#ebebeb"
             },
             "useIcon": true,
-            "icon_class_name": "fas fa-cloud-arrow-up",
+            "icon_class_name": "fas fa-file-upload",
             "iconStyle": {
                 "cursor": "pointer"
             }
