@@ -63,7 +63,7 @@ class InstagramGetMediaPiece(BasePiece):
     @classmethod
     def get_media_list(cls, access_token:str, instagram_business_account:str):
         url = f'{cls.endpoint_base_path}{instagram_business_account}/media'
-        endpoint_query_params = f'access_token={access_token}&fields=id,media_type,permalink,timestamp,caption'
+        endpoint_query_params = f'access_token={access_token}&fields=id,media_type,caption,like_count,comments_count,permalink,timestamp,comments'
 
         response = cls.make_api_call(url=url, endpoint_query_params=endpoint_query_params, request_method='get')
 
