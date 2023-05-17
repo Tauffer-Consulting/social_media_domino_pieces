@@ -7,6 +7,6 @@
     
     "style": {
         "node_label": "Imgur Uploader Piece",
-        "icon_class_name": "fas fa-cloud-arrow-up"
+        "icon_class_name": "fas fa-file-upload"
     }
 }
