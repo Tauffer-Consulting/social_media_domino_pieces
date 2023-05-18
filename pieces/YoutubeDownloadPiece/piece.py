@@ -5,6 +5,8 @@ References:
 from domino.base_piece import BasePiece
 from .models import InputModel, OutputModel
 import yt_dlp as youtube_dl
+import os
+from typing import List
 
 
 class YoutubeDownloadPiece(BasePiece):
@@ -49,9 +51,30 @@ class YoutubeDownloadPiece(BasePiece):
         msg = f"Download complete successfully: {filename}"
         self.logger.info(msg)
 
-        output = OutputModel(
+        file_size = os.path.getsize(output_file_path) *  0.000001
+        self.format_display_result(input_model, video_info, file_size)
+
+        return OutputModel(
             message=msg,
             file_path=output_file_path
         )
+    
+    def format_display_result(self, input_model: InputModel, video_info: List, file_size: int):
+        md_text = f"""
+## Information about the video
 
-        return output
+- Title: {video_info['title']}
+- Duration: {video_info['duration']} seconds
+- Link: {video_info['webpage_url']}
+- Vizualizations: {video_info['view_count']}
+- Resolution:  {video_info['resolution']}
+- Downloaded file size: {file_size} MB
+
+"""
+        file_path = f"{self.results_path}/display_result.md"
+        with open(file_path, "w") as f:
+            f.write(md_text)
+        self.display_result = {
+            "file_type": "md",
+            "file_path": file_path
+        }
