@@ -1,7 +1,8 @@
 from domino.base_piece import BasePiece
 from .models import InputModel, OutputModel
 
-import requests, json
+import requests
+import json
 from urllib.parse import quote, urljoin
 
 class InstagramPostImagePiece(BasePiece):
@@ -81,6 +82,15 @@ class InstagramPostImagePiece(BasePiece):
         response = cls.make_api_call(url=url, endpoint_query_params=endpoint_query_params, request_method='post')
 
         return response['json_content']['id']
+    
+    @classmethod
+    def get_post_permalink(cls, access_token:str, post_id: str):
+        url = urljoin(cls.endpoint_base_path, f'{post_id}')
+        endpoint_query_params = f'fields=permalink&access_token={access_token}'
+        
+        response = cls.make_api_call(url=url, endpoint_query_params=endpoint_query_params, request_method='get')
+
+        return response['json_content']['permalink']
 
     def piece_function(self, input_model: InputModel):
         
@@ -90,6 +100,7 @@ class InstagramPostImagePiece(BasePiece):
 
         long_lived_access_token = self.secrets.ACCESS_TOKEN = self.get_long_lived_access_token(app_id=app_id, app_secret=app_secret, access_token=access_token)
 
+        self.logger.info("Getting information about the Instagram Account")
         page_id = self.get_page_id(access_token=long_lived_access_token, facebook_page_name=input_model.facebook_page_name)
 
         instagram_business_account = self.get_instagram_business_account(access_token=long_lived_access_token, page_id=page_id)
@@ -97,12 +108,31 @@ class InstagramPostImagePiece(BasePiece):
         caption = f"{input_model.caption_header}\n{input_model.caption}" if input_model.caption_header else input_model.caption
         caption += f"\n{input_model.caption_footer}" if input_model.caption_footer else ""
 
+        self.logger.info("Creating the post")        
         container_id = self.create_container(access_token=long_lived_access_token, instagram_business_account=instagram_business_account, image_url=input_model.image_url, caption=caption)
 
+        self.logger.info("Publishing the post")
         post_id = self.publish_container(access_token=long_lived_access_token, instagram_business_account=instagram_business_account, container_id=container_id)
 
+        permalink = self.get_post_permalink(access_token=long_lived_access_token, post_id=post_id)
+
+        self.format_display_result(input_model=input_model, permalink=permalink)
 
         return OutputModel(
             message="Post successfully completed!",
             post_id=post_id
         )
+    
+    def format_display_result(self, input_model: InputModel, permalink: str):
+        md_text = f"""
+## Link of the post
+{permalink}
+
+"""
+        file_path = f"{self.results_path}/display_result.md"
+        with open(file_path, "w") as f:
+            f.write(md_text)
+        self.display_result = {
+            "file_type": "md",
+            "file_path": file_path
+        }
