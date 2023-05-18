@@ -8,6 +8,7 @@ from .models import InputModel, OutputModel
 import googleapiclient.discovery
 import googleapiclient.errors
 import os
+import json
 
 
 class YoutubeListVideosPiece(BasePiece):
@@ -67,9 +68,26 @@ class YoutubeListVideosPiece(BasePiece):
         msg = "Videos listing performed successfully!"
         self.logger.info(msg)
 
-        output = OutputModel(
+        # Display result in the Domino GUI
+        self.format_display_result(input_model=input_model, video_list=all_videos)
+
+        return OutputModel(
             message=msg,
             videos_list=all_videos,
         )
+    
+    def format_display_result(self, input_model: InputModel, video_list: str):
+        json_video_list = '\n\n'.join(json.dumps(i, indent=4) for i in video_list)
+        md_text = f"""
+## List of videos:
 
-        return output
+{json_video_list}
+
+"""
+        file_path = f"{self.results_path}/display_result.md"
+        with open(file_path, "w") as f:
+            f.write(md_text)
+        self.display_result = {
+            "file_type": "md",
+            "file_path": file_path
+        }
