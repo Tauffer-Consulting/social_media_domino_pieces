@@ -52,6 +52,8 @@ class YoutubeDownloadPiece(BasePiece):
         self.logger.info(msg)
 
         file_size = os.path.getsize(output_file_path) *  0.000001
+        
+        # Display result in the Domino GUI
         self.format_display_result(input_model, video_info, file_size)
 
         return OutputModel(
@@ -68,7 +70,7 @@ class YoutubeDownloadPiece(BasePiece):
 - Link: {video_info['webpage_url']}
 - Vizualizations: {video_info['view_count']}
 - Resolution:  {video_info['resolution']}
-- Downloaded file size: {file_size} MB
+- Downloaded file size: {round(file_size, 3)} MB
 
 """
         file_path = f"{self.results_path}/display_result.md"
