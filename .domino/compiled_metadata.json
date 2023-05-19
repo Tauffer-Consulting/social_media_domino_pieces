@@ -120,7 +120,7 @@
         "description": "Publish an image to an Instagram account",
         "input_schema": {
             "title": "InputModel",
-            "description": "Publish an image on Intagram",
+            "description": "InstagramPostImagePiece input model",
             "type": "object",
             "properties": {
                 "image_url": {
@@ -156,7 +156,7 @@
         },
         "output_schema": {
             "title": "OutputModel",
-            "description": "Publish an image on Intagram",
+            "description": "InstagramPostImagePiece output model",
             "type": "object",
             "properties": {
                 "message": {
@@ -174,7 +174,7 @@
         },
         "secrets_schema": {
             "title": "SecretsModel",
-            "description": "Example Piece Secrets",
+            "description": "InstagramPostImagePiece secrets model",
             "type": "object",
             "properties": {
                 "APP_ID": {
@@ -392,6 +392,7 @@
                     "format": "date"
                 },
                 "order_by": {
+                    "title": "Order By",
                     "description": "The order in which the videos are returned",
                     "default": "date",
                     "allOf": [
@@ -401,6 +402,7 @@
                     ]
                 },
                 "video_duration": {
+                    "title": "Video Duration",
                     "description": "The duration of the video",
                     "default": "any",
                     "allOf": [
@@ -498,7 +500,7 @@
         "description": "This Piece upload an image to Imgur.",
         "input_schema": {
             "title": "InputModel",
-            "description": "Imgur Uploader Piece Input",
+            "description": "ImgurUploaderPiece input model",
             "type": "object",
             "properties": {
                 "image_path": {
@@ -513,7 +515,7 @@
         },
         "output_schema": {
             "title": "OutputModel",
-            "description": "Imgur Uploader Piece Output",
+            "description": "ImgurUploaderPiece output model",
             "type": "object",
             "properties": {
                 "image_url": {
@@ -528,7 +530,7 @@
         },
         "secrets_schema": {
             "title": "SecretsModel",
-            "description": "Imgur Uploader Piece Secrets",
+            "description": "ImgurUploaderPiece secrets model",
             "type": "object",
             "properties": {
                 "CLIENT_ID": {
