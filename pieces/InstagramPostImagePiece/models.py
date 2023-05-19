@@ -3,7 +3,7 @@ from pydantic import BaseModel, Field
 
 class InputModel(BaseModel):
     """
-    Publish an image on Intagram
+    InstagramPostImagePiece input model
     """
     image_url: str = Field(
         ...,
@@ -28,7 +28,7 @@ class InputModel(BaseModel):
 
 class OutputModel(BaseModel):
     """
-    Publish an image on Intagram
+    InstagramPostImagePiece output model
     """
     message: str = Field(
         default="",
@@ -42,7 +42,7 @@ class OutputModel(BaseModel):
 
 class SecretsModel(BaseModel):
     """
-    Example Piece Secrets
+    InstagramPostImagePiece secrets model
     """
     APP_ID: str = Field(
         ...,

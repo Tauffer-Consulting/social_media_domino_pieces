@@ -83,6 +83,27 @@ class InstagramGetMediaPiece(BasePiece):
 
         media_list = self.get_media_list(access_token=long_lived_access_token, instagram_business_account=instagram_business_account)
 
+        # Display result in the Domino GUI
+        self.format_display_result(input_model, media_list)
+
         return OutputModel(
             media_list=media_list
         )
+    def format_display_result(self, input_model: InputModel, media_list: str):
+        json_media_list = '\n\n'.join(json.dumps(i, indent=4) for i in media_list)
+        md_text = f"""
+## Media list:
+
+{json_media_list}
+
+## Args
+**facebook page name**: {input_model.facebook_page_name}
+
+"""
+        file_path = f"{self.results_path}/display_result.md"
+        with open(file_path, "w") as f:
+            f.write(md_text)
+        self.display_result = {
+            "file_type": "md",
+            "file_path": file_path
+        }
