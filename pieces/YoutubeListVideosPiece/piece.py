@@ -8,6 +8,12 @@ from .models import InputModel, OutputModel
 import googleapiclient.discovery
 import googleapiclient.errors
 import os
+<<<<<<< Updated upstream
+=======
+import json
+from datetime import datetime
+from dateutil import parser
+>>>>>>> Stashed changes
 
 
 class YoutubeListVideosPiece(BasePiece):
@@ -21,18 +27,34 @@ class YoutubeListVideosPiece(BasePiece):
             developerKey=api_key
         )
 
+        # input arguments
+        channel_id = input_model.channel_id
+
+        # converting date to RFC 3339 format
+        published_after = f"{datetime.isoformat(parser.parse(input_model.published_at_or_after.isoformat()))}Z" if input_model.published_at_or_after else None
+        published_before = f"{datetime.isoformat(parser.parse(input_model.published_at_or_before.isoformat()))}Z" if input_model.published_at_or_before else None
+
+        max_videos = input_model.max_videos
+        order_by = input_model.order_by.value
+        video_duration = input_model.video_duration.value
+        next_page_token = None
+
         # Request the list of videos from channel
         all_videos_ids = []
-        while True:
+        while max_videos > 0:
+            max_results = min(max_videos, 50)
+            max_videos -= max_results
             request = client.search().list(
                 # part="snippet,id",
                 part="snippet",
                 type="video",
-                channelId=input_model.channel_id,
-                # publishedAfter="2022-12-01T00:00:00Z",  TODO: add this
-                # publishedBefore=,                       TODO: add this
-                maxResults=50,
-                order="date"
+                channelId=channel_id,
+                publishedAfter=published_after,
+                publishedBefore=published_before,
+                maxResults=max_results,
+                order=order_by,
+                videoDuration = video_duration,
+                pageToken=next_page_token
             )
             response = request.execute()
             new_ids = [i["id"]["videoId"] for i in response["items"]]
@@ -40,6 +62,7 @@ class YoutubeListVideosPiece(BasePiece):
 
             if "nextPageToken" not in response:
                 break
+            next_page_token = response["nextPageToken"]
         
         # Get videos details
         videos_ids_string = ",".join(all_videos_ids)
