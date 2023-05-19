@@ -87,14 +87,14 @@ class YoutubeListVideosPiece(BasePiece):
         self.logger.info(msg)
 
         # Display result in the Domino GUI
-        self.format_display_result(input_model=input_model, video_list=all_videos)
+        self.format_display_result(all_videos)
 
         return OutputModel(
             message=msg,
             videos_list=all_videos,
         )
     
-    def format_display_result(self, input_model: InputModel, video_list: str):
+    def format_display_result(self, video_list: str):
         json_video_list = '\n\n'.join(json.dumps(i, indent=4) for i in video_list)
         md_text = f"""
 ## List of videos:
