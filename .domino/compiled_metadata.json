@@ -371,11 +371,74 @@
                     "title": "Channel Id",
                     "description": "The Id of the Youtube channel.",
                     "type": "string"
+                },
+                "max_videos": {
+                    "title": "Max Videos",
+                    "description": "The maximum number of videos to be returned",
+                    "default": 10,
+                    "exclusiveMinimum": 0,
+                    "type": "integer"
+                },
+                "published_at_or_after": {
+                    "title": "Published At Or After",
+                    "description": "Filter videos created at or after the specified date",
+                    "type": "string",
+                    "format": "date"
+                },
+                "published_at_or_before": {
+                    "title": "Published At Or Before",
+                    "description": "Filter videos created before or at the specified date",
+                    "type": "string",
+                    "format": "date"
+                },
+                "order_by": {
+                    "description": "The order in which the videos are returned",
+                    "default": "date",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/OrderBy"
+                        }
+                    ]
+                },
+                "video_duration": {
+                    "description": "The duration of the video",
+                    "default": "any",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/VideoDuration"
+                        }
+                    ]
                 }
             },
             "required": [
                 "channel_id"
-            ]
+            ],
+            "definitions": {
+                "OrderBy": {
+                    "title": "OrderBy",
+                    "description": "The order in which the videos are returned.",
+                    "enum": [
+                        "date",
+                        "rating",
+                        "relevance",
+                        "title",
+                        "videoCount",
+                        "viewCount"
+                    ],
+                    "type": "string"
+                },
+                "VideoDuration": {
+                    "title": "VideoDuration",
+                    "description": "The duration of the video.",
+                    "enum": [
+                        "any",
+                        "long",
+                        "medium",
+                        "short"
+                    ],
+                    "type": "string"
+                }
+            }
         },
         "output_schema": {
             "title": "OutputModel",
