@@ -47,11 +47,13 @@ class InputModel(BaseModel):
     )
     order_by: OrderBy = Field(
         default=OrderBy.date,
-        description='The order in which the videos are returned'
+        description='The order in which the videos are returned',
+        title="Order By"
     )
     video_duration: VideoDuration = Field(
         default=VideoDuration.any,
-        description='The duration of the video'
+        description='The duration of the video',
+        title="Video Duration"
     )
 
 
