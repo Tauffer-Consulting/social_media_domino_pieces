@@ -7,13 +7,8 @@ from domino.base_piece import BasePiece
 from .models import InputModel, OutputModel
 import googleapiclient.discovery
 import googleapiclient.errors
-import os
-<<<<<<< Updated upstream
-=======
-import json
 from datetime import datetime
 from dateutil import parser
->>>>>>> Stashed changes
 
 
 class YoutubeListVideosPiece(BasePiece):
