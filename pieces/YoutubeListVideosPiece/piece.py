@@ -10,6 +10,7 @@ import googleapiclient.errors
 import json
 from datetime import datetime
 from dateutil import parser
+from typing import List
 
 
 class YoutubeListVideosPiece(BasePiece):
@@ -94,14 +95,20 @@ class YoutubeListVideosPiece(BasePiece):
             videos_list=all_videos,
         )
     
-    def format_display_result(self, video_list: str):
-        json_video_list = '\n\n'.join(json.dumps(i, indent=4) for i in video_list)
-        md_text = f"""
-## List of videos:
+    def format_display_result(self, video_list: List):
+        md_text = "## List of videos:\n\n"
 
-{json_video_list}
+        for video in video_list:
+            md_text += f"**Title:** {video['title']}<br/>"
+            md_text += f"**Description:** {video['description']}<br/>"
+            md_text += f"**Published At:** {video['publishedAt']}<br/>"
+            md_text += f"**View Count:** {video['viewCount']}<br/>"
+            md_text += f"**Like Count:** {video['likeCount']}<br/>"
+            md_text += f"**Comment Count:** {video['commentCount']}<br/>"
+            md_text += f"**URL:** [{video['url']}]({video['url']})<br/>"
+            md_text += f"**Thumbnail:** <br/>![Thumbnail]({video['thumbnail']})<br/>"
+            md_text += f"**Duration:** {video['duration']}<br/><br/>"
 
-"""
         file_path = f"{self.results_path}/display_result.md"
         with open(file_path, "w") as f:
             f.write(md_text)

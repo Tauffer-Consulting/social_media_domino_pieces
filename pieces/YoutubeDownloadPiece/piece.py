@@ -67,7 +67,7 @@ class YoutubeDownloadPiece(BasePiece):
 
 - Title: {video_info['title']}
 - Duration: {video_info['duration']} seconds
-- Link: {video_info['webpage_url']}
+- Link: [{video_info['webpage_url']}]({video_info['webpage_url']}   )
 - Vizualizations: {video_info['view_count']}
 - Resolution:  {video_info['resolution']}
 - Downloaded file size: {round(file_size, 3)} MB

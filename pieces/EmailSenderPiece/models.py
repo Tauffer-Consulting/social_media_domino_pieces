@@ -1,5 +1,6 @@
 from pydantic import BaseModel, Field
 from enum import Enum
+from typing import List
 
 
 class ProviderType(str, Enum):
@@ -9,22 +10,45 @@ class ProviderType(str, Enum):
     yahoo = "yahoo"
 
 
+class ArgType(str, Enum):
+    string = "string"
+    integer = "integer"
+    float = "float"
+    boolean = "boolean"
+
+class InnerArgModel(BaseModel):
+    """
+    Inner argument model to use in the body and subject texts
+    """
+    arg_name: str
+    arg_value: str
+    arg_type: ArgType
+
+
 class InputModel(BaseModel):
     """
     Input data for EmailSenderPiece
     """
     email_provider: ProviderType = Field(
-        description='The email provider to use.',
+        description='The email provider to use',
         default=ProviderType.gmail
     )
     email_receivers: str = Field(
-        description='The receivers of the email, as comma-separated values.'
+        description='The receivers of the email, as comma-separated values'
     )
     email_subject: str = Field(
         description='The subject of the email.'
     )
+    subject_args: List[InnerArgModel] = Field(
+        default=None,
+        description="List of arguments to insert into the subject of the email",
+    )
     email_body: str = Field(
         description='The body of the email.'
+    )
+    body_args: List[InnerArgModel] = Field(
+        default=None,
+        description="List of arguments to insert into the body of the email",
     )
 
 

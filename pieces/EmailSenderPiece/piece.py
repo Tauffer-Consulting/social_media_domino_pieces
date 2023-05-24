@@ -24,8 +24,16 @@ class EmailSenderPiece(BasePiece):
         email_server = servers[input_model.email_provider]
 
         email_receivers = [r.strip() for r in input_model.email_receivers.split(",")]
-        email_subject = input_model.email_subject
-        email_body = input_model.email_body
+
+        subject_args = {}
+        for arg in input_model.subject_args:
+            subject_args[arg.arg_name] = arg.arg_value
+        email_subject = input_model.email_subject.format(**subject_args)
+
+        body_args = {}
+        for arg in input_model.body_args:
+            body_args[arg.arg_name] = arg.arg_value
+        email_body = input_model.email_body.format(**body_args)
 
         email_message = EmailMessage()
         email_message["From"] = email_account
