@@ -37,6 +37,7 @@ class InputModel(BaseModel):
         description='The receivers of the email, as comma-separated values'
     )
     email_subject: str = Field(
+        default="",
         description='The subject of the email.'
     )
     subject_args: List[InnerArgModel] = Field(
@@ -44,6 +45,7 @@ class InputModel(BaseModel):
         description="List of arguments to insert into the subject of the email",
     )
     email_body: str = Field(
+        default="",
         description='The body of the email.'
     )
     body_args: List[InnerArgModel] = Field(
