@@ -239,7 +239,7 @@
             "type": "object",
             "properties": {
                 "email_provider": {
-                    "description": "The email provider to use.",
+                    "description": "The email provider to use",
                     "default": "gmail",
                     "allOf": [
                         {
@@ -249,7 +249,7 @@
                 },
                 "email_receivers": {
                     "title": "Email Receivers",
-                    "description": "The receivers of the email, as comma-separated values.",
+                    "description": "The receivers of the email, as comma-separated values",
                     "type": "string"
                 },
                 "email_subject": {
@@ -257,10 +257,26 @@
                     "description": "The subject of the email.",
                     "type": "string"
                 },
+                "subject_args": {
+                    "title": "Subject Args",
+                    "description": "List of arguments to insert into the subject of the email",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/InnerArgModel"
+                    }
+                },
                 "email_body": {
                     "title": "Email Body",
                     "description": "The body of the email.",
                     "type": "string"
+                },
+                "body_args": {
+                    "title": "Body Args",
+                    "description": "List of arguments to insert into the body of the email",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/InnerArgModel"
+                    }
                 }
             },
             "required": [
@@ -279,6 +295,40 @@
                         "yahoo"
                     ],
                     "type": "string"
+                },
+                "ArgType": {
+                    "title": "ArgType",
+                    "description": "An enumeration.",
+                    "enum": [
+                        "string",
+                        "integer",
+                        "float",
+                        "boolean"
+                    ],
+                    "type": "string"
+                },
+                "InnerArgModel": {
+                    "title": "InnerArgModel",
+                    "description": "Inner argument model to use in the body and subject texts",
+                    "type": "object",
+                    "properties": {
+                        "arg_name": {
+                            "title": "Arg Name",
+                            "type": "string"
+                        },
+                        "arg_value": {
+                            "title": "Arg Value",
+                            "type": "string"
+                        },
+                        "arg_type": {
+                            "$ref": "#/definitions/ArgType"
+                        }
+                    },
+                    "required": [
+                        "arg_name",
+                        "arg_value",
+                        "arg_type"
+                    ]
                 }
             }
         },
