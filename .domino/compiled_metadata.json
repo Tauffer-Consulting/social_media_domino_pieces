@@ -255,6 +255,7 @@
                 "email_subject": {
                     "title": "Email Subject",
                     "description": "The subject of the email.",
+                    "default": "",
                     "type": "string"
                 },
                 "subject_args": {
@@ -268,6 +269,7 @@
                 "email_body": {
                     "title": "Email Body",
                     "description": "The body of the email.",
+                    "default": "",
                     "type": "string"
                 },
                 "body_args": {
@@ -280,9 +282,7 @@
                 }
             },
             "required": [
-                "email_receivers",
-                "email_subject",
-                "email_body"
+                "email_receivers"
             ],
             "definitions": {
                 "ProviderType": {
