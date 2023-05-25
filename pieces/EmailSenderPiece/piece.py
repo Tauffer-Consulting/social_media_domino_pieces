@@ -1,6 +1,7 @@
 from domino.base_piece import BasePiece
 from .models import InputModel, OutputModel
 from email.message import EmailMessage
+from typing import List
 import ssl
 import smtplib
 import os
@@ -52,9 +53,31 @@ class EmailSenderPiece(BasePiece):
             error = str(e)
             print(error)
             raise e
+        
+        self.format_display_result(email_account, email_receivers, email_subject, email_body)
 
         return OutputModel(
             message=msg,
             success=success,
             error=error
         )
+    
+    def format_display_result(self, email_account: str, email_receivers: List, email_subject: str, email_body: str):
+        email_receivers_str = ", ".join(email_receivers)
+        md_text = f"""
+## Email Sender:  \n
+{email_account}  \n
+## Email Receivers:  \n 
+{email_receivers_str}  \n
+## Email Subject:  \n
+{email_subject}  \n
+## Email Body:  \n
+{email_body}
+"""
+        file_path = f"{self.results_path}/display_result.md"
+        with open(file_path, "w") as f:
+            f.write(md_text)
+        self.display_result = {
+            "file_type": "md",
+            "file_path": file_path
+        }

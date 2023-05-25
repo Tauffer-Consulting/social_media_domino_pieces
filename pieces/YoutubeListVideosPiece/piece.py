@@ -96,18 +96,18 @@ class YoutubeListVideosPiece(BasePiece):
         )
     
     def format_display_result(self, video_list: List):
-        md_text = "## List of videos:\n\n"
+        md_text = "## List of videos:  \n\n"
 
         for video in video_list:
-            md_text += f"**Title:** {video['title']}<br/>"
-            md_text += f"**Description:** {video['description']}<br/>"
-            md_text += f"**Published At:** {video['publishedAt']}<br/>"
-            md_text += f"**View Count:** {video['viewCount']}<br/>"
-            md_text += f"**Like Count:** {video['likeCount']}<br/>"
-            md_text += f"**Comment Count:** {video['commentCount']}<br/>"
-            md_text += f"**URL:** [{video['url']}]({video['url']})<br/>"
-            md_text += f"**Thumbnail:** <br/>![Thumbnail]({video['thumbnail']})<br/>"
-            md_text += f"**Duration:** {video['duration']}<br/><br/>"
+            md_text += f"**Title:** {video['title']}  \n"
+            md_text += f"**Description:** {video['description']}  \n"
+            md_text += f"**Published At:** {video['publishedAt']}  \n"
+            md_text += f"**View Count:** {video['viewCount']}  \n"
+            md_text += f"**Like Count:** {video['likeCount']}  \n"
+            md_text += f"**Comment Count:** {video['commentCount']}  \n"
+            md_text += f"**URL:** [{video['url']}]({video['url']})  \n"
+            md_text += f"**Thumbnail:**   \n![Thumbnail]({video['thumbnail']})  \n"
+            md_text += f"**Duration:** {video['duration']}  \n\n"
 
         file_path = f"{self.results_path}/display_result.md"
         with open(file_path, "w") as f:
