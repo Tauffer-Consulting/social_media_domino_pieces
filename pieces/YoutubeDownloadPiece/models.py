@@ -18,10 +18,6 @@ class InputModel(BaseModel):
         description='The type of output file to be downloaded.',
         default=OutputTypeType.audio
     )
-    output_file_name: str = Field(
-        description='The name of the output file. If not provided, the formatted name of the video will be used. Do not pass the format extension of the file.',
-        default=None
-    )
 
 
 class OutputModel(BaseModel):
