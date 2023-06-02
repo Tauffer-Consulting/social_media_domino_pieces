@@ -64,8 +64,9 @@ class InstagramGetMediaPiece(BasePiece):
     @classmethod
     def get_media_list(cls, access_token:str, instagram_business_account:str, media_fields: List):
         url = f'{cls.endpoint_base_path}{instagram_business_account}/media'
-        fields = ",".join(media_fields)
-        endpoint_query_params = f'access_token={access_token}&fields={fields}'
+        fields = [field.value for field in media_fields]
+        str_fields = ','.join(fields)
+        endpoint_query_params = f'access_token={access_token}&fields={str_fields}'
 
         response = cls.make_api_call(url=url, endpoint_query_params=endpoint_query_params, request_method='get')
 
@@ -83,7 +84,7 @@ class InstagramGetMediaPiece(BasePiece):
 
         instagram_business_account = self.get_instagram_business_account(access_token=long_lived_access_token, page_id=page_id)
 
-        media_list = self.get_media_list(access_token=long_lived_access_token, instagram_business_account=instagram_business_account)
+        media_list = self.get_media_list(access_token=long_lived_access_token, instagram_business_account=instagram_business_account, media_fields=input_model.instagram_media_fields)
 
         # Display result in the Domino GUI
         self.format_display_result(input_model, media_list)
