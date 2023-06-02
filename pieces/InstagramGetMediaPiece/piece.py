@@ -1,5 +1,6 @@
 from domino.base_piece import BasePiece
 from .models import InputModel, OutputModel
+from typing import List
 import requests
 import json
 
@@ -61,9 +62,10 @@ class InstagramGetMediaPiece(BasePiece):
         return response['json_content']['instagram_business_account']['id']
 
     @classmethod
-    def get_media_list(cls, access_token:str, instagram_business_account:str):
+    def get_media_list(cls, access_token:str, instagram_business_account:str, media_fields: List):
         url = f'{cls.endpoint_base_path}{instagram_business_account}/media'
-        endpoint_query_params = f'access_token={access_token}&fields=id,media_type,caption,like_count,comments_count,permalink,timestamp,comments'
+        fields = ",".join(media_fields)
+        endpoint_query_params = f'access_token={access_token}&fields={fields}'
 
         response = cls.make_api_call(url=url, endpoint_query_params=endpoint_query_params, request_method='get')
 
