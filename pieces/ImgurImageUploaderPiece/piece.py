@@ -3,7 +3,7 @@ from .models import InputModel, OutputModel
 from imgurpython import ImgurClient
 import time
 
-class ImgurUploaderPiece(BasePiece):
+class ImgurImageUploaderPiece(BasePiece):
     def piece_function(self, input_model: InputModel):
         client_id = self.secrets.CLIENT_ID
         client_secret = self.secrets.CLIENT_SECRET

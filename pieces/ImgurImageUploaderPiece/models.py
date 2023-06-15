@@ -3,7 +3,7 @@ from pydantic import BaseModel, Field
 
 class InputModel(BaseModel):
     """
-    ImgurUploaderPiece input model
+    ImgurImageUploaderPiece input model
     """
     image_path: str = Field(
         description="The path to your local image",
@@ -12,7 +12,7 @@ class InputModel(BaseModel):
 
 class OutputModel(BaseModel):
     """
-    ImgurUploaderPiece output model
+    ImgurImageUploaderPiece output model
     """
     image_url: str = Field(
         description="The URL to your uploaded image",
@@ -21,7 +21,7 @@ class OutputModel(BaseModel):
 
 class SecretsModel(BaseModel): 
     """
-    ImgurUploaderPiece secrets model
+    ImgurImageUploaderPiece secrets model
     """   
     CLIENT_ID: str = Field(
         description="The app client ID"
