@@ -9,4 +9,5 @@ REPOSITORY_LABEL = "Social Media Domino Pieces"
 
 # The version of this Pieces release
 # Attention: changing this will create a new release   
+
 VERSION = "0.2.1"
