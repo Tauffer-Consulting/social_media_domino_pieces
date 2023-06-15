@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, FilePath
 from enum import Enum
 from typing import List
 
@@ -51,6 +51,10 @@ class InputModel(BaseModel):
     body_args: List[InnerArgModel] = Field(
         default=None,
         description="List of arguments to insert into the body of the email",
+    )
+    attachment_path: FilePath = Field(
+        default=None,
+        description="Path to the attachment file"
     )
 
 

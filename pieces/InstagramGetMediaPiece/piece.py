@@ -1,5 +1,6 @@
 from domino.base_piece import BasePiece
 from .models import InputModel, OutputModel
+from typing import List
 import requests
 import json
 
@@ -61,9 +62,10 @@ class InstagramGetMediaPiece(BasePiece):
         return response['json_content']['instagram_business_account']['id']
 
     @classmethod
-    def get_media_list(cls, access_token:str, instagram_business_account:str):
+    def get_media_list(cls, access_token:str, instagram_business_account:str, media_fields: List):
         url = f'{cls.endpoint_base_path}{instagram_business_account}/media'
-        endpoint_query_params = f'access_token={access_token}&fields=id,media_type,caption,like_count,comments_count,permalink,timestamp,comments'
+        str_fields = ','.join(media_fields)
+        endpoint_query_params = f'access_token={access_token}&fields={str_fields}'
 
         response = cls.make_api_call(url=url, endpoint_query_params=endpoint_query_params, request_method='get')
 
@@ -74,6 +76,7 @@ class InstagramGetMediaPiece(BasePiece):
         app_id = self.secrets.APP_ID
         app_secret = self.secrets.APP_SECRET
         access_token = self.secrets.ACCESS_TOKEN
+        fields = [field.value for field in input_model.instagram_media_fields]
 
         long_lived_access_token = self.secrets.ACCESS_TOKEN = self.get_long_lived_access_token(app_id=app_id, app_secret=app_secret, access_token=access_token)
 
@@ -81,20 +84,39 @@ class InstagramGetMediaPiece(BasePiece):
 
         instagram_business_account = self.get_instagram_business_account(access_token=long_lived_access_token, page_id=page_id)
 
-        media_list = self.get_media_list(access_token=long_lived_access_token, instagram_business_account=instagram_business_account)
+        media_list = self.get_media_list(access_token=long_lived_access_token, instagram_business_account=instagram_business_account, media_fields=fields)
+        
+        selected_media_fields = [dict((field, value) for field, value in media.items() if field in fields) for media in media_list]
 
         # Display result in the Domino GUI
-        self.format_display_result(input_model, media_list)
+        media_string = ""
+        for i in selected_media_fields:
+            media_string += '  \n'.join([f"{key}: {str(value)}" for key, value in i.items()])
+            media_string += '  \n\n'
+        self.format_display_result(input_model, media_string)
 
-        return OutputModel(
-            media_list=media_list
-        )
-    def format_display_result(self, input_model: InputModel, media_list: str):
-        json_media_list = '\n\n'.join(json.dumps(i, indent=4) for i in media_list)
+        if input_model.output_type == "string":
+            return OutputModel(
+                media_string=media_string
+            )
+    
+        if input_model.output_type == "python_list":
+            return OutputModel(
+                media_list=media_list
+            )
+
+        if input_model.output_type == "json_string":
+            json_string = "\n".join(json.dumps(i, indent=4) for i in selected_media_fields)
+            return OutputModel(
+                media_json_string=json_string
+            )
+
+    def format_display_result(self, input_model: InputModel, media_string: str):
+        # json_media_list = '\n\n'.join(json.dumps(i, indent=4) for i in media_list)
         md_text = f"""
 ## Media list:
 
-{json_media_list}
+{media_string}
 
 ## Args
 **facebook page name**: {input_model.facebook_page_name}

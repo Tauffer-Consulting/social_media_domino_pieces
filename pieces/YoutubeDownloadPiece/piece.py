@@ -35,10 +35,7 @@ class YoutubeDownloadPiece(BasePiece):
         
         # File name
         video_info = youtube_dl.YoutubeDL().extract_info(url=input_model.url, download=False)
-        if input_model.output_file_name:
-            filename = f"{input_model.output_file_name}"
-        else:
-            filename = f"{video_info['title']}"
+        filename = f"{video_info['title']}"
 
         output_file_path = f"{self.results_path}/{filename}"
         options['outtmpl'] = output_file_path

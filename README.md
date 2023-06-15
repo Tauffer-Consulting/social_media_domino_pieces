@@ -18,7 +18,14 @@ This Piece relies on the Instagram Graph API. Therefore, in order to use it effe
 In addition, it's important to note that this Piece requires the App ID and App Secret, which can be obtained from your Facebook App Dashboard. Furthermore, an Access Token is also required, which can be generated using the [Graph API Explorer](https://developers.facebook.com/docs/graph-api/guides/explorer/) tool within your Facebook App Dashboard.
 </details>
 
-- **InstagramGetMediaPiece** - Get all media information about the instagram account
+<details>
+    <summary><b>InstagramGetMediaPiece</b> - Get all media information about the instagram account</summary>
+</details>
+ 
 - **YoutubeDownloadPiece** - Downloads a video from Youtube
 - **YoutubeListVideosPiece** - Lists videos from a Youtube channel
 - **ImgurUploaderPiece** -  Uploads an image to Imgur
+
+<details>
+    <summary><b></b></summary>
+</details>
