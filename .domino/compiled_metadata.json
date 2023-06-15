@@ -1,387 +1,4 @@
 {
-    "YoutubeDownloadPiece": {
-        "name": "YoutubeDownloadPiece",
-        "dependency": {
-            "dockerfile": "Dockerfile_youtube",
-            "requirements_file": null
-        },
-        "tags": [],
-        "style": {
-            "node_label": "Youtube Download Piece",
-            "node_type": "default",
-            "node_style": {
-                "backgroundColor": "#ebebeb"
-            },
-            "useIcon": true,
-            "icon_class_name": "fas fa-download",
-            "iconStyle": {
-                "cursor": "pointer"
-            }
-        },
-        "description": "Downloads content from youtube videos as audio or video files.",
-        "container_resources": {
-            "requests": {
-                "cpu": "100m",
-                "memory": "128Mi"
-            },
-            "limits": {
-                "cpu": "500m",
-                "memory": "512Mi"
-            }
-        },
-        "input_schema": {
-            "title": "InputModel",
-            "description": "Input data for YoutubeDownloadPiece",
-            "type": "object",
-            "properties": {
-                "url": {
-                    "title": "Url",
-                    "description": "The url of the video to be downloaded.",
-                    "minLength": 1,
-                    "maxLength": 65536,
-                    "format": "uri",
-                    "type": "string"
-                },
-                "output_type": {
-                    "description": "The type of output file to be downloaded.",
-                    "default": "audio",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/OutputTypeType"
-                        }
-                    ]
-                },
-                "output_file_name": {
-                    "title": "Output File Name",
-                    "description": "The name of the output file. If not provided, the formatted name of the video will be used. Do not pass the format extension of the file.",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "url"
-            ],
-            "definitions": {
-                "OutputTypeType": {
-                    "title": "OutputTypeType",
-                    "description": "An enumeration.",
-                    "enum": [
-                        "audio",
-                        "video"
-                    ],
-                    "type": "string"
-                }
-            }
-        },
-        "output_schema": {
-            "title": "OutputModel",
-            "description": "Output data for YoutubeDownloadPiece",
-            "type": "object",
-            "properties": {
-                "message": {
-                    "title": "Message",
-                    "description": "Output message to log",
-                    "default": "",
-                    "type": "string"
-                },
-                "file_path": {
-                    "title": "File Path",
-                    "description": "The path to the downloaded file",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "file_path"
-            ]
-        },
-        "secrets_schema": null,
-        "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/YoutubeDownloadPiece"
-    },
-    "InstagramPostImagePiece": {
-        "name": "InstagramPostImagePiece",
-        "dependency": {
-            "dockerfile": null,
-            "requirements_file": null
-        },
-        "tags": [
-            "Instagram"
-        ],
-        "style": {
-            "node_label": "Instagram Post Image Piece",
-            "node_type": "default",
-            "node_style": {
-                "backgroundColor": "#b3cde8"
-            },
-            "useIcon": true,
-            "icon_class_name": "fab fa-instagram",
-            "iconStyle": {
-                "cursor": "pointer"
-            }
-        },
-        "description": "Publish an image to an Instagram account",
-        "input_schema": {
-            "title": "InputModel",
-            "description": "InstagramPostImagePiece input model",
-            "type": "object",
-            "properties": {
-                "image_url": {
-                    "title": "Image Url",
-                    "description": "public URL of the image",
-                    "type": "string"
-                },
-                "caption_header": {
-                    "title": "Caption Header",
-                    "description": "optional header of the caption",
-                    "type": "string"
-                },
-                "caption": {
-                    "title": "Caption",
-                    "description": "post caption",
-                    "type": "string"
-                },
-                "caption_footer": {
-                    "title": "Caption Footer",
-                    "description": "optional footer of the caption",
-                    "type": "string"
-                },
-                "facebook_page_name": {
-                    "title": "Facebook Page Name",
-                    "description": "Facebook page connected to the Instagram account",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "image_url",
-                "facebook_page_name"
-            ]
-        },
-        "output_schema": {
-            "title": "OutputModel",
-            "description": "InstagramPostImagePiece output model",
-            "type": "object",
-            "properties": {
-                "message": {
-                    "title": "Message",
-                    "description": "output message to log",
-                    "default": "",
-                    "type": "string"
-                },
-                "post_id": {
-                    "title": "Post Id",
-                    "description": "post ID",
-                    "type": "string"
-                }
-            }
-        },
-        "secrets_schema": {
-            "title": "SecretsModel",
-            "description": "InstagramPostImagePiece secrets model",
-            "type": "object",
-            "properties": {
-                "APP_ID": {
-                    "title": "App Id",
-                    "description": "ID from a Facebook App",
-                    "type": "string"
-                },
-                "APP_SECRET": {
-                    "title": "App Secret",
-                    "description": "secret from a Facebook App",
-                    "type": "string"
-                },
-                "ACCESS_TOKEN": {
-                    "title": "Access Token",
-                    "description": "access_token getted from a Facebook App",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "APP_ID",
-                "APP_SECRET",
-                "ACCESS_TOKEN"
-            ]
-        },
-        "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/InstagramPostImagePiece"
-    },
-    "EmailSenderPiece": {
-        "name": "EmailSenderPiece",
-        "dependency": {
-            "dockerfile": null,
-            "requirements_file": null
-        },
-        "tags": [],
-        "style": {
-            "node_label": "Email sender Piece",
-            "node_type": "default",
-            "node_style": {
-                "backgroundColor": "#ebebeb"
-            },
-            "useIcon": true,
-            "icon_class_name": "fas fa-envelope",
-            "iconStyle": {
-                "cursor": "pointer"
-            },
-            "use_icon": true
-        },
-        "description": "Email sender",
-        "container_resources": {
-            "use_gpu": false,
-            "requests": {
-                "cpu": "100m",
-                "memory": "100Mi"
-            },
-            "limits": {
-                "cpu": "500m",
-                "memory": "200Mi"
-            }
-        },
-        "input_schema": {
-            "title": "InputModel",
-            "description": "Input data for EmailSenderPiece",
-            "type": "object",
-            "properties": {
-                "email_provider": {
-                    "description": "The email provider to use",
-                    "default": "gmail",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/ProviderType"
-                        }
-                    ]
-                },
-                "email_receivers": {
-                    "title": "Email Receivers",
-                    "description": "The receivers of the email, as comma-separated values",
-                    "type": "string"
-                },
-                "email_subject": {
-                    "title": "Email Subject",
-                    "description": "The subject of the email.",
-                    "default": "",
-                    "type": "string"
-                },
-                "subject_args": {
-                    "title": "Subject Args",
-                    "description": "List of arguments to insert into the subject of the email",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/InnerArgModel"
-                    }
-                },
-                "email_body": {
-                    "title": "Email Body",
-                    "description": "The body of the email.",
-                    "default": "",
-                    "type": "string"
-                },
-                "body_args": {
-                    "title": "Body Args",
-                    "description": "List of arguments to insert into the body of the email",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/InnerArgModel"
-                    }
-                }
-            },
-            "required": [
-                "email_receivers"
-            ],
-            "definitions": {
-                "ProviderType": {
-                    "title": "ProviderType",
-                    "description": "An enumeration.",
-                    "enum": [
-                        "gmail",
-                        "outlook",
-                        "office365",
-                        "yahoo"
-                    ],
-                    "type": "string"
-                },
-                "ArgType": {
-                    "title": "ArgType",
-                    "description": "An enumeration.",
-                    "enum": [
-                        "string",
-                        "integer",
-                        "float",
-                        "boolean"
-                    ],
-                    "type": "string"
-                },
-                "InnerArgModel": {
-                    "title": "InnerArgModel",
-                    "description": "Inner argument model to use in the body and subject texts",
-                    "type": "object",
-                    "properties": {
-                        "arg_name": {
-                            "title": "Arg Name",
-                            "type": "string"
-                        },
-                        "arg_value": {
-                            "title": "Arg Value",
-                            "type": "string"
-                        },
-                        "arg_type": {
-                            "$ref": "#/definitions/ArgType"
-                        }
-                    },
-                    "required": [
-                        "arg_name",
-                        "arg_value",
-                        "arg_type"
-                    ]
-                }
-            }
-        },
-        "output_schema": {
-            "title": "OutputModel",
-            "description": "Output data for EmailSenderPiece",
-            "type": "object",
-            "properties": {
-                "message": {
-                    "title": "Message",
-                    "description": "Output message to log.",
-                    "default": "",
-                    "type": "string"
-                },
-                "success": {
-                    "title": "Success",
-                    "description": "The result of the email sending task.",
-                    "type": "boolean"
-                },
-                "error": {
-                    "title": "Error",
-                    "description": "The error message, if any.",
-                    "default": "",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "success"
-            ]
-        },
-        "secrets_schema": {
-            "title": "SecretsModel",
-            "description": "Secrets data for EmailSenderPiece",
-            "type": "object",
-            "properties": {
-                "EMAIL_SENDER_ACCOUNT": {
-                    "title": "Email Sender Account",
-                    "description": "The email sender account.",
-                    "type": "string"
-                },
-                "EMAIL_SENDER_PASSWORD": {
-                    "title": "Email Sender Password",
-                    "description": "The email sender password",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "EMAIL_SENDER_ACCOUNT",
-                "EMAIL_SENDER_PASSWORD"
-            ]
-        },
-        "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/EmailSenderPiece"
-    },
     "YoutubeListVideosPiece": {
         "name": "YoutubeListVideosPiece",
         "dependency": {
@@ -528,6 +145,111 @@
         },
         "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/YoutubeListVideosPiece"
     },
+    "InstagramPostImagePiece": {
+        "name": "InstagramPostImagePiece",
+        "dependency": {
+            "dockerfile": null,
+            "requirements_file": null
+        },
+        "tags": [
+            "Instagram"
+        ],
+        "style": {
+            "node_label": "Instagram Post Image Piece",
+            "node_type": "default",
+            "node_style": {
+                "backgroundColor": "#b3cde8"
+            },
+            "useIcon": true,
+            "icon_class_name": "fab fa-instagram",
+            "iconStyle": {
+                "cursor": "pointer"
+            }
+        },
+        "description": "Publish an image to an Instagram account",
+        "input_schema": {
+            "title": "InputModel",
+            "description": "InstagramPostImagePiece input model",
+            "type": "object",
+            "properties": {
+                "image_url": {
+                    "title": "Image Url",
+                    "description": "public URL of the image",
+                    "type": "string"
+                },
+                "caption_header": {
+                    "title": "Caption Header",
+                    "description": "optional header of the caption",
+                    "type": "string"
+                },
+                "caption": {
+                    "title": "Caption",
+                    "description": "post caption",
+                    "type": "string"
+                },
+                "caption_footer": {
+                    "title": "Caption Footer",
+                    "description": "optional footer of the caption",
+                    "type": "string"
+                },
+                "facebook_page_name": {
+                    "title": "Facebook Page Name",
+                    "description": "Facebook page connected to the Instagram account",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "image_url",
+                "facebook_page_name"
+            ]
+        },
+        "output_schema": {
+            "title": "OutputModel",
+            "description": "InstagramPostImagePiece output model",
+            "type": "object",
+            "properties": {
+                "message": {
+                    "title": "Message",
+                    "description": "output message to log",
+                    "default": "",
+                    "type": "string"
+                },
+                "post_id": {
+                    "title": "Post Id",
+                    "description": "post ID",
+                    "type": "string"
+                }
+            }
+        },
+        "secrets_schema": {
+            "title": "SecretsModel",
+            "description": "InstagramPostImagePiece secrets model",
+            "type": "object",
+            "properties": {
+                "APP_ID": {
+                    "title": "App Id",
+                    "description": "ID from a Facebook App",
+                    "type": "string"
+                },
+                "APP_SECRET": {
+                    "title": "App Secret",
+                    "description": "secret from a Facebook App",
+                    "type": "string"
+                },
+                "ACCESS_TOKEN": {
+                    "title": "Access Token",
+                    "description": "access_token getted from a Facebook App",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "APP_ID",
+                "APP_SECRET",
+                "ACCESS_TOKEN"
+            ]
+        },
+        "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/InstagramPostImagePiece"
+    },
     "ImgurUploaderPiece": {
         "name": "ImgurUploaderPiece",
         "dependency": {
@@ -601,6 +323,193 @@
         },
         "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/ImgurUploaderPiece"
     },
+    "EmailSenderPiece": {
+        "name": "EmailSenderPiece",
+        "dependency": {
+            "dockerfile": null,
+            "requirements_file": null
+        },
+        "tags": [],
+        "style": {
+            "node_label": "Email sender Piece",
+            "node_type": "default",
+            "node_style": {
+                "backgroundColor": "#ebebeb"
+            },
+            "useIcon": true,
+            "icon_class_name": "fas fa-envelope",
+            "iconStyle": {
+                "cursor": "pointer"
+            },
+            "use_icon": true
+        },
+        "description": "Email sender",
+        "container_resources": {
+            "use_gpu": false,
+            "requests": {
+                "cpu": "100m",
+                "memory": "100Mi"
+            },
+            "limits": {
+                "cpu": "500m",
+                "memory": "200Mi"
+            }
+        },
+        "input_schema": {
+            "title": "InputModel",
+            "description": "Input data for EmailSenderPiece",
+            "type": "object",
+            "properties": {
+                "email_provider": {
+                    "description": "The email provider to use",
+                    "default": "gmail",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/ProviderType"
+                        }
+                    ]
+                },
+                "email_receivers": {
+                    "title": "Email Receivers",
+                    "description": "The receivers of the email, as comma-separated values",
+                    "type": "string"
+                },
+                "email_subject": {
+                    "title": "Email Subject",
+                    "description": "The subject of the email.",
+                    "default": "",
+                    "type": "string"
+                },
+                "subject_args": {
+                    "title": "Subject Args",
+                    "description": "List of arguments to insert into the subject of the email",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/InnerArgModel"
+                    }
+                },
+                "email_body": {
+                    "title": "Email Body",
+                    "description": "The body of the email.",
+                    "default": "",
+                    "type": "string"
+                },
+                "body_args": {
+                    "title": "Body Args",
+                    "description": "List of arguments to insert into the body of the email",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/InnerArgModel"
+                    }
+                },
+                "attachment_path": {
+                    "title": "Attachment Path",
+                    "description": "Path to the attachment file",
+                    "format": "file-path",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "email_receivers"
+            ],
+            "definitions": {
+                "ProviderType": {
+                    "title": "ProviderType",
+                    "description": "An enumeration.",
+                    "enum": [
+                        "gmail",
+                        "outlook",
+                        "office365",
+                        "yahoo"
+                    ],
+                    "type": "string"
+                },
+                "ArgType": {
+                    "title": "ArgType",
+                    "description": "An enumeration.",
+                    "enum": [
+                        "string",
+                        "integer",
+                        "float",
+                        "boolean"
+                    ],
+                    "type": "string"
+                },
+                "InnerArgModel": {
+                    "title": "InnerArgModel",
+                    "description": "Inner argument model to use in the body and subject texts",
+                    "type": "object",
+                    "properties": {
+                        "arg_name": {
+                            "title": "Arg Name",
+                            "type": "string"
+                        },
+                        "arg_value": {
+                            "title": "Arg Value",
+                            "type": "string"
+                        },
+                        "arg_type": {
+                            "$ref": "#/definitions/ArgType"
+                        }
+                    },
+                    "required": [
+                        "arg_name",
+                        "arg_value",
+                        "arg_type"
+                    ]
+                }
+            }
+        },
+        "output_schema": {
+            "title": "OutputModel",
+            "description": "Output data for EmailSenderPiece",
+            "type": "object",
+            "properties": {
+                "message": {
+                    "title": "Message",
+                    "description": "Output message to log.",
+                    "default": "",
+                    "type": "string"
+                },
+                "success": {
+                    "title": "Success",
+                    "description": "The result of the email sending task.",
+                    "type": "boolean"
+                },
+                "error": {
+                    "title": "Error",
+                    "description": "The error message, if any.",
+                    "default": "",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "success"
+            ]
+        },
+        "secrets_schema": {
+            "title": "SecretsModel",
+            "description": "Secrets data for EmailSenderPiece",
+            "type": "object",
+            "properties": {
+                "EMAIL_SENDER_ACCOUNT": {
+                    "title": "Email Sender Account",
+                    "description": "The email sender account.",
+                    "type": "string"
+                },
+                "EMAIL_SENDER_PASSWORD": {
+                    "title": "Email Sender Password",
+                    "description": "The email sender password",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "EMAIL_SENDER_ACCOUNT",
+                "EMAIL_SENDER_PASSWORD"
+            ]
+        },
+        "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/EmailSenderPiece"
+    },
     "InstagramGetMediaPiece": {
         "name": "InstagramGetMediaPiece",
         "dependency": {
@@ -632,11 +541,63 @@
                     "title": "Facebook Page Name",
                     "description": "Facebook page connected to the Instagram account",
                     "type": "string"
+                },
+                "instagram_media_fields": {
+                    "description": "list of Instagram media fields",
+                    "default": [
+                        "id",
+                        "media_type",
+                        "caption",
+                        "like_count",
+                        "comments_count",
+                        "permalink",
+                        "timestamp",
+                        "comments"
+                    ],
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/InstagramMediaFields"
+                    }
+                },
+                "output_type": {
+                    "description": "output type",
+                    "default": "string",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/OutputTypeType"
+                        }
+                    ]
                 }
             },
             "required": [
                 "facebook_page_name"
-            ]
+            ],
+            "definitions": {
+                "InstagramMediaFields": {
+                    "title": "InstagramMediaFields",
+                    "description": "Enum for Instagram Media Fields",
+                    "enum": [
+                        "id",
+                        "media_type",
+                        "caption",
+                        "like_count",
+                        "comments_count",
+                        "permalink",
+                        "timestamp",
+                        "comments"
+                    ]
+                },
+                "OutputTypeType": {
+                    "title": "OutputTypeType",
+                    "description": "An enumeration.",
+                    "enum": [
+                        "python_list",
+                        "string",
+                        "json_string"
+                    ],
+                    "type": "string"
+                }
+            }
         },
         "output_schema": {
             "title": "OutputModel",
@@ -648,11 +609,18 @@
                     "description": "list of Instagram media posts",
                     "type": "array",
                     "items": {}
+                },
+                "media_string": {
+                    "title": "Media String",
+                    "description": "string of Instagram media posts",
+                    "type": "string"
+                },
+                "media_json_string": {
+                    "title": "Media Json String",
+                    "description": "json string of Instagram media posts",
+                    "type": "string"
                 }
-            },
-            "required": [
-                "media_list"
-            ]
+            }
         },
         "secrets_schema": {
             "title": "SecretsModel",
@@ -682,5 +650,97 @@
             ]
         },
         "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/InstagramGetMediaPiece"
+    },
+    "YoutubeDownloadPiece": {
+        "name": "YoutubeDownloadPiece",
+        "dependency": {
+            "dockerfile": "Dockerfile_youtube",
+            "requirements_file": null
+        },
+        "tags": [],
+        "style": {
+            "node_label": "Youtube Download Piece",
+            "node_type": "default",
+            "node_style": {
+                "backgroundColor": "#ebebeb"
+            },
+            "useIcon": true,
+            "icon_class_name": "fas fa-download",
+            "iconStyle": {
+                "cursor": "pointer"
+            }
+        },
+        "description": "Downloads content from youtube videos as audio or video files.",
+        "container_resources": {
+            "requests": {
+                "cpu": "100m",
+                "memory": "128Mi"
+            },
+            "limits": {
+                "cpu": "500m",
+                "memory": "512Mi"
+            }
+        },
+        "input_schema": {
+            "title": "InputModel",
+            "description": "Input data for YoutubeDownloadPiece",
+            "type": "object",
+            "properties": {
+                "url": {
+                    "title": "Url",
+                    "description": "The url of the video to be downloaded.",
+                    "minLength": 1,
+                    "maxLength": 65536,
+                    "format": "uri",
+                    "type": "string"
+                },
+                "output_type": {
+                    "description": "The type of output file to be downloaded.",
+                    "default": "audio",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/OutputTypeType"
+                        }
+                    ]
+                }
+            },
+            "required": [
+                "url"
+            ],
+            "definitions": {
+                "OutputTypeType": {
+                    "title": "OutputTypeType",
+                    "description": "An enumeration.",
+                    "enum": [
+                        "audio",
+                        "video"
+                    ],
+                    "type": "string"
+                }
+            }
+        },
+        "output_schema": {
+            "title": "OutputModel",
+            "description": "Output data for YoutubeDownloadPiece",
+            "type": "object",
+            "properties": {
+                "message": {
+                    "title": "Message",
+                    "description": "Output message to log",
+                    "default": "",
+                    "type": "string"
+                },
+                "file_path": {
+                    "title": "File Path",
+                    "description": "The path to the downloaded file",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "file_path"
+            ]
+        },
+        "secrets_schema": null,
+        "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/YoutubeDownloadPiece"
     }
 }
