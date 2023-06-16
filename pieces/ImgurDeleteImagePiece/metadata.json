@@ -1,0 +1,12 @@
+{
+    "name": "ImgurDeleteImagePiece",
+    "description": "This Piece deletes an image from Imgur.",
+    "dependency": {
+        "requirements_file": "requirements_ImgurUploader.txt"
+    },
+    
+    "style": {
+        "node_label": "Imgur Image Delete Piece",
+        "icon_class_name": "fa-solid fa-image-slash"
+    }
+}
