@@ -17,6 +17,9 @@ class OutputModel(BaseModel):
     image_url: str = Field(
         description="The URL to your uploaded image",
     )
+    image_delete_hash: str = Field(
+        description="The delete hash for your uploaded image",
+    )
 
 
 class SecretsModel(BaseModel): 
