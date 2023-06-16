@@ -8,19 +8,6 @@ class OutputTypeType(str, Enum):
     json_string = "json_string"
 
 
-class InstagramMediaFields(Enum):
-    """
-    Enum for Instagram Media Fields
-    """
-    media_id = "id" 
-    media_type = "media_type"
-    caption =  "caption"
-    like_count = "like_count"
-    comments_count = "comments_count"
-    permalink = "permalink"
-    timestamp = "timestamp"
-    comments = "comments"
-
 class InputModel(BaseModel):
     """
     Get Instagram Media Input
@@ -29,9 +16,37 @@ class InputModel(BaseModel):
         ...,
         description = "Facebook page connected to the Instagram account"
     )
-    instagram_media_fields: List[InstagramMediaFields] = Field(
-        default=[InstagramMediaFields.media_id, InstagramMediaFields.media_type, InstagramMediaFields.caption, InstagramMediaFields.like_count, InstagramMediaFields.comments_count, InstagramMediaFields.permalink, InstagramMediaFields.timestamp, InstagramMediaFields.comments],
-        description="list of Instagram media fields"
+    id_field: bool = Field(
+        default=True,
+        description="if true, the id field will be returned"
+    )
+    media_type_field: bool = Field(
+        default=True,
+        description="if true, the media_type field will be returned"
+    )
+    caption_field: bool = Field(
+        default=True,
+        description="if true, the caption field will be returned"
+    )
+    like_count_field: bool = Field(
+        default=True,
+        description="if true, the like_count field will be returned"
+    )
+    comments_count_field: bool = Field(
+        default=True,
+        description="if true, the comments_count field will be returned"
+    )
+    permalink_field: bool = Field(
+        default=True,
+        description="if true, the permalink field will be returned"
+    )
+    timestamp_field: bool = Field(
+        default=True,
+        description="if true, the timestamp field will be returned"
+    )
+    comments_field: bool = Field(
+        default=True,
+        description="if true, the comments field will be returned"
     )
     output_type: OutputTypeType = Field(
         default=OutputTypeType.string,

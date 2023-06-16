@@ -76,7 +76,21 @@ class InstagramGetMediaPiece(BasePiece):
         app_id = self.secrets.APP_ID
         app_secret = self.secrets.APP_SECRET
         access_token = self.secrets.ACCESS_TOKEN
-        fields = [field.value for field in input_model.instagram_media_fields]
+
+        fields = {
+            "id_field": "id", 
+            "media_type_field":"media_type", 
+            "caption_field": "caption", 
+            "like_count_field": "like_count", 
+            "comments_count_field": "comments_count", 
+            "permalink_field": "permalink", 
+            "timestamp_field": "timestamp", 
+            "comments_field": "comments"
+        }
+
+        inputs = json.loads(input_model.json())
+
+        selected_fields = [fields.get(key) for key, value in inputs.items() if value == True]
 
         long_lived_access_token = self.secrets.ACCESS_TOKEN = self.get_long_lived_access_token(app_id=app_id, app_secret=app_secret, access_token=access_token)
 
@@ -84,9 +98,9 @@ class InstagramGetMediaPiece(BasePiece):
 
         instagram_business_account = self.get_instagram_business_account(access_token=long_lived_access_token, page_id=page_id)
 
-        media_list = self.get_media_list(access_token=long_lived_access_token, instagram_business_account=instagram_business_account, media_fields=fields)
+        media_list = self.get_media_list(access_token=long_lived_access_token, instagram_business_account=instagram_business_account, media_fields=selected_fields)
         
-        selected_media_fields = [dict((field, value) for field, value in media.items() if field in fields) for media in media_list]
+        selected_media_fields = [dict((field, value) for field, value in media.items() if field in selected_fields) for media in media_list]
 
         # Display result in the Domino GUI
         media_string = ""
