@@ -1,6 +1,21 @@
 {
     "group0": {
         "dependency": {
+            "dockerfile": null,
+            "requirements_file": "requirements_ImgurUploader.txt"
+        },
+        "pieces": [
+            "ImgurImageUploaderPiece",
+            "ImgurDeleteImagePiece"
+        ],
+        "secrets": [
+            "CLIENT_ID",
+            "CLIENT_SECRET"
+        ],
+        "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:0.2.2-group0"
+    },
+    "group1": {
+        "dependency": {
             "dockerfile": "Dockerfile_youtube",
             "requirements_file": null
         },
@@ -11,9 +26,9 @@
         "secrets": [
             "YOUTUBE_API_KEY"
         ],
-        "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:0.2.1-group0"
+        "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:0.2.2-group1"
     },
-    "group1": {
+    "group2": {
         "dependency": {
             "dockerfile": null,
             "requirements_file": null
@@ -24,26 +39,12 @@
             "InstagramGetMediaPiece"
         ],
         "secrets": [
-            "EMAIL_SENDER_ACCOUNT",
+            "ACCESS_TOKEN",
             "EMAIL_SENDER_PASSWORD",
-            "APP_ID",
             "APP_SECRET",
-            "ACCESS_TOKEN"
+            "EMAIL_SENDER_ACCOUNT",
+            "APP_ID"
         ],
-        "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:0.2.1-group1"
-    },
-    "group2": {
-        "dependency": {
-            "dockerfile": null,
-            "requirements_file": "requirements_ImgurUploader.txt"
-        },
-        "pieces": [
-            "ImgurUploaderPiece"
-        ],
-        "secrets": [
-            "CLIENT_ID",
-            "CLIENT_SECRET"
-        ],
-        "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:0.2.1-group2"
+        "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:0.2.2-group2"
     }
 }

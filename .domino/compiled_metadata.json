@@ -1,4 +1,158 @@
 {
+    "ImgurImageUploaderPiece": {
+        "name": "ImgurImageUploaderPiece",
+        "dependency": {
+            "dockerfile": null,
+            "requirements_file": "requirements_ImgurUploader.txt"
+        },
+        "tags": [],
+        "style": {
+            "node_label": "Imgur Image Uploader Piece",
+            "node_type": "default",
+            "node_style": {
+                "backgroundColor": "#ebebeb"
+            },
+            "useIcon": true,
+            "icon_class_name": "fas fa-file-upload",
+            "iconStyle": {
+                "cursor": "pointer"
+            }
+        },
+        "description": "This Piece upload an image to Imgur.",
+        "input_schema": {
+            "title": "InputModel",
+            "description": "ImgurImageUploaderPiece input model",
+            "type": "object",
+            "properties": {
+                "image_path": {
+                    "title": "Image Path",
+                    "description": "The path to your local image",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "image_path"
+            ]
+        },
+        "output_schema": {
+            "title": "OutputModel",
+            "description": "ImgurImageUploaderPiece output model",
+            "type": "object",
+            "properties": {
+                "image_url": {
+                    "title": "Image Url",
+                    "description": "The URL to your uploaded image",
+                    "type": "string"
+                },
+                "image_delete_hash": {
+                    "title": "Image Delete Hash",
+                    "description": "The delete hash for your uploaded image",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "image_url",
+                "image_delete_hash"
+            ]
+        },
+        "secrets_schema": {
+            "title": "SecretsModel",
+            "description": "ImgurImageUploaderPiece secrets model",
+            "type": "object",
+            "properties": {
+                "CLIENT_ID": {
+                    "title": "Client Id",
+                    "description": "The app client ID",
+                    "type": "string"
+                },
+                "CLIENT_SECRET": {
+                    "title": "Client Secret",
+                    "description": "The app client secret",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "CLIENT_ID",
+                "CLIENT_SECRET"
+            ]
+        },
+        "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/ImgurImageUploaderPiece"
+    },
+    "ImgurDeleteImagePiece": {
+        "name": "ImgurDeleteImagePiece",
+        "dependency": {
+            "dockerfile": null,
+            "requirements_file": "requirements_ImgurUploader.txt"
+        },
+        "tags": [],
+        "style": {
+            "node_label": "Imgur Image Delete Piece",
+            "node_type": "default",
+            "node_style": {
+                "backgroundColor": "#ebebeb"
+            },
+            "useIcon": true,
+            "icon_class_name": "fa-solid fa-image-slash",
+            "iconStyle": {
+                "cursor": "pointer"
+            }
+        },
+        "description": "This Piece deletes an image from Imgur.",
+        "input_schema": {
+            "title": "InputModel",
+            "description": "ImgurDeleteImagePiece input model",
+            "type": "object",
+            "properties": {
+                "image_id": {
+                    "title": "Image Id",
+                    "description": "The ID of the image you want to delete",
+                    "type": "string"
+                },
+                "image_delete_hash": {
+                    "title": "Image Delete Hash",
+                    "description": "The delete hash of the image you want to delete",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "image_delete_hash"
+            ]
+        },
+        "output_schema": {
+            "title": "OutputModel",
+            "description": "ImgurDeleteImagePiece output model",
+            "type": "object",
+            "properties": {
+                "deletion_status": {
+                    "title": "Deletion Status",
+                    "description": "The status of the deletion",
+                    "type": "integer"
+                }
+            }
+        },
+        "secrets_schema": {
+            "title": "SecretsModel",
+            "description": "ImgurDeleteImagePiece secrets model",
+            "type": "object",
+            "properties": {
+                "CLIENT_ID": {
+                    "title": "Client Id",
+                    "description": "The app client ID",
+                    "type": "string"
+                },
+                "CLIENT_SECRET": {
+                    "title": "Client Secret",
+                    "description": "The app client secret",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "CLIENT_ID",
+                "CLIENT_SECRET"
+            ]
+        },
+        "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/ImgurDeleteImagePiece"
+    },
     "YoutubeListVideosPiece": {
         "name": "YoutubeListVideosPiece",
         "dependency": {
@@ -250,79 +404,6 @@
         },
         "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/InstagramPostImagePiece"
     },
-    "ImgurUploaderPiece": {
-        "name": "ImgurUploaderPiece",
-        "dependency": {
-            "dockerfile": null,
-            "requirements_file": "requirements_ImgurUploader.txt"
-        },
-        "tags": [],
-        "style": {
-            "node_label": "Imgur Uploader Piece",
-            "node_type": "default",
-            "node_style": {
-                "backgroundColor": "#ebebeb"
-            },
-            "useIcon": true,
-            "icon_class_name": "fas fa-file-upload",
-            "iconStyle": {
-                "cursor": "pointer"
-            }
-        },
-        "description": "This Piece upload an image to Imgur.",
-        "input_schema": {
-            "title": "InputModel",
-            "description": "ImgurUploaderPiece input model",
-            "type": "object",
-            "properties": {
-                "image_path": {
-                    "title": "Image Path",
-                    "description": "The path to your local image",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "image_path"
-            ]
-        },
-        "output_schema": {
-            "title": "OutputModel",
-            "description": "ImgurUploaderPiece output model",
-            "type": "object",
-            "properties": {
-                "image_url": {
-                    "title": "Image Url",
-                    "description": "The URL to your uploaded image",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "image_url"
-            ]
-        },
-        "secrets_schema": {
-            "title": "SecretsModel",
-            "description": "ImgurUploaderPiece secrets model",
-            "type": "object",
-            "properties": {
-                "CLIENT_ID": {
-                    "title": "Client Id",
-                    "description": "The app client ID",
-                    "type": "string"
-                },
-                "CLIENT_SECRET": {
-                    "title": "Client Secret",
-                    "description": "The app client secret",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "CLIENT_ID",
-                "CLIENT_SECRET"
-            ]
-        },
-        "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/ImgurUploaderPiece"
-    },
     "EmailSenderPiece": {
         "name": "EmailSenderPiece",
         "dependency": {
@@ -542,22 +623,53 @@
                     "description": "Facebook page connected to the Instagram account",
                     "type": "string"
                 },
-                "instagram_media_fields": {
-                    "description": "list of Instagram media fields",
-                    "default": [
-                        "id",
-                        "media_type",
-                        "caption",
-                        "like_count",
-                        "comments_count",
-                        "permalink",
-                        "timestamp",
-                        "comments"
-                    ],
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/InstagramMediaFields"
-                    }
+                "id_field": {
+                    "title": "Id Field",
+                    "description": "if true, the id field will be returned",
+                    "default": true,
+                    "type": "boolean"
+                },
+                "media_type_field": {
+                    "title": "Media Type Field",
+                    "description": "if true, the media_type field will be returned",
+                    "default": true,
+                    "type": "boolean"
+                },
+                "caption_field": {
+                    "title": "Caption Field",
+                    "description": "if true, the caption field will be returned",
+                    "default": true,
+                    "type": "boolean"
+                },
+                "like_count_field": {
+                    "title": "Like Count Field",
+                    "description": "if true, the like_count field will be returned",
+                    "default": true,
+                    "type": "boolean"
+                },
+                "comments_count_field": {
+                    "title": "Comments Count Field",
+                    "description": "if true, the comments_count field will be returned",
+                    "default": true,
+                    "type": "boolean"
+                },
+                "permalink_field": {
+                    "title": "Permalink Field",
+                    "description": "if true, the permalink field will be returned",
+                    "default": true,
+                    "type": "boolean"
+                },
+                "timestamp_field": {
+                    "title": "Timestamp Field",
+                    "description": "if true, the timestamp field will be returned",
+                    "default": true,
+                    "type": "boolean"
+                },
+                "comments_field": {
+                    "title": "Comments Field",
+                    "description": "if true, the comments field will be returned",
+                    "default": true,
+                    "type": "boolean"
                 },
                 "output_type": {
                     "description": "output type",
@@ -573,20 +685,6 @@
                 "facebook_page_name"
             ],
             "definitions": {
-                "InstagramMediaFields": {
-                    "title": "InstagramMediaFields",
-                    "description": "Enum for Instagram Media Fields",
-                    "enum": [
-                        "id",
-                        "media_type",
-                        "caption",
-                        "like_count",
-                        "comments_count",
-                        "permalink",
-                        "timestamp",
-                        "comments"
-                    ]
-                },
                 "OutputTypeType": {
                     "title": "OutputTypeType",
                     "description": "An enumeration.",
