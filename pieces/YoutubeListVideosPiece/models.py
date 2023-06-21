@@ -29,8 +29,8 @@ class InputModel(BaseModel):
     """
     Input data for YoutubeListVideosPiece
     """
-    channel_id: str = Field(
-        description='The Id of the Youtube channel.'
+    channel_username: str = Field(
+        description='The username of the Youtube channel.'
     )
     max_videos: int = Field(
         default=10,

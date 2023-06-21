@@ -12,7 +12,6 @@ from datetime import datetime
 from dateutil import parser
 from typing import List
 
-
 class YoutubeListVideosPiece(BasePiece):
 
     def piece_function(self, input_model: InputModel):
@@ -25,7 +24,15 @@ class YoutubeListVideosPiece(BasePiece):
         )
 
         # input arguments
-        channel_id = input_model.channel_id
+        channel_username = input_model.channel_username
+
+        request = client.channels().list(
+            part="id",
+            forUsername=channel_username 
+        )
+        response = request.execute()
+        channel_id = response["items"][0]["id"]
+
 
         # converting date to RFC 3339 format
         published_after = f"{datetime.isoformat(parser.parse(input_model.published_at_or_after.isoformat()))}Z" if input_model.published_at_or_after else None
