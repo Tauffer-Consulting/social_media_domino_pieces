@@ -17,14 +17,13 @@ def run_piece(
     EMAIL_SENDER_PASSWORD = os.environ.get("EMAIL_SENDER_PASSWORD")
 
     return piece_dry_run(
-
-    #     #local piece repository path
+        #local piece repository path
         repository_folder_path="../",
 
-    #     #name of the piece
+        #name of the piece
         piece_name="EmailSenderPiece",
 
-    #     #values to the InputModel arguments
+        #values to the InputModel arguments
         piece_input={
             "email_receivers": email_receivers,
             "email_subject": email_subject,

@@ -18,34 +18,33 @@ def run_piece(
     CLIENT_ID = os.environ.get("CLIENT_ID")
 
     return piece_dry_run(
-    
-    #local piece repository path
-    repository_folder_path="/home/giupb/tauffer/domino_dir/local_test/social_media_domino_pieces",
+        #local piece repository path
+        repository_folder_path="../",
 
-    #name of the piece
-    piece_name="ImgurImageUploaderPiece",
+        #name of the piece
+        piece_name="ImgurImageUploaderPiece",
 
-    #values to the InputModel arguments
-    piece_input={
-        "image_path": image_path,
-        "image_title":image_title,
-        "image_description": image_description,
-        "id_as_output": id_as_output,
-        "title_as_output": title_as_output,
-        "description_as_output": description_as_output,
-        "delete_hash_as_output": delete_hash_as_output,
-        "url_as_output": url_as_output,
-    },
-    
-    #values to the SecretModel arguments
-    secrets_input={ 
-        "CLIENT_ID": CLIENT_ID,
-    }
+        #values to the InputModel arguments
+        piece_input={
+            "image_path": image_path,
+            "image_title":image_title,
+            "image_description": image_description,
+            "id_as_output": id_as_output,
+            "title_as_output": title_as_output,
+            "description_as_output": description_as_output,
+            "delete_hash_as_output": delete_hash_as_output,
+            "url_as_output": url_as_output,
+        },
+        
+        #values to the SecretModel arguments
+        secrets_input={ 
+            "CLIENT_ID": CLIENT_ID,
+        }
 )
 
 def test_piece():
     piece_kwargs = {
-        "image_path": "/home/giupb/tauffer/domino_dir/local_test/dry_run_results/generated_image.png",
+        "image_path": "",
         "image_title": "image title",
         "image_description": "image description",
         "id_as_output": True,

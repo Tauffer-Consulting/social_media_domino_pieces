@@ -10,7 +10,6 @@ def run_piece(
     ACCESS_TOKEN = os.environ.get("ACESS_TOKEN")
 
     return piece_dry_run(
-        
         #local piece repository path
         repository_folder_path="../",
 
