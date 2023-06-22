@@ -27,6 +27,6 @@ class SecretsModel(BaseModel):
     """
     ImgurDeleteImagePiece secrets model
     """   
-    ACCESS_TOKEN: str = Field(
+    IMGUR_ACCESS_TOKEN: str = Field(
         description="The user access token for the Imgur app"
     )
