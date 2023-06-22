@@ -1,20 +1,18 @@
 from domino.base_piece import BasePiece
 from .models import InputModel, OutputModel
-from imgurpython import ImgurClient
 import time
 import requests
 
 
 class ImgurDeleteImagePiece(BasePiece):
     def piece_function(self, input_model: InputModel):
-        client_id = self.secrets.CLIENT_ID
-        client_secret = self.secrets.CLIENT_SECRET
-
-        headers = {"Authorization": f"Client-ID {client_id}"}
+        access_token = self.secrets.ACCESS_TOKEN
         image_delete_hash = input_model.image_delete_hash
 
+        headers = {"Authorization": f"Bearer {access_token}"}
+        url = f"https://api.imgur.com/3/image/{image_delete_hash}"
         try:
-            response = requests.delete(url=f"https://api.imgur.com/3/image/{image_delete_hash}", headers=headers)
+            response = requests.delete(url=url, headers=headers)
         except Exception as e:
             self.logger.info(f"Deletion failed: {e}")
             raise Exception(f"Deletion failed: {e}")

@@ -253,7 +253,7 @@
         "name": "ImgurDeleteImagePiece",
         "dependency": {
             "dockerfile": null,
-            "requirements_file": "requirements_ImgurUploader.txt"
+            "requirements_file": "requirements.txt"
         },
         "tags": [],
         "style": {
@@ -306,20 +306,14 @@
             "description": "ImgurDeleteImagePiece secrets model",
             "type": "object",
             "properties": {
-                "CLIENT_ID": {
-                    "title": "Client Id",
-                    "description": "The app client ID",
-                    "type": "string"
-                },
-                "CLIENT_SECRET": {
-                    "title": "Client Secret",
-                    "description": "The app client secret",
+                "ACCESS_TOKEN": {
+                    "title": "Access Token",
+                    "description": "The user access token for the Imgur app",
                     "type": "string"
                 }
             },
             "required": [
-                "CLIENT_ID",
-                "CLIENT_SECRET"
+                "ACCESS_TOKEN"
             ]
         },
         "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/ImgurDeleteImagePiece"
@@ -328,7 +322,7 @@
         "name": "ImgurImageUploaderPiece",
         "dependency": {
             "dockerfile": null,
-            "requirements_file": "requirements_ImgurUploader.txt"
+            "requirements_file": "requirements.txt"
         },
         "tags": [],
         "style": {
@@ -441,18 +435,12 @@
             "properties": {
                 "CLIENT_ID": {
                     "title": "Client Id",
-                    "description": "The app client ID",
-                    "type": "string"
-                },
-                "CLIENT_SECRET": {
-                    "title": "Client Secret",
-                    "description": "The app client secret",
+                    "description": "The Imgur app client ID",
                     "type": "string"
                 }
             },
             "required": [
-                "CLIENT_ID",
-                "CLIENT_SECRET"
+                "CLIENT_ID"
             ]
         },
         "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/ImgurImageUploaderPiece"
@@ -784,9 +772,9 @@
             "description": "Input data for YoutubeListVideosPiece",
             "type": "object",
             "properties": {
-                "channel_id": {
-                    "title": "Channel Id",
-                    "description": "The Id of the Youtube channel.",
+                "channel_username": {
+                    "title": "Channel Username",
+                    "description": "The username of the Youtube channel.",
                     "type": "string"
                 },
                 "max_videos": {
@@ -830,7 +818,7 @@
                 }
             },
             "required": [
-                "channel_id"
+                "channel_username"
             ],
             "definitions": {
                 "OrderBy": {

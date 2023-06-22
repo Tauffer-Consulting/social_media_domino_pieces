@@ -2,7 +2,7 @@
     "name": "ImgurDeleteImagePiece",
     "description": "This Piece deletes an image from Imgur.",
     "dependency": {
-        "requirements_file": "requirements_ImgurUploader.txt"
+        "requirements_file": "requirements.txt"
     },
     
     "style": {

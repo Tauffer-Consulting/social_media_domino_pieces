@@ -68,9 +68,5 @@ class SecretsModel(BaseModel):
     ImgurImageUploaderPiece secrets model
     """   
     CLIENT_ID: str = Field(
-        description="The app client ID"
-    )
-
-    CLIENT_SECRET: str = Field(
-        description="The app client secret"
+        description="The Imgur app client ID"
     )
