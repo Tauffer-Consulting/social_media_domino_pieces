@@ -16,6 +16,10 @@ class InputModel(BaseModel):
         ...,
         description = "Facebook page connected to the Instagram account"
     )
+    output_type: OutputTypeType = Field(
+        default=OutputTypeType.string,
+        description="output type"
+    )
     id_field: bool = Field(
         default=True,
         description="if true, the id field will be returned"
@@ -47,10 +51,6 @@ class InputModel(BaseModel):
     comments_field: bool = Field(
         default=True,
         description="if true, the comments field will be returned"
-    )
-    output_type: OutputTypeType = Field(
-        default=OutputTypeType.string,
-        description="output type"
     )
 
 class OutputModel(BaseModel):
