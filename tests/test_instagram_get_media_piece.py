@@ -1,7 +1,5 @@
 from domino.scripts.piece_dry_run import piece_dry_run
 from dotenv import load_dotenv
-from pydantic import FilePath
-from typing import List
 import os
 
 def run_piece(
@@ -71,8 +69,10 @@ def test_piece():
     )
 
     if piece_kwargs["output_type"] == "python_list":
-        assert type(output) == List
-        assert all(key in item for item in output for key, value in piece_kwargs.items() if value == True)
+        assert type(output.media_list) == list
+        for item in output.media_list:
+            assert (key in item for key, value in piece_kwargs.items() if value == True)
+            assert (key not in item for key, value in piece_kwargs.items() if value == False)
 
 if __name__ == "__main__":
     test_piece()
