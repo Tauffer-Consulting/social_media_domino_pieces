@@ -1,6 +1,7 @@
 from domino.scripts.piece_dry_run import piece_dry_run
 from typing import List, Dict
 from pydantic import FilePath
+from dotenv import load_dotenv
 import os
 
 def run_piece(
@@ -9,8 +10,9 @@ def run_piece(
         subject_args: List[Dict] , 
         email_body: str, 
         body_args: List[Dict], 
-        attachment_path: FilePath = None):
-    
+        attachment_path: FilePath = None
+):
+    load_dotenv()
     EMAIL_SENDER_ACCOUNT = os.environ.get("EMAIL_SENDER_ACCOUNT")
     EMAIL_SENDER_PASSWORD = os.environ.get("EMAIL_SENDER_PASSWORD")
 
