@@ -31,6 +31,15 @@
                     "description": "Facebook page connected to the Instagram account",
                     "type": "string"
                 },
+                "output_type": {
+                    "description": "output type",
+                    "default": "string",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/OutputTypeType"
+                        }
+                    ]
+                },
                 "id_field": {
                     "title": "Id Field",
                     "description": "if true, the id field will be returned",
@@ -78,15 +87,6 @@
                     "description": "if true, the comments field will be returned",
                     "default": true,
                     "type": "boolean"
-                },
-                "output_type": {
-                    "description": "output type",
-                    "default": "string",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/OutputTypeType"
-                        }
-                    ]
                 }
             },
             "required": [
@@ -306,14 +306,14 @@
             "description": "ImgurDeleteImagePiece secrets model",
             "type": "object",
             "properties": {
-                "ACCESS_TOKEN": {
-                    "title": "Access Token",
+                "IMGUR_ACCESS_TOKEN": {
+                    "title": "Imgur Access Token",
                     "description": "The user access token for the Imgur app",
                     "type": "string"
                 }
             },
             "required": [
-                "ACCESS_TOKEN"
+                "IMGUR_ACCESS_TOKEN"
             ]
         },
         "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/ImgurDeleteImagePiece"
