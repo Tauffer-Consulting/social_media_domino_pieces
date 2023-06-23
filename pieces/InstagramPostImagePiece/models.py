@@ -35,8 +35,10 @@ class OutputModel(BaseModel):
         description="output message to log"
     )
     post_id: str = Field(
-        default=None,
         description="post ID"
+    )
+    post_link: str = Field(
+        description="post link"
     )
 
 
