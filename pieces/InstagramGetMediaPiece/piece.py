@@ -111,8 +111,11 @@ class InstagramGetMediaPiece(BasePiece):
             )
         
         if input_model.output_type == "python_list":
+            python_list = []
+            for i in media_list:
+                python_list.append(dict((key, value) for key, value in i.items() if key in selected_fields))
             return OutputModel(
-                media_list=media_list
+                media_list=python_list
             )
 
         if input_model.output_type == "json_string":
