@@ -120,7 +120,8 @@ class InstagramPostImagePiece(BasePiece):
 
         return OutputModel(
             message="Post successfully completed!",
-            post_id=post_id
+            post_id=post_id,
+            post_link=permalink
         )
     
     def format_display_result(self, input_model: InputModel, permalink: str):
