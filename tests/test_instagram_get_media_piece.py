@@ -52,7 +52,7 @@ def run_piece(
 
 def test_piece():
     piece_kwargs = {
-        "facebook_page_name": "ecoproject.br",
+        "facebook_page_name": "",
         "output_type": "python_list",
         "id_field": False,
         "media_type_field":True,
