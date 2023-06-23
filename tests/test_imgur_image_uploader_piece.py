@@ -59,11 +59,16 @@ def test_piece():
         **piece_kwargs
     )
 
-    if piece_kwargs["id_as_output"]: assert output.image_id != None
-    if piece_kwargs["title_as_output"]: assert output.image_title == piece_kwargs["image_title"]
-    if piece_kwargs["description_as_output"]: assert output.image_description == piece_kwargs["image_description"]
-    if piece_kwargs["delete_hash_as_output"]: assert output.image_delete_hash != None
-    if piece_kwargs["url_as_output"]: assert output.image_url != None
+    if piece_kwargs["id_as_output"]: 
+        assert output.image_id != None
+    if piece_kwargs["title_as_output"]: 
+        assert output.image_title == piece_kwargs["image_title"]
+    if piece_kwargs["description_as_output"]: 
+        assert output.image_description == piece_kwargs["image_description"]
+    if piece_kwargs["delete_hash_as_output"]: 
+        assert output.image_delete_hash != None
+    if piece_kwargs["url_as_output"]: 
+        assert output.image_url != None
 
 if __name__ == "__main__":
     test_piece()
