@@ -10,7 +10,6 @@ class OrderBy(str, Enum):
     rating = "rating"
     relevance = "relevance"
     title = "title"
-    video_count = "videoCount"
     view_count = "viewCount"
 
 class VideoDuration(str, Enum):
