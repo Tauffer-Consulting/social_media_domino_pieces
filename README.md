@@ -21,11 +21,15 @@ In addition, it's important to note that this Piece requires the App ID and App 
 <details>
     <summary><b>InstagramGetMediaPiece</b> - Get all media information about the instagram account</summary>
 </details>
- 
-- **YoutubeDownloadPiece** - Downloads a video from Youtube
-- **YoutubeListVideosPiece** - Lists videos from a Youtube channel
-- **ImgurUploaderPiece** -  Uploads an image to Imgur
 
 <details>
-    <summary><b></b></summary>
+    <summary><b>YoutubeDownloadPiece</b> - Downloads a video from Youtube</summary>
+</details>
+
+<details>
+    <summary><b>YoutubeListVideosPiece</b> - Lists videos from a Youtube channel</summary>
+</details>
+
+<details>
+    <summary><b>ImgurUploaderPiece</b> -  Uploads an image to Imgur</summary>
 </details>
