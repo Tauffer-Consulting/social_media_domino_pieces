@@ -1,25 +1,6 @@
 {
     "group0": {
         "dependency": {
-            "dockerfile": null,
-            "requirements_file": null
-        },
-        "pieces": [
-            "InstagramGetMediaPiece",
-            "InstagramPostImagePiece",
-            "EmailSenderPiece"
-        ],
-        "secrets": [
-            "APP_SECRET",
-            "ACCESS_TOKEN",
-            "APP_ID",
-            "EMAIL_SENDER_PASSWORD",
-            "EMAIL_SENDER_ACCOUNT"
-        ],
-        "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:0.2.3-group0"
-    },
-    "group1": {
-        "dependency": {
             "dockerfile": "Dockerfile_youtube",
             "requirements_file": null
         },
@@ -30,7 +11,26 @@
         "secrets": [
             "YOUTUBE_API_KEY"
         ],
-        "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:0.2.3-group1"
+        "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:0.2.4-group0"
+    },
+    "group1": {
+        "dependency": {
+            "dockerfile": null,
+            "requirements_file": null
+        },
+        "pieces": [
+            "InstagramPostImagePiece",
+            "InstagramGetMediaPiece",
+            "EmailSenderPiece"
+        ],
+        "secrets": [
+            "APP_SECRET",
+            "EMAIL_SENDER_ACCOUNT",
+            "EMAIL_SENDER_PASSWORD",
+            "ACCESS_TOKEN",
+            "APP_ID"
+        ],
+        "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:0.2.4-group1"
     },
     "group2": {
         "dependency": {
@@ -38,13 +38,13 @@
             "requirements_file": "requirements.txt"
         },
         "pieces": [
-            "ImgurDeleteImagePiece",
-            "ImgurImageUploaderPiece"
+            "ImgurImageUploaderPiece",
+            "ImgurDeleteImagePiece"
         ],
         "secrets": [
-            "CLIENT_ID",
-            "IMGUR_ACCESS_TOKEN"
+            "IMGUR_ACCESS_TOKEN",
+            "CLIENT_ID"
         ],
-        "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:0.2.3-group2"
+        "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:0.2.4-group2"
     }
 }

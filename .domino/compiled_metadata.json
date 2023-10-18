@@ -1,4 +1,482 @@
 {
+    "YoutubeDownloadPiece": {
+        "name": "YoutubeDownloadPiece",
+        "dependency": {
+            "dockerfile": "Dockerfile_youtube",
+            "requirements_file": null
+        },
+        "tags": [],
+        "style": {
+            "node_label": "Youtube Download Piece",
+            "node_type": "default",
+            "node_style": {
+                "backgroundColor": "#ebebeb"
+            },
+            "useIcon": true,
+            "icon_class_name": "fa-solid:download",
+            "iconStyle": {
+                "cursor": "pointer"
+            }
+        },
+        "description": "Downloads content from youtube videos as audio or video files.",
+        "container_resources": {
+            "requests": {
+                "cpu": "100m",
+                "memory": "128Mi"
+            },
+            "limits": {
+                "cpu": "500m",
+                "memory": "512Mi"
+            }
+        },
+        "input_schema": {
+            "title": "InputModel",
+            "description": "Input data for YoutubeDownloadPiece",
+            "type": "object",
+            "properties": {
+                "url": {
+                    "title": "Url",
+                    "description": "The url of the video to be downloaded.",
+                    "minLength": 1,
+                    "maxLength": 65536,
+                    "format": "uri",
+                    "type": "string"
+                },
+                "output_type": {
+                    "description": "The type of output file to be downloaded.",
+                    "default": "audio",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/OutputTypeType"
+                        }
+                    ]
+                }
+            },
+            "required": [
+                "url"
+            ],
+            "definitions": {
+                "OutputTypeType": {
+                    "title": "OutputTypeType",
+                    "description": "An enumeration.",
+                    "enum": [
+                        "audio",
+                        "video"
+                    ],
+                    "type": "string"
+                }
+            }
+        },
+        "output_schema": {
+            "title": "OutputModel",
+            "description": "Output data for YoutubeDownloadPiece",
+            "type": "object",
+            "properties": {
+                "message": {
+                    "title": "Message",
+                    "description": "Output message to log",
+                    "default": "",
+                    "type": "string"
+                },
+                "file_path": {
+                    "title": "File Path",
+                    "description": "The path to the downloaded file",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "file_path"
+            ]
+        },
+        "secrets_schema": null,
+        "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/YoutubeDownloadPiece"
+    },
+    "InstagramPostImagePiece": {
+        "name": "InstagramPostImagePiece",
+        "dependency": {
+            "dockerfile": null,
+            "requirements_file": null
+        },
+        "tags": [
+            "Instagram"
+        ],
+        "style": {
+            "node_label": "Instagram Post Image Piece",
+            "node_type": "default",
+            "node_style": {
+                "backgroundColor": "#b3cde8"
+            },
+            "useIcon": true,
+            "icon_class_name": "fa-brands:instagram",
+            "iconStyle": {
+                "cursor": "pointer"
+            }
+        },
+        "description": "Publish an image to an Instagram account",
+        "input_schema": {
+            "title": "InputModel",
+            "description": "InstagramPostImagePiece input model",
+            "type": "object",
+            "properties": {
+                "image_url": {
+                    "title": "Image Url",
+                    "description": "public URL of the image",
+                    "type": "string"
+                },
+                "caption_header": {
+                    "title": "Caption Header",
+                    "description": "optional header of the caption",
+                    "type": "string"
+                },
+                "caption": {
+                    "title": "Caption",
+                    "description": "post caption",
+                    "type": "string"
+                },
+                "caption_footer": {
+                    "title": "Caption Footer",
+                    "description": "optional footer of the caption",
+                    "type": "string"
+                },
+                "facebook_page_name": {
+                    "title": "Facebook Page Name",
+                    "description": "Facebook page connected to the Instagram account",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "image_url",
+                "facebook_page_name"
+            ]
+        },
+        "output_schema": {
+            "title": "OutputModel",
+            "description": "InstagramPostImagePiece output model",
+            "type": "object",
+            "properties": {
+                "message": {
+                    "title": "Message",
+                    "description": "output message to log",
+                    "default": "",
+                    "type": "string"
+                },
+                "post_id": {
+                    "title": "Post Id",
+                    "description": "post ID",
+                    "type": "string"
+                },
+                "post_link": {
+                    "title": "Post Link",
+                    "description": "post link",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "post_id",
+                "post_link"
+            ]
+        },
+        "secrets_schema": {
+            "title": "SecretsModel",
+            "description": "InstagramPostImagePiece secrets model",
+            "type": "object",
+            "properties": {
+                "APP_ID": {
+                    "title": "App Id",
+                    "description": "ID from a Facebook App",
+                    "type": "string"
+                },
+                "APP_SECRET": {
+                    "title": "App Secret",
+                    "description": "secret from a Facebook App",
+                    "type": "string"
+                },
+                "ACCESS_TOKEN": {
+                    "title": "Access Token",
+                    "description": "access_token getted from a Facebook App",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "APP_ID",
+                "APP_SECRET",
+                "ACCESS_TOKEN"
+            ]
+        },
+        "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/InstagramPostImagePiece"
+    },
+    "YoutubeListVideosPiece": {
+        "name": "YoutubeListVideosPiece",
+        "dependency": {
+            "dockerfile": "Dockerfile_youtube",
+            "requirements_file": null
+        },
+        "tags": [],
+        "style": {
+            "node_label": "Youtube list videos",
+            "node_type": "default",
+            "node_style": {
+                "backgroundColor": "#ebebeb"
+            },
+            "useIcon": true,
+            "icon_class_name": "fa-brands:youtube",
+            "iconStyle": {
+                "cursor": "pointer"
+            }
+        },
+        "description": "List videos from youtube channel.",
+        "container_resources": {
+            "requests": {
+                "cpu": "100m",
+                "memory": "128Mi"
+            },
+            "limits": {
+                "cpu": "500m",
+                "memory": "512Mi"
+            }
+        },
+        "input_schema": {
+            "title": "InputModel",
+            "description": "Input data for YoutubeListVideosPiece",
+            "type": "object",
+            "properties": {
+                "channel_username": {
+                    "title": "Channel Username",
+                    "description": "The username of the Youtube channel.",
+                    "type": "string"
+                },
+                "max_videos": {
+                    "title": "Max Videos",
+                    "description": "The maximum number of videos to be returned",
+                    "default": 10,
+                    "exclusiveMinimum": 0,
+                    "type": "integer"
+                },
+                "published_at_or_after": {
+                    "title": "Published At Or After",
+                    "description": "Filter videos created at or after the specified date",
+                    "type": "string",
+                    "format": "date"
+                },
+                "published_at_or_before": {
+                    "title": "Published At Or Before",
+                    "description": "Filter videos created before or at the specified date",
+                    "type": "string",
+                    "format": "date"
+                },
+                "order_by": {
+                    "title": "Order By",
+                    "description": "The order in which the videos are returned",
+                    "default": "date",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/OrderBy"
+                        }
+                    ]
+                },
+                "video_duration": {
+                    "title": "Video Duration",
+                    "description": "The duration of the video",
+                    "default": "any",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/VideoDuration"
+                        }
+                    ]
+                }
+            },
+            "required": [
+                "channel_username"
+            ],
+            "definitions": {
+                "OrderBy": {
+                    "title": "OrderBy",
+                    "description": "The order in which the videos are returned.",
+                    "enum": [
+                        "date",
+                        "rating",
+                        "relevance",
+                        "title",
+                        "viewCount"
+                    ],
+                    "type": "string"
+                },
+                "VideoDuration": {
+                    "title": "VideoDuration",
+                    "description": "The duration of the video.",
+                    "enum": [
+                        "any",
+                        "long",
+                        "medium",
+                        "short"
+                    ],
+                    "type": "string"
+                }
+            }
+        },
+        "output_schema": {
+            "title": "OutputModel",
+            "description": "Output data for YoutubeListVideosPiece",
+            "type": "object",
+            "properties": {
+                "message": {
+                    "title": "Message",
+                    "description": "Output message to log",
+                    "default": "",
+                    "type": "string"
+                },
+                "videos_list": {
+                    "title": "Videos List",
+                    "description": "A list containing information about videos.",
+                    "type": "array",
+                    "items": {}
+                }
+            },
+            "required": [
+                "videos_list"
+            ]
+        },
+        "secrets_schema": {
+            "title": "SecretsModel",
+            "description": "Secrets data for YoutubeListVideosPiece",
+            "type": "object",
+            "properties": {
+                "YOUTUBE_API_KEY": {
+                    "title": "Youtube Api Key",
+                    "description": "The Youtube Data API Key.",
+                    "type": "string"
+                }
+            }
+        },
+        "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/YoutubeListVideosPiece"
+    },
+    "ImgurImageUploaderPiece": {
+        "name": "ImgurImageUploaderPiece",
+        "dependency": {
+            "dockerfile": null,
+            "requirements_file": "requirements.txt"
+        },
+        "tags": [],
+        "style": {
+            "node_label": "Imgur Image Uploader Piece",
+            "node_type": "default",
+            "node_style": {
+                "backgroundColor": "#ebebeb"
+            },
+            "useIcon": true,
+            "icon_class_name": "fa-solid:file-upload",
+            "iconStyle": {
+                "cursor": "pointer"
+            }
+        },
+        "description": "This Piece upload an image to Imgur.",
+        "input_schema": {
+            "title": "InputModel",
+            "description": "ImgurImageUploaderPiece input model",
+            "type": "object",
+            "properties": {
+                "image_path": {
+                    "title": "Image Path",
+                    "description": "The path to your local image",
+                    "type": "string"
+                },
+                "image_title": {
+                    "title": "Image Title",
+                    "description": "The title for your image",
+                    "type": "string"
+                },
+                "image_description": {
+                    "title": "Image Description",
+                    "description": "The description for your image",
+                    "type": "string"
+                },
+                "id_as_output": {
+                    "title": "Id As Output",
+                    "description": "If true, the image id will be returned as an output",
+                    "default": true,
+                    "type": "boolean"
+                },
+                "title_as_output": {
+                    "title": "Title As Output",
+                    "description": "If true, the image title will be returned as an output",
+                    "default": true,
+                    "type": "boolean"
+                },
+                "description_as_output": {
+                    "title": "Description As Output",
+                    "description": "If true, the image description will be returned as an output",
+                    "default": true,
+                    "type": "boolean"
+                },
+                "delete_hash_as_output": {
+                    "title": "Delete Hash As Output",
+                    "description": "If true, the image delete hash will be returned as an output",
+                    "default": true,
+                    "type": "boolean"
+                },
+                "url_as_output": {
+                    "title": "Url As Output",
+                    "description": "If true, the image link will be returned as an output",
+                    "default": true,
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "image_path"
+            ]
+        },
+        "output_schema": {
+            "title": "OutputModel",
+            "description": "ImgurImageUploaderPiece output model",
+            "type": "object",
+            "properties": {
+                "image_id": {
+                    "title": "Image Id",
+                    "description": "The image id",
+                    "type": "string"
+                },
+                "image_title": {
+                    "title": "Image Title",
+                    "description": "The image title",
+                    "type": "string"
+                },
+                "image_description": {
+                    "title": "Image Description",
+                    "description": "The image description",
+                    "type": "string"
+                },
+                "image_delete_hash": {
+                    "title": "Image Delete Hash",
+                    "description": "The delete hash for your uploaded image",
+                    "type": "string"
+                },
+                "image_url": {
+                    "title": "Image Url",
+                    "description": "The URL to your uploaded image",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "image_delete_hash"
+            ]
+        },
+        "secrets_schema": {
+            "title": "SecretsModel",
+            "description": "ImgurImageUploaderPiece secrets model",
+            "type": "object",
+            "properties": {
+                "CLIENT_ID": {
+                    "title": "Client Id",
+                    "description": "The Imgur app client ID",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "CLIENT_ID"
+            ]
+        },
+        "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/ImgurImageUploaderPiece"
+    },
     "InstagramGetMediaPiece": {
         "name": "InstagramGetMediaPiece",
         "dependency": {
@@ -15,7 +493,7 @@
                 "backgroundColor": "#b3cde8"
             },
             "useIcon": true,
-            "icon_class_name": "fab fa-instagram",
+            "icon_class_name": "fa-brands:instagram",
             "iconStyle": {
                 "cursor": "pointer"
             }
@@ -157,399 +635,6 @@
         },
         "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/InstagramGetMediaPiece"
     },
-    "YoutubeDownloadPiece": {
-        "name": "YoutubeDownloadPiece",
-        "dependency": {
-            "dockerfile": "Dockerfile_youtube",
-            "requirements_file": null
-        },
-        "tags": [],
-        "style": {
-            "node_label": "Youtube Download Piece",
-            "node_type": "default",
-            "node_style": {
-                "backgroundColor": "#ebebeb"
-            },
-            "useIcon": true,
-            "icon_class_name": "fas fa-download",
-            "iconStyle": {
-                "cursor": "pointer"
-            }
-        },
-        "description": "Downloads content from youtube videos as audio or video files.",
-        "container_resources": {
-            "requests": {
-                "cpu": "100m",
-                "memory": "128Mi"
-            },
-            "limits": {
-                "cpu": "500m",
-                "memory": "512Mi"
-            }
-        },
-        "input_schema": {
-            "title": "InputModel",
-            "description": "Input data for YoutubeDownloadPiece",
-            "type": "object",
-            "properties": {
-                "url": {
-                    "title": "Url",
-                    "description": "The url of the video to be downloaded.",
-                    "minLength": 1,
-                    "maxLength": 65536,
-                    "format": "uri",
-                    "type": "string"
-                },
-                "output_type": {
-                    "description": "The type of output file to be downloaded.",
-                    "default": "audio",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/OutputTypeType"
-                        }
-                    ]
-                }
-            },
-            "required": [
-                "url"
-            ],
-            "definitions": {
-                "OutputTypeType": {
-                    "title": "OutputTypeType",
-                    "description": "An enumeration.",
-                    "enum": [
-                        "audio",
-                        "video"
-                    ],
-                    "type": "string"
-                }
-            }
-        },
-        "output_schema": {
-            "title": "OutputModel",
-            "description": "Output data for YoutubeDownloadPiece",
-            "type": "object",
-            "properties": {
-                "message": {
-                    "title": "Message",
-                    "description": "Output message to log",
-                    "default": "",
-                    "type": "string"
-                },
-                "file_path": {
-                    "title": "File Path",
-                    "description": "The path to the downloaded file",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "file_path"
-            ]
-        },
-        "secrets_schema": null,
-        "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/YoutubeDownloadPiece"
-    },
-    "ImgurDeleteImagePiece": {
-        "name": "ImgurDeleteImagePiece",
-        "dependency": {
-            "dockerfile": null,
-            "requirements_file": "requirements.txt"
-        },
-        "tags": [],
-        "style": {
-            "node_label": "Imgur Image Delete Piece",
-            "node_type": "default",
-            "node_style": {
-                "backgroundColor": "#ebebeb"
-            },
-            "useIcon": true,
-            "icon_class_name": "fa-solid fa-image-slash",
-            "iconStyle": {
-                "cursor": "pointer"
-            }
-        },
-        "description": "This Piece deletes an image from Imgur.",
-        "input_schema": {
-            "title": "InputModel",
-            "description": "ImgurDeleteImagePiece input model",
-            "type": "object",
-            "properties": {
-                "image_id": {
-                    "title": "Image Id",
-                    "description": "The ID of the image you want to delete",
-                    "type": "string"
-                },
-                "image_delete_hash": {
-                    "title": "Image Delete Hash",
-                    "description": "The delete hash of the image you want to delete",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "image_delete_hash"
-            ]
-        },
-        "output_schema": {
-            "title": "OutputModel",
-            "description": "ImgurDeleteImagePiece output model",
-            "type": "object",
-            "properties": {
-                "deletion_status": {
-                    "title": "Deletion Status",
-                    "description": "The status of the deletion",
-                    "type": "integer"
-                }
-            }
-        },
-        "secrets_schema": {
-            "title": "SecretsModel",
-            "description": "ImgurDeleteImagePiece secrets model",
-            "type": "object",
-            "properties": {
-                "IMGUR_ACCESS_TOKEN": {
-                    "title": "Imgur Access Token",
-                    "description": "The user access token for the Imgur app",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "IMGUR_ACCESS_TOKEN"
-            ]
-        },
-        "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/ImgurDeleteImagePiece"
-    },
-    "ImgurImageUploaderPiece": {
-        "name": "ImgurImageUploaderPiece",
-        "dependency": {
-            "dockerfile": null,
-            "requirements_file": "requirements.txt"
-        },
-        "tags": [],
-        "style": {
-            "node_label": "Imgur Image Uploader Piece",
-            "node_type": "default",
-            "node_style": {
-                "backgroundColor": "#ebebeb"
-            },
-            "useIcon": true,
-            "icon_class_name": "fas fa-file-upload",
-            "iconStyle": {
-                "cursor": "pointer"
-            }
-        },
-        "description": "This Piece upload an image to Imgur.",
-        "input_schema": {
-            "title": "InputModel",
-            "description": "ImgurImageUploaderPiece input model",
-            "type": "object",
-            "properties": {
-                "image_path": {
-                    "title": "Image Path",
-                    "description": "The path to your local image",
-                    "type": "string"
-                },
-                "image_title": {
-                    "title": "Image Title",
-                    "description": "The title for your image",
-                    "type": "string"
-                },
-                "image_description": {
-                    "title": "Image Description",
-                    "description": "The description for your image",
-                    "type": "string"
-                },
-                "id_as_output": {
-                    "title": "Id As Output",
-                    "description": "If true, the image id will be returned as an output",
-                    "default": true,
-                    "type": "boolean"
-                },
-                "title_as_output": {
-                    "title": "Title As Output",
-                    "description": "If true, the image title will be returned as an output",
-                    "default": true,
-                    "type": "boolean"
-                },
-                "description_as_output": {
-                    "title": "Description As Output",
-                    "description": "If true, the image description will be returned as an output",
-                    "default": true,
-                    "type": "boolean"
-                },
-                "delete_hash_as_output": {
-                    "title": "Delete Hash As Output",
-                    "description": "If true, the image delete hash will be returned as an output",
-                    "default": true,
-                    "type": "boolean"
-                },
-                "url_as_output": {
-                    "title": "Url As Output",
-                    "description": "If true, the image link will be returned as an output",
-                    "default": true,
-                    "type": "boolean"
-                }
-            },
-            "required": [
-                "image_path"
-            ]
-        },
-        "output_schema": {
-            "title": "OutputModel",
-            "description": "ImgurImageUploaderPiece output model",
-            "type": "object",
-            "properties": {
-                "image_id": {
-                    "title": "Image Id",
-                    "description": "The image id",
-                    "type": "string"
-                },
-                "image_title": {
-                    "title": "Image Title",
-                    "description": "The image title",
-                    "type": "string"
-                },
-                "image_description": {
-                    "title": "Image Description",
-                    "description": "The image description",
-                    "type": "string"
-                },
-                "image_delete_hash": {
-                    "title": "Image Delete Hash",
-                    "description": "The delete hash for your uploaded image",
-                    "type": "string"
-                },
-                "image_url": {
-                    "title": "Image Url",
-                    "description": "The URL to your uploaded image",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "image_delete_hash"
-            ]
-        },
-        "secrets_schema": {
-            "title": "SecretsModel",
-            "description": "ImgurImageUploaderPiece secrets model",
-            "type": "object",
-            "properties": {
-                "CLIENT_ID": {
-                    "title": "Client Id",
-                    "description": "The Imgur app client ID",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "CLIENT_ID"
-            ]
-        },
-        "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/ImgurImageUploaderPiece"
-    },
-    "InstagramPostImagePiece": {
-        "name": "InstagramPostImagePiece",
-        "dependency": {
-            "dockerfile": null,
-            "requirements_file": null
-        },
-        "tags": [
-            "Instagram"
-        ],
-        "style": {
-            "node_label": "Instagram Post Image Piece",
-            "node_type": "default",
-            "node_style": {
-                "backgroundColor": "#b3cde8"
-            },
-            "useIcon": true,
-            "icon_class_name": "fab fa-instagram",
-            "iconStyle": {
-                "cursor": "pointer"
-            }
-        },
-        "description": "Publish an image to an Instagram account",
-        "input_schema": {
-            "title": "InputModel",
-            "description": "InstagramPostImagePiece input model",
-            "type": "object",
-            "properties": {
-                "image_url": {
-                    "title": "Image Url",
-                    "description": "public URL of the image",
-                    "type": "string"
-                },
-                "caption_header": {
-                    "title": "Caption Header",
-                    "description": "optional header of the caption",
-                    "type": "string"
-                },
-                "caption": {
-                    "title": "Caption",
-                    "description": "post caption",
-                    "type": "string"
-                },
-                "caption_footer": {
-                    "title": "Caption Footer",
-                    "description": "optional footer of the caption",
-                    "type": "string"
-                },
-                "facebook_page_name": {
-                    "title": "Facebook Page Name",
-                    "description": "Facebook page connected to the Instagram account",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "image_url",
-                "facebook_page_name"
-            ]
-        },
-        "output_schema": {
-            "title": "OutputModel",
-            "description": "InstagramPostImagePiece output model",
-            "type": "object",
-            "properties": {
-                "message": {
-                    "title": "Message",
-                    "description": "output message to log",
-                    "default": "",
-                    "type": "string"
-                },
-                "post_id": {
-                    "title": "Post Id",
-                    "description": "post ID",
-                    "type": "string"
-                }
-            }
-        },
-        "secrets_schema": {
-            "title": "SecretsModel",
-            "description": "InstagramPostImagePiece secrets model",
-            "type": "object",
-            "properties": {
-                "APP_ID": {
-                    "title": "App Id",
-                    "description": "ID from a Facebook App",
-                    "type": "string"
-                },
-                "APP_SECRET": {
-                    "title": "App Secret",
-                    "description": "secret from a Facebook App",
-                    "type": "string"
-                },
-                "ACCESS_TOKEN": {
-                    "title": "Access Token",
-                    "description": "access_token getted from a Facebook App",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "APP_ID",
-                "APP_SECRET",
-                "ACCESS_TOKEN"
-            ]
-        },
-        "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/InstagramPostImagePiece"
-    },
     "EmailSenderPiece": {
         "name": "EmailSenderPiece",
         "dependency": {
@@ -564,7 +649,7 @@
                 "backgroundColor": "#ebebeb"
             },
             "useIcon": true,
-            "icon_class_name": "fas fa-envelope",
+            "icon_class_name": "fa-solid:envelope",
             "iconStyle": {
                 "cursor": "pointer"
             },
@@ -737,150 +822,73 @@
         },
         "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/EmailSenderPiece"
     },
-    "YoutubeListVideosPiece": {
-        "name": "YoutubeListVideosPiece",
+    "ImgurDeleteImagePiece": {
+        "name": "ImgurDeleteImagePiece",
         "dependency": {
-            "dockerfile": "Dockerfile_youtube",
-            "requirements_file": null
+            "dockerfile": null,
+            "requirements_file": "requirements.txt"
         },
         "tags": [],
         "style": {
-            "node_label": "Youtube list videos",
+            "node_label": "Imgur Image Delete Piece",
             "node_type": "default",
             "node_style": {
                 "backgroundColor": "#ebebeb"
             },
             "useIcon": true,
-            "icon_class_name": "fab fa-youtube",
+            "icon_class_name": "uil:image-slash",
             "iconStyle": {
                 "cursor": "pointer"
             }
         },
-        "description": "List videos from youtube channel.",
-        "container_resources": {
-            "requests": {
-                "cpu": "100m",
-                "memory": "128Mi"
-            },
-            "limits": {
-                "cpu": "500m",
-                "memory": "512Mi"
-            }
-        },
+        "description": "This Piece deletes an image from Imgur.",
         "input_schema": {
             "title": "InputModel",
-            "description": "Input data for YoutubeListVideosPiece",
+            "description": "ImgurDeleteImagePiece input model",
             "type": "object",
             "properties": {
-                "channel_username": {
-                    "title": "Channel Username",
-                    "description": "The username of the Youtube channel.",
+                "image_id": {
+                    "title": "Image Id",
+                    "description": "The ID of the image you want to delete",
                     "type": "string"
                 },
-                "max_videos": {
-                    "title": "Max Videos",
-                    "description": "The maximum number of videos to be returned",
-                    "default": 10,
-                    "exclusiveMinimum": 0,
-                    "type": "integer"
-                },
-                "published_at_or_after": {
-                    "title": "Published At Or After",
-                    "description": "Filter videos created at or after the specified date",
-                    "type": "string",
-                    "format": "date"
-                },
-                "published_at_or_before": {
-                    "title": "Published At Or Before",
-                    "description": "Filter videos created before or at the specified date",
-                    "type": "string",
-                    "format": "date"
-                },
-                "order_by": {
-                    "title": "Order By",
-                    "description": "The order in which the videos are returned",
-                    "default": "date",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/OrderBy"
-                        }
-                    ]
-                },
-                "video_duration": {
-                    "title": "Video Duration",
-                    "description": "The duration of the video",
-                    "default": "any",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/VideoDuration"
-                        }
-                    ]
+                "image_delete_hash": {
+                    "title": "Image Delete Hash",
+                    "description": "The delete hash of the image you want to delete",
+                    "type": "string"
                 }
             },
             "required": [
-                "channel_username"
-            ],
-            "definitions": {
-                "OrderBy": {
-                    "title": "OrderBy",
-                    "description": "The order in which the videos are returned.",
-                    "enum": [
-                        "date",
-                        "rating",
-                        "relevance",
-                        "title",
-                        "videoCount",
-                        "viewCount"
-                    ],
-                    "type": "string"
-                },
-                "VideoDuration": {
-                    "title": "VideoDuration",
-                    "description": "The duration of the video.",
-                    "enum": [
-                        "any",
-                        "long",
-                        "medium",
-                        "short"
-                    ],
-                    "type": "string"
-                }
-            }
+                "image_delete_hash"
+            ]
         },
         "output_schema": {
             "title": "OutputModel",
-            "description": "Output data for YoutubeListVideosPiece",
+            "description": "ImgurDeleteImagePiece output model",
             "type": "object",
             "properties": {
-                "message": {
-                    "title": "Message",
-                    "description": "Output message to log",
-                    "default": "",
-                    "type": "string"
-                },
-                "videos_list": {
-                    "title": "Videos List",
-                    "description": "A list containing information about videos.",
-                    "type": "array",
-                    "items": {}
-                }
-            },
-            "required": [
-                "videos_list"
-            ]
-        },
-        "secrets_schema": {
-            "title": "SecretsModel",
-            "description": "Secrets data for YoutubeListVideosPiece",
-            "type": "object",
-            "properties": {
-                "YOUTUBE_API_KEY": {
-                    "title": "Youtube Api Key",
-                    "description": "The Youtube Data API Key.",
-                    "type": "string"
+                "deletion_status": {
+                    "title": "Deletion Status",
+                    "description": "The status of the deletion",
+                    "type": "integer"
                 }
             }
         },
-        "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/YoutubeListVideosPiece"
+        "secrets_schema": {
+            "title": "SecretsModel",
+            "description": "ImgurDeleteImagePiece secrets model",
+            "type": "object",
+            "properties": {
+                "IMGUR_ACCESS_TOKEN": {
+                    "title": "Imgur Access Token",
+                    "description": "The user access token for the Imgur app",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "IMGUR_ACCESS_TOKEN"
+            ]
+        },
+        "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/ImgurDeleteImagePiece"
     }
 }
