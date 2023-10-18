@@ -1,4 +1,4 @@
-from domino.scripts.piece_dry_run import piece_dry_run
+from domino.testing import piece_dry_run
 from dotenv import load_dotenv
 import os
 import re
@@ -42,7 +42,7 @@ def run_piece(
 )
 
 
-def test_piece():
+def test_instagram_post_image_piece():
     output = run_piece(
         image_url="",
         facebook_page_name="",
@@ -57,6 +57,3 @@ def test_piece():
     
     assert re.match(id_pattern, output.post_id)
     assert re.match(link_pattern, output.post_link)
-
-if __name__ == "__main__":
-    test_piece()

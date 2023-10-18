@@ -1,4 +1,4 @@
-from domino.scripts.piece_dry_run import piece_dry_run
+from domino.testing import piece_dry_run
 from dotenv import load_dotenv
 from pydantic import FilePath
 import os
@@ -42,7 +42,7 @@ def run_piece(
         }
 )
 
-def test_piece():
+def test_imgur_image_uploader_piece():
     piece_kwargs = {
         "image_path": "",
         "image_title": "image title",
@@ -69,6 +69,3 @@ def test_piece():
         assert output.image_delete_hash != None
     if piece_kwargs["url_as_output"]: 
         assert output.image_url != None
-
-if __name__ == "__main__":
-    test_piece()

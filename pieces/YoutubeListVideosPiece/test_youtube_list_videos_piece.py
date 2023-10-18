@@ -1,4 +1,4 @@
-from domino.scripts.piece_dry_run import piece_dry_run
+from domino.testing import piece_dry_run
 from datetime import date, datetime
 import os
 from dotenv import load_dotenv
@@ -39,7 +39,7 @@ def run_piece(
 )
 
 
-def test_piece():
+def test_youtube_list_videos_piece():
     piece_kwargs = {
         "channel_username": "portadosfundos",
         "max_videos": 20,
@@ -67,6 +67,3 @@ def test_piece():
         assert output.videos_list == sorted(output.videos_list, key=lambda x: x["title"])
     if piece_kwargs["order_by"] == "viewCount":
         assert output.videos_list == sorted(output.videos_list, key=lambda x: int(x["viewCount"]), reverse=True)
-
-if __name__ == "__main__":
-    test_piece()

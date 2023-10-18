@@ -1,16 +1,16 @@
-from domino.scripts.piece_dry_run import piece_dry_run
+from domino.testing import piece_dry_run
 from typing import List, Dict
 from pydantic import FilePath
 from dotenv import load_dotenv
 import os
 
 def run_piece(
-        email_receivers: str, 
-        email_subject: str, 
-        subject_args: List[Dict] , 
-        email_body: str, 
-        body_args: List[Dict], 
-        attachment_path: FilePath = None
+    email_receivers: str, 
+    email_subject: str, 
+    subject_args: List[Dict] , 
+    email_body: str, 
+    body_args: List[Dict], 
+    attachment_path: FilePath = None
 ):
     load_dotenv()
     EMAIL_SENDER_ACCOUNT = os.environ.get("EMAIL_SENDER_ACCOUNT")
@@ -42,7 +42,7 @@ def run_piece(
 
     )
 
-def test_piece():
+def test_email_sender_piece():
     output = run_piece(
         email_receivers="",
         email_subject="Email test with attachment. Testing subject arg: {argument}",
@@ -54,6 +54,3 @@ def test_piece():
     assert output.message == "Email sent successfully."
     assert output.success == True
     assert output.error == ""
-
-if __name__ == "__main__":
-    test_piece()

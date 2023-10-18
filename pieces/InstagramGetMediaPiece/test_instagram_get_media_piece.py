@@ -1,4 +1,4 @@
-from domino.scripts.piece_dry_run import piece_dry_run
+from domino.testing import piece_dry_run
 from dotenv import load_dotenv
 import os
 
@@ -50,7 +50,7 @@ def run_piece(
 )
 
 
-def test_piece():
+def test_instagram_get_media_piece():
     piece_kwargs = {
         "facebook_page_name": "",
         "output_type": "python_list",
@@ -73,6 +73,3 @@ def test_piece():
         for item in output.media_list:
             assert (key in item for key, value in piece_kwargs.items() if value == True)
             assert (key not in item for key, value in piece_kwargs.items() if value == False)
-
-if __name__ == "__main__":
-    test_piece()

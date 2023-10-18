@@ -1,4 +1,4 @@
-from domino.scripts.piece_dry_run import piece_dry_run
+from domino.testing import piece_dry_run
 from dotenv import load_dotenv
 import os
 
@@ -27,12 +27,9 @@ def run_piece(
         }
     )
 
-def test_piece():
+def test_imgur_delete_image_piece():
     output = run_piece(
         image_delete_hash=""
     )
 
     assert output.deletion_status == 200
-
-if __name__ == "__main__":
-    test_piece()
