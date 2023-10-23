@@ -1,5 +1,5 @@
 from domino.base_piece import BasePiece
-from .models import InputModel, OutputModel
+from .models import InputModel, OutputModel, SecretsModel
 import time
 import base64
 import requests
@@ -7,8 +7,8 @@ import json
 
 
 class ImgurImageUploaderPiece(BasePiece):
-    def piece_function(self, input_model: InputModel):
-        client_id = self.secrets.CLIENT_ID
+    def piece_function(self, input_model: InputModel, secrets_data: SecretsModel):
+        client_id = secrets_data.CLIENT_ID
 
         with open(input_model.image_path, "rb") as image_file:
             encoded_string = base64.b64encode(image_file.read())

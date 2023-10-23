@@ -11,9 +11,9 @@ from typing import List
 
 class YoutubeDownloadPiece(BasePiece):
 
-    def piece_function(self, input_model: InputModel):
+    def piece_function(self, input_data: InputModel):
         # File type
-        if input_model.output_type == "audio":
+        if input_data.output_type == "audio":
             options={
                 "format": "bestaudio/best",
                 "keepvideo": False,
@@ -34,7 +34,7 @@ class YoutubeDownloadPiece(BasePiece):
             file_format = ".mp4"
         
         # File name
-        video_info = youtube_dl.YoutubeDL().extract_info(url=input_model.url, download=False)
+        video_info = youtube_dl.YoutubeDL().extract_info(url=input_data.url, download=False)
         filename = f"{video_info['title']}"
 
         output_file_path = f"{self.results_path}/{filename}"
@@ -51,14 +51,14 @@ class YoutubeDownloadPiece(BasePiece):
         file_size = os.path.getsize(output_file_path) *  0.000001
         
         # Display result in the Domino GUI
-        self.format_display_result(input_model, video_info, file_size)
+        self.format_display_result(input_data, video_info, file_size)
 
         return OutputModel(
             message=msg,
             file_path=output_file_path
         )
     
-    def format_display_result(self, input_model: InputModel, video_info: List, file_size: int):
+    def format_display_result(self, input_data: InputModel, video_info: List, file_size: int):
         md_text = f"""
 ## Information about the video
 

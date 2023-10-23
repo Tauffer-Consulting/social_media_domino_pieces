@@ -1,5 +1,5 @@
 from domino.base_piece import BasePiece
-from .models import InputModel, OutputModel
+from .models import InputModel, OutputModel, SecretsModel
 from email import encoders
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
@@ -29,10 +29,10 @@ class EmailSenderPiece(BasePiece):
         attachment.add_header("Content-Disposition",f"attachment; filename={os.path.basename(attachment_path)}",)
         return attachment
 
-    def piece_function(self, input_model: InputModel):
+    def piece_function(self, input_model: InputModel, secrets_data: SecretsModel):
 
-        email_account = self.secrets.EMAIL_SENDER_ACCOUNT
-        email_password = self.secrets.EMAIL_SENDER_PASSWORD
+        email_account = secrets_data.EMAIL_SENDER_ACCOUNT
+        email_password = secrets_data.EMAIL_SENDER_PASSWORD
 
         email_server = servers[input_model.email_provider]
 

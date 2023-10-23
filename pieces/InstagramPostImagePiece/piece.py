@@ -1,5 +1,5 @@
 from domino.base_piece import BasePiece
-from .models import InputModel, OutputModel
+from .models import InputModel, OutputModel, SecretsModel
 
 import requests
 import json
@@ -92,13 +92,13 @@ class InstagramPostImagePiece(BasePiece):
 
         return response['json_content']['permalink']
 
-    def piece_function(self, input_model: InputModel):
+    def piece_function(self, input_model: InputModel, secrets_data: SecretsModel):
         
-        app_id = self.secrets.APP_ID
-        app_secret = self.secrets.APP_SECRET
-        access_token = self.secrets.ACCESS_TOKEN
+        app_id = secrets_data.APP_ID
+        app_secret = secrets_data.APP_SECRET
+        access_token = secrets_data.ACCESS_TOKEN
 
-        long_lived_access_token = self.secrets.ACCESS_TOKEN = self.get_long_lived_access_token(app_id=app_id, app_secret=app_secret, access_token=access_token)
+        long_lived_access_token = secrets_data.ACCESS_TOKEN = self.get_long_lived_access_token(app_id=app_id, app_secret=app_secret, access_token=access_token)
 
         self.logger.info("Getting information about the Instagram Account")
         page_id = self.get_page_id(access_token=long_lived_access_token, facebook_page_name=input_model.facebook_page_name)

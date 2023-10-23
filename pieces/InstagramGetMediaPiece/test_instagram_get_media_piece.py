@@ -21,14 +21,11 @@ def run_piece(
     ACCESS_TOKEN = os.environ.get("ACCESS_TOKEN")
 
     return piece_dry_run(    
-        #local piece repository path
-        repository_folder_path="../",
-
         #name of the piece
         piece_name="InstagramGetMediaPiece",
 
         #values to the InputModel arguments
-        piece_input={
+        input_data={
             "facebook_page_name": facebook_page_name,
             "output_type": output_type,
             "id_field": id_field,
@@ -42,7 +39,7 @@ def run_piece(
         },
         
         #values to the SecretModel arguments
-        secrets_input={ 
+        secrets_data={ 
             "APP_ID": APP_ID,
             "APP_SECRET": APP_SECRET,
             "ACCESS_TOKEN": ACCESS_TOKEN,

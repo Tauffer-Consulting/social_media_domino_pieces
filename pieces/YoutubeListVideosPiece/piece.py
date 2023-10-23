@@ -4,7 +4,7 @@ References:
 - https://www.youtube.com/watch?v=D56_Cx36oGY&ab_channel=ThuVudataanalytics
 """
 from domino.base_piece import BasePiece
-from .models import InputModel, OutputModel
+from .models import InputModel, OutputModel, SecretsModel
 import googleapiclient.discovery
 import googleapiclient.errors
 import json
@@ -14,9 +14,9 @@ from typing import List
 
 class YoutubeListVideosPiece(BasePiece):
 
-    def piece_function(self, input_model: InputModel):
+    def piece_function(self, input_data: InputModel, secrets_data: SecretsModel):
         # Get credentials and create API client
-        api_key = self.secrets.YOUTUBE_API_KEY
+        api_key = secrets_data.YOUTUBE_API_KEY
         client = googleapiclient.discovery.build(
             serviceName="youtube",
             version="v3",
@@ -24,7 +24,7 @@ class YoutubeListVideosPiece(BasePiece):
         )
 
         # input arguments
-        channel_username = input_model.channel_username
+        channel_username = input_data.channel_username
 
         request = client.channels().list(
             part="id",
@@ -35,12 +35,12 @@ class YoutubeListVideosPiece(BasePiece):
 
 
         # converting date to RFC 3339 format
-        published_after = f"{datetime.isoformat(parser.parse(input_model.published_at_or_after.isoformat()))}Z" if input_model.published_at_or_after else None
-        published_before = f"{datetime.isoformat(parser.parse(input_model.published_at_or_before.isoformat()))}Z" if input_model.published_at_or_before else None
+        published_after = f"{datetime.isoformat(parser.parse(input_data.published_at_or_after.isoformat()))}Z" if input_data.published_at_or_after else None
+        published_before = f"{datetime.isoformat(parser.parse(input_data.published_at_or_before.isoformat()))}Z" if input_data.published_at_or_before else None
 
-        max_videos = input_model.max_videos
-        order_by = input_model.order_by.value
-        video_duration = input_model.video_duration.value
+        max_videos = input_data.max_videos
+        order_by = input_data.order_by.value
+        video_duration = input_data.video_duration.value
         next_page_token = None
 
         # Request the list of videos from channel
