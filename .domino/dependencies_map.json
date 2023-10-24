@@ -11,7 +11,7 @@
         "secrets": [
             "YOUTUBE_API_KEY"
         ],
-        "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:0.2.5-group0"
+        "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:0.2.6-group0"
     },
     "group1": {
         "dependency": {
@@ -24,13 +24,13 @@
             "EmailSenderPiece"
         ],
         "secrets": [
+            "APP_ID",
             "EMAIL_SENDER_PASSWORD",
             "EMAIL_SENDER_ACCOUNT",
             "ACCESS_TOKEN",
-            "APP_SECRET",
-            "APP_ID"
+            "APP_SECRET"
         ],
-        "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:0.2.5-group1"
+        "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:0.2.6-group1"
     },
     "group2": {
         "dependency": {
@@ -45,6 +45,6 @@
             "IMGUR_ACCESS_TOKEN",
             "CLIENT_ID"
         ],
-        "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:0.2.5-group2"
+        "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:0.2.6-group2"
     }
 }
