@@ -25,8 +25,8 @@
         ],
         "secrets": [
             "EMAIL_SENDER_ACCOUNT",
-            "ACCESS_TOKEN",
             "EMAIL_SENDER_PASSWORD",
+            "ACCESS_TOKEN",
             "APP_ID",
             "APP_SECRET"
         ],
@@ -42,8 +42,8 @@
             "ImgurDeleteImagePiece"
         ],
         "secrets": [
-            "IMGUR_ACCESS_TOKEN",
-            "CLIENT_ID"
+            "CLIENT_ID",
+            "IMGUR_ACCESS_TOKEN"
         ],
         "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:0.3.0-group2"
     }
