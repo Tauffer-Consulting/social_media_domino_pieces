@@ -1,4 +1,5 @@
 from pydantic import BaseModel, Field
+from typing import Optional
 
 
 class InputModel(BaseModel):
@@ -8,11 +9,11 @@ class InputModel(BaseModel):
     image_path: str = Field(
         description="The path to your local image",
     )
-    image_title: str = Field(
+    image_title: Optional[str] = Field(
         default=None,
         description="The title for your image",
     )
-    image_description: str = Field(
+    image_description: Optional[str] = Field(
         default=None,
         description="The description for your image",
     )

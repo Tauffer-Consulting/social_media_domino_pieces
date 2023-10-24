@@ -1,4 +1,5 @@
 from pydantic import BaseModel, Field
+from typing import Optional
 
 
 class InputModel(BaseModel):
@@ -9,15 +10,15 @@ class InputModel(BaseModel):
         ...,
         description="public URL of the image"
     )
-    caption_header: str = Field(
+    caption_header: Optional[str] = Field(
         default=None,
         description="optional header of the caption"
     )
-    caption: str = Field(
+    caption: Optional[str] = Field(
         default = None,
         description="post caption"
     )
-    caption_footer: str = Field(
+    caption_footer: Optional[str] = Field(
         default=None,
         description="optional footer of the caption"
     )

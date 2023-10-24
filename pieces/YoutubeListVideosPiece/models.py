@@ -1,5 +1,6 @@
 from pydantic import BaseModel, Field
 from enum import Enum
+from typing import Optional
 from datetime import date
 
 class OrderBy(str, Enum):
@@ -36,11 +37,11 @@ class InputModel(BaseModel):
         description='The maximum number of videos to be returned',
         gt=0
     )
-    published_at_or_after: date = Field(
+    published_at_or_after: Optional[date] = Field(
         default=None,
         description='Filter videos created at or after the specified date'
     )
-    published_at_or_before: date = Field(
+    published_at_or_before: Optional[date] = Field(
         default=None,
         description='Filter videos created before or at the specified date'
     )

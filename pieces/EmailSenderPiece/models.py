@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field, FilePath
 from enum import Enum
-from typing import List
+from typing import List, Optional
 
 
 class ProviderType(str, Enum):
@@ -31,28 +31,26 @@ class InputModel(BaseModel):
     """
     email_provider: ProviderType = Field(
         description='The email provider to use',
-        default=ProviderType.gmail
+        default=ProviderType.gmail,
     )
     email_receivers: str = Field(
         description='The receivers of the email, as comma-separated values'
     )
     email_subject: str = Field(
-        default="",
         description='The subject of the email.'
     )
-    subject_args: List[InnerArgModel] = Field(
+    subject_args: Optional[List[InnerArgModel]] = Field(
         default=None,
         description="List of arguments to insert into the subject of the email",
     )
     email_body: str = Field(
-        default="",
         description='The body of the email.'
     )
-    body_args: List[InnerArgModel] = Field(
+    body_args: Optional[List[InnerArgModel]] = Field(
         default=None,
         description="List of arguments to insert into the body of the email",
     )
-    attachment_path: FilePath = Field(
+    attachment_path: Optional[str] = Field(
         default=None,
         description="Path to the attachment file"
     )
@@ -85,3 +83,8 @@ class SecretsModel(BaseModel):
     EMAIL_SENDER_PASSWORD: str = Field(
         description="The email sender password"
     )
+
+if __name__ == '__main__':
+    #model = InputModel()
+    schema = InputModel.schema_json()
+    print(schema)
