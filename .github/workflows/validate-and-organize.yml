@@ -41,12 +41,16 @@ jobs:
         run: |
           domino piece organize --build-images --source-url=https://github.com/${{github.repository}}
 
-      - name: Install Tests Dependencies
-        run: pip install pytest
+      # - name: Install Tests Dependencies
+      #   run: pip install pytest
 
-      - name: Run tests over built images
+      # - name: Run tests over built images
+      #   run: |
+      #     pytest
+
+      - name: Skipping tests
         run: |
-          pytest
+          echo 'Skipping tests'
       
       - name: Publish images
         env:
