@@ -71,7 +71,7 @@ class InstagramGetMediaPiece(BasePiece):
 
         return response['json_content']['data']
 
-    def piece_function(self, input_model: InputModel, secrets_data: SecretsModel):
+    def piece_function(self, input_data: InputModel, secrets_data: SecretsModel):
         
         app_id = secrets_data.APP_ID
         app_secret = secrets_data.APP_SECRET
@@ -88,20 +88,20 @@ class InstagramGetMediaPiece(BasePiece):
             "comments_field": "comments"
         }
 
-        inputs = json.loads(input_model.json())
+        inputs = json.loads(input_data.json())
         selected_fields = [fields.get(key) for key, value in inputs.items() if value == True]
 
         long_lived_access_token = secrets_data.ACCESS_TOKEN = self.get_long_lived_access_token(app_id=app_id, app_secret=app_secret, access_token=access_token)
-        page_id = self.get_page_id(access_token=long_lived_access_token, facebook_page_name=input_model.facebook_page_name)
+        page_id = self.get_page_id(access_token=long_lived_access_token, facebook_page_name=input_data.facebook_page_name)
         instagram_business_account = self.get_instagram_business_account(access_token=long_lived_access_token, page_id=page_id)
         media_list = self.get_media_list(access_token=long_lived_access_token, instagram_business_account=instagram_business_account, media_fields=selected_fields)
 
         selected_media_fields = [dict((field, value) for field, value in media.items() if field in selected_fields) for media in media_list]
 
         # Display result in the Domino GUI
-        self.format_display_result(input_model, selected_media_fields)
+        self.format_display_result(input_data, selected_media_fields)
 
-        if input_model.output_type == "string":
+        if input_data.output_type == "string":
             media_string = ""
             for i in selected_media_fields:
                 media_string += '  \n'.join([f"{key}: {str(value)}" for key, value in i.items()])
@@ -110,7 +110,7 @@ class InstagramGetMediaPiece(BasePiece):
                 media_string=media_string
             )
         
-        if input_model.output_type == "python_list":
+        if input_data.output_type == "python_list":
             python_list = []
             for i in media_list:
                 python_list.append(dict((key, value) for key, value in i.items() if key in selected_fields))
@@ -118,13 +118,13 @@ class InstagramGetMediaPiece(BasePiece):
                 media_list=python_list
             )
 
-        if input_model.output_type == "json_string":
+        if input_data.output_type == "json_string":
             json_string = "\n".join(json.dumps(i, indent=4) for i in selected_media_fields)
             return OutputModel(
                 media_json_string=json_string
             )
 
-    def format_display_result(self, input_model: InputModel, media_list: List):
+    def format_display_result(self, input_data: InputModel, media_list: List):
         # json_media_list = '\n\n'.join(json.dumps(i, indent=4) for i in media_list)
         md_text = f"""
 ## Media list:
@@ -133,7 +133,7 @@ class InstagramGetMediaPiece(BasePiece):
         for media in media_list:
             for key, value in media.items():
                 md_text += f"- **{key}:** {str(value)}  \n"
-        md_text += f"## Args  \n**facebook page name**: {input_model.facebook_page_name}"
+        md_text += f"## Args  \n**facebook page name**: {input_data.facebook_page_name}"
 
         file_path = f"{self.results_path}/display_result.md"
         with open(file_path, "w") as f:

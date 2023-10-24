@@ -1,5 +1,4 @@
 from domino.testing import piece_dry_run
-from dotenv import load_dotenv
 import os
 
 def run_piece(
@@ -15,7 +14,6 @@ def run_piece(
         comments_field: bool = True,
 ):
     
-    load_dotenv()
     APP_ID = os.environ.get("APP_ID")
     APP_SECRET = os.environ.get("APP_SECRET")
     ACCESS_TOKEN = os.environ.get("ACCESS_TOKEN")

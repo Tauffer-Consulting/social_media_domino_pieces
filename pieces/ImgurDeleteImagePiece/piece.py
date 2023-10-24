@@ -5,9 +5,9 @@ import requests
 
 
 class ImgurDeleteImagePiece(BasePiece):
-    def piece_function(self, input_model: InputModel, secrets_data: SecretsModel):
+    def piece_function(self, input_data: InputModel, secrets_data: SecretsModel):
         access_token = secrets_data.ACCESS_TOKEN
-        image_delete_hash = input_model.image_delete_hash
+        image_delete_hash = input_data.image_delete_hash
 
         headers = {"Authorization": f"Bearer {access_token}"}
         url = f"https://api.imgur.com/3/image/{image_delete_hash}"

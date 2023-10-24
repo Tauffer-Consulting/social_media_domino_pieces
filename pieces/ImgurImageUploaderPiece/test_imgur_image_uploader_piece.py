@@ -1,5 +1,4 @@
 from domino.testing import piece_dry_run
-from dotenv import load_dotenv
 from pydantic import FilePath
 import os
 
@@ -13,8 +12,7 @@ def run_piece(
         delete_hash_as_output: bool = True,
         url_as_output: bool = True
 ):
-    
-    load_dotenv()
+
     CLIENT_ID = os.environ.get("CLIENT_ID")
 
     return piece_dry_run(

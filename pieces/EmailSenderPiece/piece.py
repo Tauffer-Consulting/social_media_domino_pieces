@@ -29,20 +29,20 @@ class EmailSenderPiece(BasePiece):
         attachment.add_header("Content-Disposition",f"attachment; filename={os.path.basename(attachment_path)}",)
         return attachment
 
-    def piece_function(self, input_model: InputModel, secrets_data: SecretsModel):
+    def piece_function(self, input_data: InputModel, secrets_data: SecretsModel):
 
         email_account = secrets_data.EMAIL_SENDER_ACCOUNT
         email_password = secrets_data.EMAIL_SENDER_PASSWORD
 
-        email_server = servers[input_model.email_provider]
+        email_server = servers[input_data.email_provider]
 
-        list_email_receivers = [r.strip() for r in input_model.email_receivers.split(",")]
-        str_email_receivers = input_model.email_receivers
+        list_email_receivers = [r.strip() for r in input_data.email_receivers.split(",")]
+        str_email_receivers = input_data.email_receivers
 
-        email_subject = input_model.email_subject.format(**{arg.arg_name: arg.arg_value for arg in input_model.subject_args}) if input_model.subject_args else input_model.email_subject
-        email_body = input_model.email_body.format(**{arg.arg_name: arg.arg_value for arg in input_model.body_args}) if input_model.body_args else input_model.email_body
+        email_subject = input_data.email_subject.format(**{arg.arg_name: arg.arg_value for arg in input_data.subject_args}) if input_data.subject_args else input_data.email_subject
+        email_body = input_data.email_body.format(**{arg.arg_name: arg.arg_value for arg in input_data.body_args}) if input_data.body_args else input_data.email_body
 
-        email_attachment = input_model.attachment_path
+        email_attachment = input_data.attachment_path
 
         email_message = MIMEMultipart()
         email_message["From"] = email_account

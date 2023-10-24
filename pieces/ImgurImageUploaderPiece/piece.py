@@ -7,20 +7,20 @@ import json
 
 
 class ImgurImageUploaderPiece(BasePiece):
-    def piece_function(self, input_model: InputModel, secrets_data: SecretsModel):
+    def piece_function(self, input_data: InputModel, secrets_data: SecretsModel):
         client_id = secrets_data.CLIENT_ID
 
-        with open(input_model.image_path, "rb") as image_file:
+        with open(input_data.image_path, "rb") as image_file:
             encoded_string = base64.b64encode(image_file.read())
 
         payload = {
             "image": encoded_string,
-            "title": input_model.image_title if input_model.image_title else "",
-            "description": input_model.image_description if input_model.image_description else "",
+            "title": input_data.image_title if input_data.image_title else "",
+            "description": input_data.image_description if input_data.image_description else "",
         }
         headers = {"Authorization": f"Client-ID {client_id}"}
 
-        self.logger.info(f"Uploading image from {input_model.image_path}")
+        self.logger.info(f"Uploading image from {input_data.image_path}")
 
         try:
             response = requests.post("https://api.imgur.com/3/image", data=payload, headers=headers)
@@ -42,8 +42,8 @@ class ImgurImageUploaderPiece(BasePiece):
             "url_as_output":{"imgur_param":"link", "output_model_param":"image_url"},
         }
 
-        input_model_args = json.loads(input_model.json())
-        selected_output_params = {key:output_map[key]["imgur_param"] for key, value in input_model_args.items() if value==True}
+        input_data_args = json.loads(input_data.json())
+        selected_output_params = {key:output_map[key]["imgur_param"] for key, value in input_data_args.items() if value==True}
         output_kwargs = {output_map[key]["output_model_param"]:image_data["data"][value] for key, value in selected_output_params.items()}
 
         # Display result in the Domino GUI

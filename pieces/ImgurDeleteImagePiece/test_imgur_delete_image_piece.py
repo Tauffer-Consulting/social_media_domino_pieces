@@ -1,12 +1,10 @@
 from domino.testing import piece_dry_run
-from dotenv import load_dotenv
 import os
 
 def run_piece(
         image_delete_hash: str
 ):
     
-    load_dotenv()
     ACCESS_TOKEN = os.environ.get("ACESS_TOKEN")
 
     return piece_dry_run(

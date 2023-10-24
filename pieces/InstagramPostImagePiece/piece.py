@@ -92,7 +92,7 @@ class InstagramPostImagePiece(BasePiece):
 
         return response['json_content']['permalink']
 
-    def piece_function(self, input_model: InputModel, secrets_data: SecretsModel):
+    def piece_function(self, input_data: InputModel, secrets_data: SecretsModel):
         
         app_id = secrets_data.APP_ID
         app_secret = secrets_data.APP_SECRET
@@ -101,22 +101,22 @@ class InstagramPostImagePiece(BasePiece):
         long_lived_access_token = secrets_data.ACCESS_TOKEN = self.get_long_lived_access_token(app_id=app_id, app_secret=app_secret, access_token=access_token)
 
         self.logger.info("Getting information about the Instagram Account")
-        page_id = self.get_page_id(access_token=long_lived_access_token, facebook_page_name=input_model.facebook_page_name)
+        page_id = self.get_page_id(access_token=long_lived_access_token, facebook_page_name=input_data.facebook_page_name)
 
         instagram_business_account = self.get_instagram_business_account(access_token=long_lived_access_token, page_id=page_id)
 
-        caption = f"{input_model.caption_header}\n{input_model.caption}" if input_model.caption_header else input_model.caption
-        caption += f"\n{input_model.caption_footer}" if input_model.caption_footer else ""
+        caption = f"{input_data.caption_header}\n{input_data.caption}" if input_data.caption_header else input_data.caption
+        caption += f"\n{input_data.caption_footer}" if input_data.caption_footer else ""
 
         self.logger.info("Creating the post")        
-        container_id = self.create_container(access_token=long_lived_access_token, instagram_business_account=instagram_business_account, image_url=input_model.image_url, caption=caption)
+        container_id = self.create_container(access_token=long_lived_access_token, instagram_business_account=instagram_business_account, image_url=input_data.image_url, caption=caption)
 
         self.logger.info("Publishing the post")
         post_id = self.publish_container(access_token=long_lived_access_token, instagram_business_account=instagram_business_account, container_id=container_id)
 
         permalink = self.get_post_permalink(access_token=long_lived_access_token, post_id=post_id)
 
-        self.format_display_result(input_model=input_model, permalink=permalink)
+        self.format_display_result(input_data=input_data, permalink=permalink)
 
         return OutputModel(
             message="Post successfully completed!",
@@ -124,7 +124,7 @@ class InstagramPostImagePiece(BasePiece):
             post_link=permalink
         )
     
-    def format_display_result(self, input_model: InputModel, permalink: str):
+    def format_display_result(self, input_data: InputModel, permalink: str):
         md_text = f"""
 ## Link of the post
 {permalink}

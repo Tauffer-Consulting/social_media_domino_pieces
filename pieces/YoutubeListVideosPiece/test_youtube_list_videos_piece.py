@@ -1,7 +1,7 @@
 from domino.testing import piece_dry_run
 from datetime import date, datetime
 import os
-from dotenv import load_dotenv
+
 
 
 def run_piece(
@@ -13,7 +13,7 @@ def run_piece(
         video_duration: str = "any",
 ):
     
-    load_dotenv()
+    
     YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY")
     
     return piece_dry_run(    
