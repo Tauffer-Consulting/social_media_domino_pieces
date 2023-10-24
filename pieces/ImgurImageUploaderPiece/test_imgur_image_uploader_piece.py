@@ -18,14 +18,11 @@ def run_piece(
     CLIENT_ID = os.environ.get("CLIENT_ID")
 
     return piece_dry_run(
-        #local piece repository path
-        repository_folder_path="../",
-
         #name of the piece
         piece_name="ImgurImageUploaderPiece",
 
         #values to the InputModel arguments
-        piece_input={
+        input_data={
             "image_path": image_path,
             "image_title":image_title,
             "image_description": image_description,
@@ -37,7 +34,7 @@ def run_piece(
         },
         
         #values to the SecretModel arguments
-        secrets_input={ 
+        secrets_data={ 
             "CLIENT_ID": CLIENT_ID,
         }
 )

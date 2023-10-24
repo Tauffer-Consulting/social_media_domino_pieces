@@ -6,14 +6,11 @@ def run_piece(
 ):
     
     return piece_dry_run(    
-        #local piece repository path
-        repository_folder_path="../",
-
         #name of the piece
         piece_name="YoutubeDownloadPiece",
 
         #values to the InputModel arguments
-        piece_input={
+        input_data={
             "url": url,
             "output_type": output_type
         },
@@ -30,6 +27,6 @@ def test_youtube_download_piece():
     )
 
     if piece_kwargs["output_type"] == "audio":
-        assert output.file_path.endswith(".mp3")
+        assert output.get("file_path").endswith(".mp3")
     if piece_kwargs["output_type"] == "video":
-        assert output.file_path.endswith(".mp4")
+        assert output.get("file_path").endswith(".mp4")

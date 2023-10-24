@@ -17,14 +17,11 @@ def run_piece(
     YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY")
     
     return piece_dry_run(    
-        #local piece repository path
-        repository_folder_path="../",
-
         #name of the piece
         piece_name="YoutubeListVideosPiece",
 
         #values to the InputModel arguments
-        piece_input={
+        input_data={
             "channel_username": channel_username,
             "max_videos": max_videos,
             "published_at_or_after": published_at_or_after,
@@ -33,7 +30,7 @@ def run_piece(
             "video_duration": video_duration,
         },
 
-        secrets_input={
+        secrets_data={
             "YOUTUBE_API_KEY": YOUTUBE_API_KEY
         }
 )

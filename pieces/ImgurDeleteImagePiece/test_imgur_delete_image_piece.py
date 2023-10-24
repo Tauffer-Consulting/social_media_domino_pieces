@@ -10,19 +10,16 @@ def run_piece(
     ACCESS_TOKEN = os.environ.get("ACESS_TOKEN")
 
     return piece_dry_run(
-        #local piece repository path
-        repository_folder_path="../",
-
         #name of the piece
         piece_name="ImgurDeleteImagePiece",
 
         #values to the InputModel arguments
-        piece_input={
+        input_data={
             "image_delete_hash": image_delete_hash
         },
         
         #values to the SecretModel arguments
-        secrets_input={ 
+        secrets_data={ 
             "ACESS_TOKEN": ACCESS_TOKEN,
         }
     )

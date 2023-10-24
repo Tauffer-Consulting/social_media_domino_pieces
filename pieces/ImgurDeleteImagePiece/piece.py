@@ -1,12 +1,12 @@
 from domino.base_piece import BasePiece
-from .models import InputModel, OutputModel
+from .models import InputModel, OutputModel, SecretsModel
 import time
 import requests
 
 
 class ImgurDeleteImagePiece(BasePiece):
-    def piece_function(self, input_model: InputModel):
-        access_token = self.secrets.ACCESS_TOKEN
+    def piece_function(self, input_model: InputModel, secrets_data: SecretsModel):
+        access_token = secrets_data.ACCESS_TOKEN
         image_delete_hash = input_model.image_delete_hash
 
         headers = {"Authorization": f"Bearer {access_token}"}
