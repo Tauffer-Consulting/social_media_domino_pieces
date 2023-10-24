@@ -37,11 +37,13 @@
                 "url": {
                     "title": "Url",
                     "description": "The url of the video to be downloaded.",
+                    "required": true,
                     "type": "string"
                 },
                 "output_type": {
                     "description": "The type of output file to be downloaded.",
                     "default": "audio",
+                    "required": true,
                     "allOf": [
                         {
                             "$ref": "#/definitions/OutputTypeType"
@@ -118,6 +120,7 @@
                 "image_url": {
                     "title": "Image Url",
                     "description": "public URL of the image",
+                    "required": true,
                     "type": "string"
                 },
                 "caption_header": {
@@ -138,6 +141,7 @@
                 "facebook_page_name": {
                     "title": "Facebook Page Name",
                     "description": "Facebook page connected to the Instagram account",
+                    "required": true,
                     "type": "string"
                 }
             },
@@ -240,6 +244,7 @@
                 "channel_username": {
                     "title": "Channel Username",
                     "description": "The username of the Youtube channel.",
+                    "required": true,
                     "type": "string"
                 },
                 "max_videos": {
@@ -247,6 +252,7 @@
                     "description": "The maximum number of videos to be returned",
                     "default": 10,
                     "exclusiveMinimum": 0,
+                    "required": true,
                     "type": "integer"
                 },
                 "published_at_or_after": {
@@ -265,6 +271,7 @@
                     "title": "Order By",
                     "description": "The order in which the videos are returned",
                     "default": "date",
+                    "required": true,
                     "allOf": [
                         {
                             "$ref": "#/definitions/OrderBy"
@@ -275,6 +282,7 @@
                     "title": "Video Duration",
                     "description": "The duration of the video",
                     "default": "any",
+                    "required": true,
                     "allOf": [
                         {
                             "$ref": "#/definitions/VideoDuration"
@@ -374,7 +382,8 @@
             "properties": {
                 "image_path": {
                     "title": "Image Path",
-                    "description": "The path to your local image",
+                    "description": "The path to your image",
+                    "required": true,
                     "type": "string"
                 },
                 "image_title": {
@@ -504,11 +513,13 @@
                 "facebook_page_name": {
                     "title": "Facebook Page Name",
                     "description": "Facebook page connected to the Instagram account",
+                    "required": true,
                     "type": "string"
                 },
                 "output_type": {
                     "description": "output type",
                     "default": "string",
+                    "required": true,
                     "allOf": [
                         {
                             "$ref": "#/definitions/OutputTypeType"
@@ -672,6 +683,7 @@
                 "email_provider": {
                     "description": "The email provider to use",
                     "default": "gmail",
+                    "required": true,
                     "allOf": [
                         {
                             "$ref": "#/definitions/ProviderType"
@@ -681,11 +693,13 @@
                 "email_receivers": {
                     "title": "Email Receivers",
                     "description": "The receivers of the email, as comma-separated values",
+                    "required": true,
                     "type": "string"
                 },
                 "email_subject": {
                     "title": "Email Subject",
                     "description": "The subject of the email.",
+                    "required": true,
                     "type": "string"
                 },
                 "subject_args": {
@@ -699,6 +713,7 @@
                 "email_body": {
                     "title": "Email Body",
                     "description": "The body of the email.",
+                    "required": true,
                     "type": "string"
                 },
                 "body_args": {
@@ -846,6 +861,7 @@
                 "image_delete_hash": {
                     "title": "Image Delete Hash",
                     "description": "The delete hash of the image you want to delete",
+                    "required": true,
                     "type": "string"
                 }
             },
