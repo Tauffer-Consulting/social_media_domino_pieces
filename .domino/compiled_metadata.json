@@ -686,7 +686,6 @@
                 "email_subject": {
                     "title": "Email Subject",
                     "description": "The subject of the email.",
-                    "default": "",
                     "type": "string"
                 },
                 "subject_args": {
@@ -700,7 +699,6 @@
                 "email_body": {
                     "title": "Email Body",
                     "description": "The body of the email.",
-                    "default": "",
                     "type": "string"
                 },
                 "body_args": {
@@ -714,12 +712,13 @@
                 "attachment_path": {
                     "title": "Attachment Path",
                     "description": "Path to the attachment file",
-                    "format": "file-path",
                     "type": "string"
                 }
             },
             "required": [
-                "email_receivers"
+                "email_receivers",
+                "email_subject",
+                "email_body"
             ],
             "definitions": {
                 "ProviderType": {
@@ -844,11 +843,6 @@
             "description": "ImgurDeleteImagePiece input model",
             "type": "object",
             "properties": {
-                "image_id": {
-                    "title": "Image Id",
-                    "description": "The ID of the image you want to delete",
-                    "type": "string"
-                },
                 "image_delete_hash": {
                     "title": "Image Delete Hash",
                     "description": "The delete hash of the image you want to delete",
