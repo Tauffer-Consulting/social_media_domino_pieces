@@ -37,9 +37,6 @@
                 "url": {
                     "title": "Url",
                     "description": "The url of the video to be downloaded.",
-                    "minLength": 1,
-                    "maxLength": 65536,
-                    "format": "uri",
                     "type": "string"
                 },
                 "output_type": {
