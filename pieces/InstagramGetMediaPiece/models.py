@@ -14,11 +14,13 @@ class InputModel(BaseModel):
     """
     facebook_page_name: str = Field(
         ...,
-        description = "Facebook page connected to the Instagram account"
+        description = "Facebook page connected to the Instagram account",
+        required=True
     )
     output_type: OutputTypeType = Field(
         default=OutputTypeType.string,
-        description="output type"
+        description="output type",
+        required=True
     )
     id_field: bool = Field(
         default=True,

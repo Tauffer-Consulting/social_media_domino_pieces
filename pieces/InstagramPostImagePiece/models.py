@@ -8,7 +8,8 @@ class InputModel(BaseModel):
     """
     image_url: str = Field(
         ...,
-        description="public URL of the image"
+        description="public URL of the image",
+        required=True
     )
     caption_header: Optional[str] = Field(
         default=None,
@@ -24,7 +25,8 @@ class InputModel(BaseModel):
     )
     facebook_page_name: str = Field(
         ...,
-        description = "Facebook page connected to the Instagram account"
+        description = "Facebook page connected to the Instagram account",
+        required=True
     )
 
 class OutputModel(BaseModel):

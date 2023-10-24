@@ -5,7 +5,7 @@ class InputModel(BaseModel):
     """
     ImgurDeleteImagePiece input model
     """
-    image_delete_hash: str = Field(description="The delete hash of the image you want to delete")
+    image_delete_hash: str = Field(description="The delete hash of the image you want to delete", required=True)
 
 
 class OutputModel(BaseModel):
