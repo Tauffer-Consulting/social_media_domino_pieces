@@ -29,4 +29,4 @@ def test_imgur_delete_image_piece():
         image_delete_hash=""
     )
 
-    assert output.deletion_status == 200
+    assert output.get("deletion_status") == 200

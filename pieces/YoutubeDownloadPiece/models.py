@@ -11,7 +11,7 @@ class InputModel(BaseModel):
     """
     Input data for YoutubeDownloadPiece
     """
-    url: AnyHttpUrl = Field(
+    url: str = Field(
         description='The url of the video to be downloaded.'
     )
     output_type: OutputTypeType = Field(

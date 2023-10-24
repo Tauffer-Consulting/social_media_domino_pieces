@@ -67,6 +67,6 @@ def test_instagram_get_media_piece():
 
     if piece_kwargs["output_type"] == "python_list":
         assert type(output.media_list) == list
-        for item in output.media_list:
+        for item in output.get("media_list"):
             assert (key in item for key, value in piece_kwargs.items() if value == True)
             assert (key not in item for key, value in piece_kwargs.items() if value == False)

@@ -52,5 +52,5 @@ def test_instagram_post_image_piece():
     id_pattern = r'^\d+$'
     link_pattern = r'^https://www\.instagram\.com/p/.+$'
     
-    assert re.match(id_pattern, output.post_id)
-    assert re.match(link_pattern, output.post_link)
+    assert re.match(id_pattern, output.get('post_id'))
+    assert re.match(link_pattern, output.get('post_link'))

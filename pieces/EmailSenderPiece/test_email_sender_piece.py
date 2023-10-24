@@ -1,6 +1,8 @@
 from domino.testing import piece_dry_run
 from typing import List, Dict
 from pydantic import FilePath
+import os
+
 
 def run_piece(
     email_receivers: str, 
@@ -10,6 +12,8 @@ def run_piece(
     body_args: List[Dict], 
     attachment_path: FilePath = None
 ):
+    EMAIL_SENDER_ACCOUNT = os.environ.get("EMAIL_SENDER_ACCOUNT")
+    EMAIL_SENDER_PASSWORD = os.environ.get("EMAIL_SENDER_PASSWORD")
 
     return piece_dry_run(
         #name of the piece
@@ -43,6 +47,6 @@ def test_email_sender_piece():
         body_args=[{"arg_name": "argument", "arg_value": "Arg body value", "arg_type": "string"}],
     )
     
-    assert output.message == "Email sent successfully."
-    assert output.success == True
-    assert output.error == ""
+    assert output.get("message") == "Email sent successfully."
+    assert output.get("success") == True
+    assert output.get("error") == ""

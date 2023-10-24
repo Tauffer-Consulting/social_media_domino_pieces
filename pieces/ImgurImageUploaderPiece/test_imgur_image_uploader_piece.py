@@ -57,12 +57,12 @@ def test_imgur_image_uploader_piece():
     )
 
     if piece_kwargs["id_as_output"]: 
-        assert output.image_id != None
+        assert output.get("image_id") != None
     if piece_kwargs["title_as_output"]: 
-        assert output.image_title == piece_kwargs["image_title"]
+        assert output.get("image_title") == piece_kwargs["image_title"]
     if piece_kwargs["description_as_output"]: 
-        assert output.image_description == piece_kwargs["image_description"]
+        assert output.get("image_description") == piece_kwargs["image_description"]
     if piece_kwargs["delete_hash_as_output"]: 
-        assert output.image_delete_hash != None
+        assert output.get("image_delete_hash") != None
     if piece_kwargs["url_as_output"]: 
-        assert output.image_url != None
+        assert output.get("image_url") != None
