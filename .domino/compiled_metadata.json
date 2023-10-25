@@ -37,13 +37,11 @@
                 "url": {
                     "title": "Url",
                     "description": "The url of the video to be downloaded.",
-                    "required": true,
                     "type": "string"
                 },
                 "output_type": {
                     "description": "The type of output file to be downloaded.",
                     "default": "audio",
-                    "required": true,
                     "allOf": [
                         {
                             "$ref": "#/definitions/OutputTypeType"
@@ -120,7 +118,6 @@
                 "image_url": {
                     "title": "Image Url",
                     "description": "public URL of the image",
-                    "required": true,
                     "type": "string"
                 },
                 "caption_header": {
@@ -141,7 +138,6 @@
                 "facebook_page_name": {
                     "title": "Facebook Page Name",
                     "description": "Facebook page connected to the Instagram account",
-                    "required": true,
                     "type": "string"
                 }
             },
@@ -206,155 +202,6 @@
         },
         "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/InstagramPostImagePiece"
     },
-    "YoutubeListVideosPiece": {
-        "name": "YoutubeListVideosPiece",
-        "dependency": {
-            "dockerfile": "Dockerfile_youtube",
-            "requirements_file": null
-        },
-        "tags": [],
-        "style": {
-            "node_label": "Youtube list videos",
-            "node_type": "default",
-            "node_style": {
-                "backgroundColor": "#ebebeb"
-            },
-            "useIcon": true,
-            "icon_class_name": "fa-brands:youtube",
-            "iconStyle": {
-                "cursor": "pointer"
-            }
-        },
-        "description": "List videos from youtube channel.",
-        "container_resources": {
-            "requests": {
-                "cpu": "100m",
-                "memory": "128Mi"
-            },
-            "limits": {
-                "cpu": "500m",
-                "memory": "512Mi"
-            }
-        },
-        "input_schema": {
-            "title": "InputModel",
-            "description": "Input data for YoutubeListVideosPiece",
-            "type": "object",
-            "properties": {
-                "channel_username": {
-                    "title": "Channel Username",
-                    "description": "The username of the Youtube channel.",
-                    "required": true,
-                    "type": "string"
-                },
-                "max_videos": {
-                    "title": "Max Videos",
-                    "description": "The maximum number of videos to be returned",
-                    "default": 10,
-                    "exclusiveMinimum": 0,
-                    "required": true,
-                    "type": "integer"
-                },
-                "published_at_or_after": {
-                    "title": "Published At Or After",
-                    "description": "Filter videos created at or after the specified date",
-                    "type": "string",
-                    "format": "date"
-                },
-                "published_at_or_before": {
-                    "title": "Published At Or Before",
-                    "description": "Filter videos created before or at the specified date",
-                    "type": "string",
-                    "format": "date"
-                },
-                "order_by": {
-                    "title": "Order By",
-                    "description": "The order in which the videos are returned",
-                    "default": "date",
-                    "required": true,
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/OrderBy"
-                        }
-                    ]
-                },
-                "video_duration": {
-                    "title": "Video Duration",
-                    "description": "The duration of the video",
-                    "default": "any",
-                    "required": true,
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/VideoDuration"
-                        }
-                    ]
-                }
-            },
-            "required": [
-                "channel_username"
-            ],
-            "definitions": {
-                "OrderBy": {
-                    "title": "OrderBy",
-                    "description": "The order in which the videos are returned.",
-                    "enum": [
-                        "date",
-                        "rating",
-                        "relevance",
-                        "title",
-                        "viewCount"
-                    ],
-                    "type": "string"
-                },
-                "VideoDuration": {
-                    "title": "VideoDuration",
-                    "description": "The duration of the video.",
-                    "enum": [
-                        "any",
-                        "long",
-                        "medium",
-                        "short"
-                    ],
-                    "type": "string"
-                }
-            }
-        },
-        "output_schema": {
-            "title": "OutputModel",
-            "description": "Output data for YoutubeListVideosPiece",
-            "type": "object",
-            "properties": {
-                "message": {
-                    "title": "Message",
-                    "description": "Output message to log",
-                    "default": "",
-                    "type": "string"
-                },
-                "videos_list": {
-                    "title": "Videos List",
-                    "description": "A list containing information about videos.",
-                    "type": "array",
-                    "items": {}
-                }
-            },
-            "required": [
-                "videos_list"
-            ]
-        },
-        "secrets_schema": {
-            "title": "SecretsModel",
-            "description": "Secrets data for YoutubeListVideosPiece",
-            "type": "object",
-            "properties": {
-                "YOUTUBE_API_KEY": {
-                    "title": "Youtube Api Key",
-                    "description": "The Youtube Data API Key.",
-                    "type": "string"
-                }
-            }
-        },
-        "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/YoutubeListVideosPiece"
-    },
     "ImgurImageUploaderPiece": {
         "name": "ImgurImageUploaderPiece",
         "dependency": {
@@ -383,7 +230,6 @@
                 "image_path": {
                     "title": "Image Path",
                     "description": "The path to your image",
-                    "required": true,
                     "type": "string"
                 },
                 "image_title": {
@@ -483,6 +329,192 @@
         },
         "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/ImgurImageUploaderPiece"
     },
+    "EmailSenderPiece": {
+        "name": "EmailSenderPiece",
+        "dependency": {
+            "dockerfile": null,
+            "requirements_file": null
+        },
+        "tags": [],
+        "style": {
+            "node_label": "Email sender Piece",
+            "node_type": "default",
+            "node_style": {
+                "backgroundColor": "#ebebeb"
+            },
+            "useIcon": true,
+            "icon_class_name": "fa-solid:envelope",
+            "iconStyle": {
+                "cursor": "pointer"
+            },
+            "use_icon": true
+        },
+        "description": "Email sender",
+        "container_resources": {
+            "use_gpu": false,
+            "requests": {
+                "cpu": "100m",
+                "memory": "100Mi"
+            },
+            "limits": {
+                "cpu": "500m",
+                "memory": "200Mi"
+            }
+        },
+        "input_schema": {
+            "title": "InputModel",
+            "description": "Input data for EmailSenderPiece",
+            "type": "object",
+            "properties": {
+                "email_provider": {
+                    "description": "The email provider to use",
+                    "default": "gmail",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/ProviderType"
+                        }
+                    ]
+                },
+                "email_receivers": {
+                    "title": "Email Receivers",
+                    "description": "The receivers of the email, as comma-separated values",
+                    "type": "string"
+                },
+                "email_subject": {
+                    "title": "Email Subject",
+                    "description": "The subject of the email.",
+                    "type": "string"
+                },
+                "subject_args": {
+                    "title": "Subject Args",
+                    "description": "List of arguments to insert into the subject of the email",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/InnerArgModel"
+                    }
+                },
+                "email_body": {
+                    "title": "Email Body",
+                    "description": "The body of the email.",
+                    "type": "string"
+                },
+                "body_args": {
+                    "title": "Body Args",
+                    "description": "List of arguments to insert into the body of the email",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/InnerArgModel"
+                    }
+                },
+                "attachment_path": {
+                    "title": "Attachment Path",
+                    "description": "Path to the attachment file",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "email_receivers",
+                "email_subject",
+                "email_body"
+            ],
+            "definitions": {
+                "ProviderType": {
+                    "title": "ProviderType",
+                    "description": "An enumeration.",
+                    "enum": [
+                        "gmail",
+                        "outlook",
+                        "office365",
+                        "yahoo"
+                    ],
+                    "type": "string"
+                },
+                "ArgType": {
+                    "title": "ArgType",
+                    "description": "An enumeration.",
+                    "enum": [
+                        "string",
+                        "integer",
+                        "float",
+                        "boolean"
+                    ],
+                    "type": "string"
+                },
+                "InnerArgModel": {
+                    "title": "InnerArgModel",
+                    "description": "Inner argument model to use in the body and subject texts",
+                    "type": "object",
+                    "properties": {
+                        "arg_name": {
+                            "title": "Arg Name",
+                            "type": "string"
+                        },
+                        "arg_value": {
+                            "title": "Arg Value",
+                            "type": "string"
+                        },
+                        "arg_type": {
+                            "$ref": "#/definitions/ArgType"
+                        }
+                    },
+                    "required": [
+                        "arg_name",
+                        "arg_value",
+                        "arg_type"
+                    ]
+                }
+            }
+        },
+        "output_schema": {
+            "title": "OutputModel",
+            "description": "Output data for EmailSenderPiece",
+            "type": "object",
+            "properties": {
+                "message": {
+                    "title": "Message",
+                    "description": "Output message to log.",
+                    "default": "",
+                    "type": "string"
+                },
+                "success": {
+                    "title": "Success",
+                    "description": "The result of the email sending task.",
+                    "type": "boolean"
+                },
+                "error": {
+                    "title": "Error",
+                    "description": "The error message, if any.",
+                    "default": "",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "success"
+            ]
+        },
+        "secrets_schema": {
+            "title": "SecretsModel",
+            "description": "Secrets data for EmailSenderPiece",
+            "type": "object",
+            "properties": {
+                "EMAIL_SENDER_ACCOUNT": {
+                    "title": "Email Sender Account",
+                    "description": "The email sender account.",
+                    "type": "string"
+                },
+                "EMAIL_SENDER_PASSWORD": {
+                    "title": "Email Sender Password",
+                    "description": "The email sender password",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "EMAIL_SENDER_ACCOUNT",
+                "EMAIL_SENDER_PASSWORD"
+            ]
+        },
+        "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/EmailSenderPiece"
+    },
     "InstagramGetMediaPiece": {
         "name": "InstagramGetMediaPiece",
         "dependency": {
@@ -513,13 +545,11 @@
                 "facebook_page_name": {
                     "title": "Facebook Page Name",
                     "description": "Facebook page connected to the Instagram account",
-                    "required": true,
                     "type": "string"
                 },
                 "output_type": {
                     "description": "output type",
                     "default": "string",
-                    "required": true,
                     "allOf": [
                         {
                             "$ref": "#/definitions/OutputTypeType"
@@ -643,195 +673,150 @@
         },
         "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/InstagramGetMediaPiece"
     },
-    "EmailSenderPiece": {
-        "name": "EmailSenderPiece",
+    "YoutubeListVideosPiece": {
+        "name": "YoutubeListVideosPiece",
         "dependency": {
-            "dockerfile": null,
+            "dockerfile": "Dockerfile_youtube",
             "requirements_file": null
         },
         "tags": [],
         "style": {
-            "node_label": "Email sender Piece",
+            "node_label": "Youtube list videos",
             "node_type": "default",
             "node_style": {
                 "backgroundColor": "#ebebeb"
             },
             "useIcon": true,
-            "icon_class_name": "fa-solid:envelope",
+            "icon_class_name": "fa-brands:youtube",
             "iconStyle": {
                 "cursor": "pointer"
-            },
-            "use_icon": true
+            }
         },
-        "description": "Email sender",
+        "description": "List videos from youtube channel.",
         "container_resources": {
-            "use_gpu": false,
             "requests": {
                 "cpu": "100m",
-                "memory": "100Mi"
+                "memory": "128Mi"
             },
             "limits": {
                 "cpu": "500m",
-                "memory": "200Mi"
+                "memory": "512Mi"
             }
         },
         "input_schema": {
             "title": "InputModel",
-            "description": "Input data for EmailSenderPiece",
+            "description": "Input data for YoutubeListVideosPiece",
             "type": "object",
             "properties": {
-                "email_provider": {
-                    "description": "The email provider to use",
-                    "default": "gmail",
-                    "required": true,
+                "channel_username": {
+                    "title": "Channel Username",
+                    "description": "The username of the Youtube channel.",
+                    "type": "string"
+                },
+                "max_videos": {
+                    "title": "Max Videos",
+                    "description": "The maximum number of videos to be returned",
+                    "default": 10,
+                    "exclusiveMinimum": 0,
+                    "type": "integer"
+                },
+                "published_at_or_after": {
+                    "title": "Published At Or After",
+                    "description": "Filter videos created at or after the specified date",
+                    "type": "string",
+                    "format": "date"
+                },
+                "published_at_or_before": {
+                    "title": "Published At Or Before",
+                    "description": "Filter videos created before or at the specified date",
+                    "type": "string",
+                    "format": "date"
+                },
+                "order_by": {
+                    "title": "Order By",
+                    "description": "The order in which the videos are returned",
+                    "default": "date",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/ProviderType"
+                            "$ref": "#/definitions/OrderBy"
                         }
                     ]
                 },
-                "email_receivers": {
-                    "title": "Email Receivers",
-                    "description": "The receivers of the email, as comma-separated values",
-                    "required": true,
-                    "type": "string"
-                },
-                "email_subject": {
-                    "title": "Email Subject",
-                    "description": "The subject of the email.",
-                    "required": true,
-                    "type": "string"
-                },
-                "subject_args": {
-                    "title": "Subject Args",
-                    "description": "List of arguments to insert into the subject of the email",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/InnerArgModel"
-                    }
-                },
-                "email_body": {
-                    "title": "Email Body",
-                    "description": "The body of the email.",
-                    "required": true,
-                    "type": "string"
-                },
-                "body_args": {
-                    "title": "Body Args",
-                    "description": "List of arguments to insert into the body of the email",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/InnerArgModel"
-                    }
-                },
-                "attachment_path": {
-                    "title": "Attachment Path",
-                    "description": "Path to the attachment file",
-                    "type": "string"
+                "video_duration": {
+                    "title": "Video Duration",
+                    "description": "The duration of the video",
+                    "default": "any",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/VideoDuration"
+                        }
+                    ]
                 }
             },
             "required": [
-                "email_receivers",
-                "email_subject",
-                "email_body"
+                "channel_username"
             ],
             "definitions": {
-                "ProviderType": {
-                    "title": "ProviderType",
-                    "description": "An enumeration.",
+                "OrderBy": {
+                    "title": "OrderBy",
+                    "description": "The order in which the videos are returned.",
                     "enum": [
-                        "gmail",
-                        "outlook",
-                        "office365",
-                        "yahoo"
+                        "date",
+                        "rating",
+                        "relevance",
+                        "title",
+                        "viewCount"
                     ],
                     "type": "string"
                 },
-                "ArgType": {
-                    "title": "ArgType",
-                    "description": "An enumeration.",
+                "VideoDuration": {
+                    "title": "VideoDuration",
+                    "description": "The duration of the video.",
                     "enum": [
-                        "string",
-                        "integer",
-                        "float",
-                        "boolean"
+                        "any",
+                        "long",
+                        "medium",
+                        "short"
                     ],
                     "type": "string"
-                },
-                "InnerArgModel": {
-                    "title": "InnerArgModel",
-                    "description": "Inner argument model to use in the body and subject texts",
-                    "type": "object",
-                    "properties": {
-                        "arg_name": {
-                            "title": "Arg Name",
-                            "type": "string"
-                        },
-                        "arg_value": {
-                            "title": "Arg Value",
-                            "type": "string"
-                        },
-                        "arg_type": {
-                            "$ref": "#/definitions/ArgType"
-                        }
-                    },
-                    "required": [
-                        "arg_name",
-                        "arg_value",
-                        "arg_type"
-                    ]
                 }
             }
         },
         "output_schema": {
             "title": "OutputModel",
-            "description": "Output data for EmailSenderPiece",
+            "description": "Output data for YoutubeListVideosPiece",
             "type": "object",
             "properties": {
                 "message": {
                     "title": "Message",
-                    "description": "Output message to log.",
+                    "description": "Output message to log",
                     "default": "",
                     "type": "string"
                 },
-                "success": {
-                    "title": "Success",
-                    "description": "The result of the email sending task.",
-                    "type": "boolean"
-                },
-                "error": {
-                    "title": "Error",
-                    "description": "The error message, if any.",
-                    "default": "",
-                    "type": "string"
+                "videos_list": {
+                    "title": "Videos List",
+                    "description": "A list containing information about videos.",
+                    "type": "array",
+                    "items": {}
                 }
             },
             "required": [
-                "success"
+                "videos_list"
             ]
         },
         "secrets_schema": {
             "title": "SecretsModel",
-            "description": "Secrets data for EmailSenderPiece",
+            "description": "Secrets data for YoutubeListVideosPiece",
             "type": "object",
             "properties": {
-                "EMAIL_SENDER_ACCOUNT": {
-                    "title": "Email Sender Account",
-                    "description": "The email sender account.",
-                    "type": "string"
-                },
-                "EMAIL_SENDER_PASSWORD": {
-                    "title": "Email Sender Password",
-                    "description": "The email sender password",
+                "YOUTUBE_API_KEY": {
+                    "title": "Youtube Api Key",
+                    "description": "The Youtube Data API Key.",
                     "type": "string"
                 }
-            },
-            "required": [
-                "EMAIL_SENDER_ACCOUNT",
-                "EMAIL_SENDER_PASSWORD"
-            ]
+            }
         },
-        "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/EmailSenderPiece"
+        "source_url": "https://github.com/Tauffer-Consulting/social_media_domino_pieces/tree/main/pieces/YoutubeListVideosPiece"
     },
     "ImgurDeleteImagePiece": {
         "name": "ImgurDeleteImagePiece",
@@ -861,7 +846,6 @@
                 "image_delete_hash": {
                     "title": "Image Delete Hash",
                     "description": "The delete hash of the image you want to delete",
-                    "required": true,
                     "type": "string"
                 }
             },
