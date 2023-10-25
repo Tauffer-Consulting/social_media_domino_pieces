@@ -31,13 +31,12 @@ class InputModel(BaseModel):
     """
     channel_username: str = Field(
         description='The username of the Youtube channel.',
-        required=True
     )
     max_videos: int = Field(
         default=10,
         description='The maximum number of videos to be returned',
         gt=0,
-        required=True
+        
     )
     published_at_or_after: Optional[date] = Field(
         default=None,
@@ -51,13 +50,13 @@ class InputModel(BaseModel):
         default=OrderBy.date,
         description='The order in which the videos are returned',
         title="Order By",
-        required=True
+        
     )
     video_duration: VideoDuration = Field(
         default=VideoDuration.any,
         description='The duration of the video',
         title="Video Duration",
-        required=True
+        
     )
 
 

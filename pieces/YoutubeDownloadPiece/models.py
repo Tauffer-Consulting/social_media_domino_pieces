@@ -12,13 +12,12 @@ class InputModel(BaseModel):
     Input data for YoutubeDownloadPiece
     """
     url: str = Field(
-        description='The url of the video to be downloaded.',
-        required=True
+        description='The url of the video to be downloaded.',  
     )
     output_type: OutputTypeType = Field(
         description='The type of output file to be downloaded.',
         default=OutputTypeType.audio,
-        required=True
+        
     )
 
 

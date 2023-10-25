@@ -32,15 +32,12 @@ class InputModel(BaseModel):
     email_provider: ProviderType = Field(
         description='The email provider to use',
         default=ProviderType.gmail,
-        required=True
     )
     email_receivers: str = Field(
         description='The receivers of the email, as comma-separated values',
-        required=True
     )
     email_subject: str = Field(
-        description='The subject of the email.',
-        required=True
+        description='The subject of the email.',  
     )
     subject_args: Optional[List[InnerArgModel]] = Field(
         default=None,
@@ -48,7 +45,6 @@ class InputModel(BaseModel):
     )
     email_body: str = Field(
         description='The body of the email.',
-        required=True
     )
     body_args: Optional[List[InnerArgModel]] = Field(
         default=None,

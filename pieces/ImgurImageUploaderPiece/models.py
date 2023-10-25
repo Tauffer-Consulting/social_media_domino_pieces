@@ -8,13 +8,10 @@ class InputModel(BaseModel):
     """
     image_path: str = Field(
         description="The path to your image",
-        required=True,
-        
     )
     image_title: Optional[str] = Field(
         default=None,
         description="The title for your image",
-
     )
     image_description: Optional[str] = Field(
         default=None,
