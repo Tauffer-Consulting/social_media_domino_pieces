@@ -5,12 +5,12 @@ import os
 
 
 def run_piece(
-        channel_username: str,
-        max_videos: int = 10,
-        published_at_or_after: date = None,
-        published_at_or_before: date = None,
-        order_by: str = "date",
-        video_duration: str = "any",
+    channel_username: str,
+    max_videos: int = 10,
+    published_at_or_after: date = None,
+    published_at_or_before: date = None,
+    order_by: str = "date",
+    video_duration: str = "any",
 ):
     
     
@@ -48,6 +48,7 @@ def test_youtube_list_videos_piece():
     output = run_piece(
         **piece_kwargs
     )
+
     if piece_kwargs["max_videos"]:
         assert len(output.videos_list) <= piece_kwargs["max_videos"]
     if piece_kwargs["published_at_or_after"]:

@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field, FilePath
+from pydantic import BaseModel, Field
 from enum import Enum
 from typing import List, Optional
 
