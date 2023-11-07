@@ -1,6 +1,40 @@
 {
     "group0": {
         "dependency": {
+            "dockerfile": null,
+            "requirements_file": null
+        },
+        "pieces": [
+            "EmailSenderPiece",
+            "InstagramPostImagePiece",
+            "InstagramGetMediaPiece"
+        ],
+        "secrets": [
+            "APP_SECRET",
+            "APP_ID",
+            "ACCESS_TOKEN",
+            "EMAIL_SENDER_ACCOUNT",
+            "EMAIL_SENDER_PASSWORD"
+        ],
+        "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:0.4.0-group0"
+    },
+    "group1": {
+        "dependency": {
+            "dockerfile": null,
+            "requirements_file": "requirements.txt"
+        },
+        "pieces": [
+            "ImgurDeleteImagePiece",
+            "ImgurImageUploaderPiece"
+        ],
+        "secrets": [
+            "CLIENT_ID",
+            "IMGUR_ACCESS_TOKEN"
+        ],
+        "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:0.4.0-group1"
+    },
+    "group2": {
+        "dependency": {
             "dockerfile": "Dockerfile_youtube",
             "requirements_file": null
         },
@@ -11,40 +45,6 @@
         "secrets": [
             "YOUTUBE_API_KEY"
         ],
-        "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:0.3.1-group0"
-    },
-    "group1": {
-        "dependency": {
-            "dockerfile": null,
-            "requirements_file": null
-        },
-        "pieces": [
-            "InstagramPostImagePiece",
-            "EmailSenderPiece",
-            "InstagramGetMediaPiece"
-        ],
-        "secrets": [
-            "EMAIL_SENDER_PASSWORD",
-            "ACCESS_TOKEN",
-            "APP_ID",
-            "EMAIL_SENDER_ACCOUNT",
-            "APP_SECRET"
-        ],
-        "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:0.3.1-group1"
-    },
-    "group2": {
-        "dependency": {
-            "dockerfile": null,
-            "requirements_file": "requirements.txt"
-        },
-        "pieces": [
-            "ImgurImageUploaderPiece",
-            "ImgurDeleteImagePiece"
-        ],
-        "secrets": [
-            "IMGUR_ACCESS_TOKEN",
-            "CLIENT_ID"
-        ],
-        "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:0.3.1-group2"
+        "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:0.4.0-group2"
     }
 }
