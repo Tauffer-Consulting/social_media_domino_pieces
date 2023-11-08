@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 from enum import Enum
-from typing import List, Optional
+from typing import List, Optional, Union
 
 
 class ProviderType(str, Enum):
@@ -10,19 +10,12 @@ class ProviderType(str, Enum):
     yahoo = "yahoo"
 
 
-class ArgType(str, Enum):
-    string = "string"
-    integer = "integer"
-    float = "float"
-    boolean = "boolean"
-
 class InnerArgModel(BaseModel):
     """
     Inner argument model to use in the body and subject texts
     """
     arg_name: str
-    arg_value: str
-    arg_type: ArgType
+    arg_value: Union[str, int, float, bool]
 
 
 class InputModel(BaseModel):
