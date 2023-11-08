@@ -33,16 +33,6 @@
         },
         "input_schema": {
             "$defs": {
-                "ArgType": {
-                    "enum": [
-                        "string",
-                        "integer",
-                        "float",
-                        "boolean"
-                    ],
-                    "title": "ArgType",
-                    "type": "string"
-                },
                 "InnerArgModel": {
                     "description": "Inner argument model to use in the body and subject texts",
                     "properties": {
@@ -51,17 +41,26 @@
                             "type": "string"
                         },
                         "arg_value": {
-                            "title": "Arg Value",
-                            "type": "string"
-                        },
-                        "arg_type": {
-                            "$ref": "#/$defs/ArgType"
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "integer"
+                                },
+                                {
+                                    "type": "number"
+                                },
+                                {
+                                    "type": "boolean"
+                                }
+                            ],
+                            "title": "Arg Value"
                         }
                     },
                     "required": [
                         "arg_name",
-                        "arg_value",
-                        "arg_type"
+                        "arg_value"
                     ],
                     "title": "InnerArgModel",
                     "type": "object"
