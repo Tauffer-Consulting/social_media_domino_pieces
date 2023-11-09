@@ -863,6 +863,7 @@
             "description": "Input data for YoutubeListVideosPiece",
             "properties": {
                 "channel_username": {
+                    "default": null,
                     "description": "The username of the Youtube channel.",
                     "title": "Channel Username",
                     "type": "string"
@@ -923,9 +924,6 @@
                     "title": "Video Duration"
                 }
             },
-            "required": [
-                "channel_username"
-            ],
             "title": "InputModel",
             "type": "object"
         },
