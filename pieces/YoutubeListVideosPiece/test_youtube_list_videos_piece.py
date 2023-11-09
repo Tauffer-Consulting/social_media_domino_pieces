@@ -38,11 +38,11 @@ def run_piece(
 
 def test_youtube_list_videos_piece():
     piece_kwargs = {
-        "channel_username": "portadosfundos",
+        "channel_username": "bbcnews",
         "max_videos": 20,
-        "published_at_or_after": datetime.strptime("01-01-2015", "%d-%m-%Y").date(),
-        "published_at_or_before": datetime.strptime("01-07-2015", "%d-%m-%Y").date(),
-        "order_by": "viewCount",
+        "published_at_or_after": datetime.strptime("2023-11-01", "%Y-%m-%d").date(),
+        "published_at_or_before": None,
+        "order_by": "date",
         "video_duration": "any",
     }
     output = run_piece(
@@ -50,18 +50,18 @@ def test_youtube_list_videos_piece():
     )
 
     if piece_kwargs["max_videos"]:
-        assert len(output.videos_list) <= piece_kwargs["max_videos"]
+        assert len(output.get("videos_list")) <= piece_kwargs["max_videos"]
     if piece_kwargs["published_at_or_after"]:
-        for video in output.videos_list:
+        for video in output.get("videos_list"):
             published_at = datetime.strptime(video["publishedAt"], "%Y-%m-%dT%H:%M:%SZ").date()
             assert published_at >= piece_kwargs["published_at_or_after"]
     if piece_kwargs["published_at_or_before"]:
-        for video in output.videos_list:
+        for video in output.get("videos_list"):
             published_at = datetime.strptime(video["publishedAt"], "%Y-%m-%dT%H:%M:%SZ").date()
             assert published_at <= piece_kwargs["published_at_or_before"]
     if piece_kwargs["order_by"] == "date":
-        assert output.videos_list == sorted(output.videos_list, key=lambda x: datetime.strptime(x["publishedAt"], "%Y-%m-%dT%H:%M:%SZ"), reverse=True)
+        assert output.get("videos_list") == sorted(output.get("videos_list"), key=lambda x: datetime.strptime(x["publishedAt"], "%Y-%m-%dT%H:%M:%SZ"), reverse=True)
     if piece_kwargs["order_by"] == "title":
-        assert output.videos_list == sorted(output.videos_list, key=lambda x: x["title"])
+        assert output.get("videos_list") == sorted(output.get("videos_list"), key=lambda x: x["title"])
     if piece_kwargs["order_by"] == "viewCount":
-        assert output.videos_list == sorted(output.videos_list, key=lambda x: int(x["viewCount"]), reverse=True)
+        assert output.get("videos_list") == sorted(output.get("videos_list"), key=lambda x: int(x["viewCount"]), reverse=True)

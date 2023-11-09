@@ -30,9 +30,10 @@ class YoutubeListVideosPiece(BasePiece):
             forUsername=channel_username 
         )
         response = request.execute()
+
+        if response.get("pageInfo", {}).get("totalResults", 0) == 0:
+            raise Exception(f"Channel {channel_username} not found")
         channel_id = response["items"][0]["id"]
-
-
         # converting date to RFC 3339 format
         published_after = f"{datetime.isoformat(parser.parse(input_data.published_at_or_after.isoformat()))}Z" if input_data.published_at_or_after else None
         published_before = f"{datetime.isoformat(parser.parse(input_data.published_at_or_before.isoformat()))}Z" if input_data.published_at_or_before else None
@@ -85,9 +86,9 @@ class YoutubeListVideosPiece(BasePiece):
                 "publishedAt": i["snippet"]["publishedAt"],
                 "thumbnail": i["snippet"]["thumbnails"]["default"]["url"],
                 "duration": i["contentDetails"]["duration"],
-                "viewCount": i["statistics"]["viewCount"],
-                "likeCount": i["statistics"]["likeCount"],
-                "commentCount": i["statistics"]["commentCount"],
+                "viewCount": i["statistics"].get("viewCount", 0),
+                "likeCount": i["statistics"].get("likeCount", 0),
+                "commentCount": i["statistics"].get("commentCount", 0),
             })
 
         msg = "Videos listing performed successfully!"

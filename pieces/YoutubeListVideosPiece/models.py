@@ -30,6 +30,7 @@ class InputModel(BaseModel):
     Input data for YoutubeListVideosPiece
     """
     channel_username: str = Field(
+        default=None,
         description='The username of the Youtube channel.',
     )
     max_videos: int = Field(
@@ -81,3 +82,11 @@ class SecretsModel(BaseModel):
         default=None,
         description="The Youtube Data API Key."
     )
+
+
+if __name__ == '__main__':
+    piece_input_kwargs={'channel_username': '', 'max_videos': 10, 'published_at_or_after': '2023-11-08', 'published_at_or_before': None, 'order_by': 'date', 'video_duration': 'any'}
+
+
+    input_model = InputModel(**piece_input_kwargs)
+    print(input_model)
