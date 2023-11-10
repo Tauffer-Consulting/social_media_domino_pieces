@@ -922,6 +922,12 @@
                     "default": "any",
                     "description": "The duration of the video",
                     "title": "Video Duration"
+                },
+                "return_only_urls": {
+                    "default": false,
+                    "description": "If True, only the urls of the videos will be returned",
+                    "title": "Return only urls",
+                    "type": "boolean"
                 }
             },
             "title": "InputModel",
