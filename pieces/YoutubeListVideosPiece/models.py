@@ -56,8 +56,12 @@ class InputModel(BaseModel):
     video_duration: VideoDuration = Field(
         default=VideoDuration.any,
         description='The duration of the video',
-        title="Video Duration",
-        
+        title="Video Duration", 
+    )
+    return_only_urls: bool = Field(
+        default=False,
+        description='If True, only the urls of the videos will be returned',
+        title="Return only urls"
     )
 
 

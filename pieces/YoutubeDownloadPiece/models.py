@@ -16,8 +16,7 @@ class InputModel(BaseModel):
     )
     output_type: OutputTypeType = Field(
         description='The type of output file to be downloaded.',
-        default=OutputTypeType.audio,
-        
+        default=OutputTypeType.audio,  
     )
 
 

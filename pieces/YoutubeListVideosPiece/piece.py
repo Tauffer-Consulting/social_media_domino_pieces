@@ -97,6 +97,12 @@ class YoutubeListVideosPiece(BasePiece):
         # Display result in the Domino GUI
         self.format_display_result(all_videos)
 
+        if input_data.return_only_urls:
+            return OutputModel(
+                message=msg,
+                videos_list=[i["url"] for i in all_videos],
+            )
+    
         return OutputModel(
             message=msg,
             videos_list=all_videos,
