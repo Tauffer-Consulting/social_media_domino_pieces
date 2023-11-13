@@ -7,7 +7,7 @@ import json
 class InstagramGetMediaPiece(BasePiece):
 
     host_domain = 'https://graph.facebook.com/'
-    graph_api_version = 'v15.0'
+    graph_api_version = 'v18.0'
     endpoint_base_path = f'{host_domain}{graph_api_version}/'
 
     @staticmethod
