@@ -64,8 +64,13 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          GIT_STATUS=$(git status -s)
-          [[ ! -z "$GIT_STATUS" ]] && git add .domino/* && git commit -m "auto-organize" -a || echo "No changes to commit" && echo "commit_sha=${{ github.sha }}" >> $GITHUB_ENV
+          if [[ ! -z "$GIT_STATUS" ]]; then
+            git add .domino/* && git commit -m "auto-organize" -a
+            echo "commit_sha=$(git rev-parse HEAD)" >> $GITHUB_ENV
+          else
+            echo "No changes to commit"
+            echo "commit_sha=${{ github.sha }}" >> $GITHUB_ENV
+          fi
 
       - name: Push changes
         uses: ad-m/github-push-action@master
