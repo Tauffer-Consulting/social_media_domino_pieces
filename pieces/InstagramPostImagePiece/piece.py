@@ -94,11 +94,11 @@ class InstagramPostImagePiece(BasePiece):
 
     def piece_function(self, input_data: InputModel, secrets_data: SecretsModel):
         
-        app_id = secrets_data.APP_ID
-        app_secret = secrets_data.APP_SECRET
-        access_token = secrets_data.ACCESS_TOKEN
+        app_id = secrets_data.INSTAGRAM_APP_ID
+        app_secret = secrets_data.INSTAGRAM_APP_SECRET
+        access_token = secrets_data.INSTAGRAM_ACCESS_TOKEN
 
-        long_lived_access_token = secrets_data.ACCESS_TOKEN = self.get_long_lived_access_token(app_id=app_id, app_secret=app_secret, access_token=access_token)
+        long_lived_access_token = secrets_data.INSTAGRAM_ACCESS_TOKEN = self.get_long_lived_access_token(app_id=app_id, app_secret=app_secret, access_token=access_token)
 
         self.logger.info("Getting information about the Instagram Account")
         page_id = self.get_page_id(access_token=long_lived_access_token, facebook_page_name=input_data.facebook_page_name)
