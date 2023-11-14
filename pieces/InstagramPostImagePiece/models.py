@@ -52,7 +52,7 @@ class SecretsModel(BaseModel):
         ...,
         description = "secret from a Facebook App"
     )
-    INSTAGRAM_ACCESS_TOKEN_TEST: str = Field(
+    INSTAGRAM_ACCESS_TOKEN: str = Field(
         ...,
         description="access_token getted from a Facebook App"
     )
