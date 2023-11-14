@@ -44,15 +44,15 @@ class SecretsModel(BaseModel):
     """
     InstagramPostImagePiece secrets model
     """
-    APP_ID: str = Field(
+    INSTAGRAM_APP_ID: str = Field(
         ...,
         description = "ID from a Facebook App"
     )
-    APP_SECRET: str = Field(
+    INSTAGRAM_APP_SECRET: str = Field(
         ...,
         description = "secret from a Facebook App"
     )
-    ACCESS_TOKEN: str = Field(
+    INSTAGRAM_ACCESS_TOKEN: str = Field(
         ...,
         description="access_token getted from a Facebook App"
     )
