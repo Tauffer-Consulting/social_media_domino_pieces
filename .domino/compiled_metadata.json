@@ -728,19 +728,19 @@
             "description": "ImgurImageUploaderPiece output model",
             "properties": {
                 "image_id": {
-                    "default": null,
+                    "default": "",
                     "description": "The image id",
                     "title": "Image Id",
                     "type": "string"
                 },
                 "image_title": {
-                    "default": null,
+                    "default": "",
                     "description": "The image title",
                     "title": "Image Title",
                     "type": "string"
                 },
                 "image_description": {
-                    "default": null,
+                    "default": "",
                     "description": "The image description",
                     "title": "Image Description",
                     "type": "string"
