@@ -304,16 +304,16 @@
                     "title": "Instagram App Secret",
                     "type": "string"
                 },
-                "INSTAGRAM_ACCESS_TOKEN": {
+                "INSTAGRAM_ACCESS_TOKEN_TEST": {
                     "description": "access_token getted from a Facebook App",
-                    "title": "Instagram Access Token",
+                    "title": "Instagram Access Token Test",
                     "type": "string"
                 }
             },
             "required": [
                 "INSTAGRAM_APP_ID",
                 "INSTAGRAM_APP_SECRET",
-                "INSTAGRAM_ACCESS_TOKEN"
+                "INSTAGRAM_ACCESS_TOKEN_TEST"
             ],
             "title": "SecretsModel",
             "type": "object"
