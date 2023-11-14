@@ -44,15 +44,15 @@ class OutputModel(BaseModel):
     ImgurImageUploaderPiece output model
     """
     image_id: str = Field(
-        default=None,
+        default="",
         description="The image id",
     )
     image_title: str = Field(
-        default=None,
+        default="",
         description="The image title",
     )
     image_description: str = Field(
-        default=None,
+        default="",
         description="The image description",
     )
     image_delete_hash: str = Field(
