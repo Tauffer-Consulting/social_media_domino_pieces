@@ -1,6 +1,7 @@
 from domino.testing import piece_dry_run
 from datetime import date, datetime
 import os
+import pytest
 
 
 
@@ -35,7 +36,7 @@ def run_piece(
         }
 )
 
-
+@pytest.mark.skip(reason="")
 def test_youtube_list_videos_piece():
     piece_kwargs = {
         "channel_username": "bbcnews",

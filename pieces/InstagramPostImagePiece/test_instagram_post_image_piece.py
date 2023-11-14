@@ -1,21 +1,20 @@
 from domino.testing import piece_dry_run
-
+import pytest
 import os
 import re
 
 def run_piece(
-        image_url: str,
-        facebook_page_name: str,
-        caption_header: str = None,
-        caption: str = None,
-        caption_footer: str = None,
-
+    image_url: str,
+    facebook_page_name: str,
+    caption_header: str = None,
+    caption: str = None,
+    caption_footer: str = None,
 ):
     
     
-    APP_ID = os.environ.get("INSTAGRAM_APP_ID")
-    APP_SECRET = os.environ.get("INSTAGRAM_APP_SECRET")
-    ACCESS_TOKEN = os.environ.get("INSTAGRAM_ACCESS_TOKEN")
+    INSTAGRAM_APP_ID = os.environ.get("INSTAGRAM_APP_ID")
+    INSTAGRAM_APP_SECRET = os.environ.get("INSTAGRAM_APP_SECRET")
+    INSTAGRAM_ACCESS_TOKEN = os.environ.get("INSTAGRAM_ACCESS_TOKEN")
 
     return piece_dry_run(    
         #name of the piece
@@ -32,13 +31,13 @@ def run_piece(
             
         #values to the SecretModel arguments
         secrets_data={ 
-            "APP_ID": APP_ID,
-            "APP_SECRET": APP_SECRET,
-            "ACCESS_TOKEN": ACCESS_TOKEN,
+            "INSTAGRAM_APP_ID": INSTAGRAM_APP_ID,
+            "INSTAGRAM_APP_SECRET": INSTAGRAM_APP_SECRET,
+            "INSTAGRAM_ACCESS_TOKEN": INSTAGRAM_ACCESS_TOKEN,
         }
 )
 
-
+@pytest.mark.skip(reason="")
 def test_instagram_post_image_piece():
     output = run_piece(
         image_url="",

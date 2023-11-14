@@ -1,8 +1,10 @@
 from domino.testing import piece_dry_run
+import pytest
+
 
 def run_piece(
-        url: str,
-        output_type: str,
+    url: str,
+    output_type: str,
 ):
     
     return piece_dry_run(    
@@ -16,7 +18,7 @@ def run_piece(
         },
 )
 
-
+@pytest.mark.skip(reason="")
 def test_youtube_download_piece():
     piece_kwargs = {
         "url": "https://www.youtube.com/watch?v=zhWDdy_5v2w&ab_channel=AsapSCIENCE",

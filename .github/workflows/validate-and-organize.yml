@@ -41,18 +41,14 @@ jobs:
         run: |
           domino piece organize --build-images --source-url=https://github.com/${{github.repository}}
 
-      # - name: Run tests over built images
-      #   run: |
-      #     pytest --cov=pieces --cov-report=xml --cov-report=term-missing
-      
-      # - name: Upload coverage reports to Codecov
-      #   uses: codecov/codecov-action@v3
-      #   env:
-      #     CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-
-      - name: Skipping tests
+      - name: Run tests over built images
         run: |
-          echo 'Skipping tests'
+          pytest --cov=pieces --cov-report=xml --cov-report=term-missing
+      
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       
       - name: Publish images
         env:
