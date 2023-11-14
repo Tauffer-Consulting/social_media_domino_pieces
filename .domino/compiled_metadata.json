@@ -766,14 +766,14 @@
         "secrets_schema": {
             "description": "ImgurImageUploaderPiece secrets model",
             "properties": {
-                "CLIENT_ID": {
+                "IMGUR_CLIENT_ID": {
                     "description": "The Imgur app client ID",
-                    "title": "Client Id",
+                    "title": "Imgur Client Id",
                     "type": "string"
                 }
             },
             "required": [
-                "CLIENT_ID"
+                "IMGUR_CLIENT_ID"
             ],
             "title": "SecretsModel",
             "type": "object"
