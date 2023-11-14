@@ -236,44 +236,20 @@
                     "title": "Image Url",
                     "type": "string"
                 },
-                "caption_header": {
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "description": "optional header of the caption",
-                    "title": "Caption Header"
-                },
                 "caption": {
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
+                    "default": "",
                     "description": "post caption",
-                    "title": "Caption"
+                    "title": "Caption",
+                    "type": "string"
                 },
-                "caption_footer": {
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "description": "optional footer of the caption",
-                    "title": "Caption Footer"
+                "hashtags": {
+                    "default": [],
+                    "description": "Optional hashtags to attach to caption footer",
+                    "items": {
+                        "type": "string"
+                    },
+                    "title": "Hashtags",
+                    "type": "array"
                 },
                 "facebook_page_name": {
                     "description": "Facebook page connected to the Instagram account",
@@ -318,26 +294,26 @@
         "secrets_schema": {
             "description": "InstagramPostImagePiece secrets model",
             "properties": {
-                "APP_ID": {
+                "INSTAGRAM_APP_ID": {
                     "description": "ID from a Facebook App",
-                    "title": "App Id",
+                    "title": "Instagram App Id",
                     "type": "string"
                 },
-                "APP_SECRET": {
+                "INSTAGRAM_APP_SECRET": {
                     "description": "secret from a Facebook App",
-                    "title": "App Secret",
+                    "title": "Instagram App Secret",
                     "type": "string"
                 },
-                "ACCESS_TOKEN": {
+                "INSTAGRAM_ACCESS_TOKEN": {
                     "description": "access_token getted from a Facebook App",
-                    "title": "Access Token",
+                    "title": "Instagram Access Token",
                     "type": "string"
                 }
             },
             "required": [
-                "APP_ID",
-                "APP_SECRET",
-                "ACCESS_TOKEN"
+                "INSTAGRAM_APP_ID",
+                "INSTAGRAM_APP_SECRET",
+                "INSTAGRAM_ACCESS_TOKEN"
             ],
             "title": "SecretsModel",
             "type": "object"
@@ -478,26 +454,26 @@
         "secrets_schema": {
             "description": "Get Instagram Media Secrets",
             "properties": {
-                "APP_ID": {
+                "INSTAGRAM_APP_ID": {
                     "description": "ID from a Facebook App",
-                    "title": "App Id",
+                    "title": "Instagram App Id",
                     "type": "string"
                 },
-                "APP_SECRET": {
-                    "description": "secret from a Facebook App",
-                    "title": "App Secret",
+                "INSTAGRAM_APP_SECRET": {
+                    "description": "Facebook app secret",
+                    "title": "Instagram App Secret",
                     "type": "string"
                 },
-                "ACCESS_TOKEN": {
-                    "description": "access_token getted from a Facebook App",
-                    "title": "Access Token",
+                "INSTAGRAM_ACCESS_TOKEN": {
+                    "description": "Long lived token from a Facebook App",
+                    "title": "Instagram Access Token",
                     "type": "string"
                 }
             },
             "required": [
-                "APP_ID",
-                "APP_SECRET",
-                "ACCESS_TOKEN"
+                "INSTAGRAM_APP_ID",
+                "INSTAGRAM_APP_SECRET",
+                "INSTAGRAM_ACCESS_TOKEN"
             ],
             "title": "SecretsModel",
             "type": "object"
