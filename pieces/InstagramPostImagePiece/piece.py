@@ -105,8 +105,10 @@ class InstagramPostImagePiece(BasePiece):
 
         instagram_business_account = self.get_instagram_business_account(access_token=long_lived_access_token, page_id=page_id)
 
-        caption = f"{input_data.caption_header}\n{input_data.caption}" if input_data.caption_header else input_data.caption
-        caption += f"\n{input_data.caption_footer}" if input_data.caption_footer else ""
+        caption = input_data.caption
+        joined_hashtags = " ".join(input_data.hashtags).strip()
+        if joined_hashtags:
+            caption += f"\n\n{joined_hashtags}"
 
         self.logger.info("Creating the post")        
         container_id = self.create_container(access_token=long_lived_access_token, instagram_business_account=instagram_business_account, image_url=input_data.image_url, caption=caption)
