@@ -80,9 +80,9 @@ class SecretsModel(BaseModel):
     )
     INSTAGRAM_APP_SECRET: str = Field(
         ...,
-        description = "secret from a Facebook App"
+        description = "Facebook app secret"
     )
     INSTAGRAM_ACCESS_TOKEN: str = Field(
         ...,
-        description="access_token getted from a Facebook App"
+        description="Long lived token from a Facebook App"
     )
