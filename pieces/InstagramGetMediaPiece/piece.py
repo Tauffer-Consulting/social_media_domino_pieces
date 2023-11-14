@@ -73,9 +73,9 @@ class InstagramGetMediaPiece(BasePiece):
 
     def piece_function(self, input_data: InputModel, secrets_data: SecretsModel):
         
-        app_id = secrets_data.APP_ID
-        app_secret = secrets_data.APP_SECRET
-        access_token = secrets_data.ACCESS_TOKEN
+        app_id = secrets_data.INSTAGRAM_APP_ID
+        app_secret = secrets_data.INSTAGRAM_APP_SECRET
+        access_token = secrets_data.INSTAGRAM_ACCESS_TOKEN
 
         fields = {
             "id_field": "id", 
@@ -91,7 +91,7 @@ class InstagramGetMediaPiece(BasePiece):
         inputs = json.loads(input_data.json())
         selected_fields = [fields.get(key) for key, value in inputs.items() if value == True]
 
-        long_lived_access_token = secrets_data.ACCESS_TOKEN = self.get_long_lived_access_token(app_id=app_id, app_secret=app_secret, access_token=access_token)
+        long_lived_access_token = secrets_data.INSTAGRAM_ACCESS_TOKEN = self.get_long_lived_access_token(app_id=app_id, app_secret=app_secret, access_token=access_token)
         page_id = self.get_page_id(access_token=long_lived_access_token, facebook_page_name=input_data.facebook_page_name)
         instagram_business_account = self.get_instagram_business_account(access_token=long_lived_access_token, page_id=page_id)
         media_list = self.get_media_list(access_token=long_lived_access_token, instagram_business_account=instagram_business_account, media_fields=selected_fields)

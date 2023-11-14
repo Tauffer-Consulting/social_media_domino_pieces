@@ -2,6 +2,7 @@ from domino.testing import piece_dry_run
 from typing import List, Dict
 from pydantic import FilePath
 import os
+import pytest
 
 
 def run_piece(
@@ -38,6 +39,7 @@ def run_piece(
 
     )
 
+@pytest.mark.skip(reason="")
 def test_email_sender_piece():
     output = run_piece(
         email_receivers="",

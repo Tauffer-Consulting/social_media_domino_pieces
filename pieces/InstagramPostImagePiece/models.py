@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import Optional
+from typing import Optional, List
 
 
 class InputModel(BaseModel):
@@ -10,17 +10,13 @@ class InputModel(BaseModel):
         ...,
         description="public URL of the image",
     )
-    caption_header: Optional[str] = Field(
-        default=None,
-        description="optional header of the caption"
-    )
-    caption: Optional[str] = Field(
-        default = None,
+    caption: str = Field(
+        default="",
         description="post caption"
     )
-    caption_footer: Optional[str] = Field(
-        default=None,
-        description="optional footer of the caption"
+    hashtags: List[str] = Field(
+        default=[],
+        description="Optional hashtags to attach to caption footer"
     )
     facebook_page_name: str = Field(
         ...,
@@ -48,15 +44,15 @@ class SecretsModel(BaseModel):
     """
     InstagramPostImagePiece secrets model
     """
-    APP_ID: str = Field(
+    INSTAGRAM_APP_ID: str = Field(
         ...,
         description = "ID from a Facebook App"
     )
-    APP_SECRET: str = Field(
+    INSTAGRAM_APP_SECRET: str = Field(
         ...,
         description = "secret from a Facebook App"
     )
-    ACCESS_TOKEN: str = Field(
+    INSTAGRAM_ACCESS_TOKEN: str = Field(
         ...,
         description="access_token getted from a Facebook App"
     )

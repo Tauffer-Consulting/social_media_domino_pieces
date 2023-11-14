@@ -8,7 +8,7 @@ import json
 
 class ImgurImageUploaderPiece(BasePiece):
     def piece_function(self, input_data: InputModel, secrets_data: SecretsModel):
-        client_id = secrets_data.CLIENT_ID
+        client_id = secrets_data.IMGUR_CLIENT_ID
 
         with open(input_data.image_path, "rb") as image_file:
             encoded_string = base64.b64encode(image_file.read())
@@ -42,7 +42,7 @@ class ImgurImageUploaderPiece(BasePiece):
             "url_as_output":{"imgur_param":"link", "output_model_param":"image_url"},
         }
 
-        input_data_args = json.loads(input_data.json())
+        input_data_args = json.loads(input_data.model_dump_json())
         selected_output_params = {key:output_map[key]["imgur_param"] for key, value in input_data_args.items() if value==True}
         output_kwargs = {output_map[key]["output_model_param"]:image_data["data"][value] for key, value in selected_output_params.items()}
 

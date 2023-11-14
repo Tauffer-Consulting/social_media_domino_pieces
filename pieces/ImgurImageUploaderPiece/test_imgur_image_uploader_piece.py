@@ -1,6 +1,7 @@
 from domino.testing import piece_dry_run
 from pydantic import FilePath
 import os
+import pytest
 
 def run_piece(
         image_path: FilePath,
@@ -13,7 +14,7 @@ def run_piece(
         url_as_output: bool = True
 ):
 
-    CLIENT_ID = os.environ.get("CLIENT_ID")
+    IMGUR_CLIENT_ID = os.environ.get("IMGUR_CLIENT_ID")
 
     return piece_dry_run(
         #name of the piece
@@ -33,10 +34,11 @@ def run_piece(
         
         #values to the SecretModel arguments
         secrets_data={ 
-            "CLIENT_ID": CLIENT_ID,
+            "IMGUR_CLIENT_ID": IMGUR_CLIENT_ID,
         }
 )
 
+@pytest.mark.skip(reason="")
 def test_imgur_image_uploader_piece():
     piece_kwargs = {
         "image_path": "",

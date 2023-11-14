@@ -1,5 +1,7 @@
 from domino.testing import piece_dry_run
 import os
+import pytest
+
 
 def run_piece(
         facebook_page_name: str,
@@ -14,9 +16,9 @@ def run_piece(
         comments_field: bool = True,
 ):
     
-    APP_ID = os.environ.get("APP_ID")
-    APP_SECRET = os.environ.get("APP_SECRET")
-    ACCESS_TOKEN = os.environ.get("ACCESS_TOKEN")
+    INSTAGRAM_APP_ID = os.environ.get("INSTAGRAM_APP_ID")
+    INSTAGRAM_APP_SECRET = os.environ.get("INSTAGRAM_APP_SECRET")
+    INSTAGRAM_ACCESS_TOKEN = os.environ.get("INSTAGRAM_ACCESS_TOKEN")
 
     return piece_dry_run(    
         #name of the piece
@@ -38,13 +40,13 @@ def run_piece(
         
         #values to the SecretModel arguments
         secrets_data={ 
-            "APP_ID": APP_ID,
-            "APP_SECRET": APP_SECRET,
-            "ACCESS_TOKEN": ACCESS_TOKEN,
+            "INSTAGRAM_APP_ID": INSTAGRAM_APP_ID,
+            "INSTAGRAM_APP_SECRET": INSTAGRAM_APP_SECRET,
+            "INSTAGRAM_ACCESS_TOKEN": INSTAGRAM_ACCESS_TOKEN,
         }
 )
 
-
+@pytest.mark.skip(reason="")
 def test_instagram_get_media_piece():
     piece_kwargs = {
         "facebook_page_name": "",

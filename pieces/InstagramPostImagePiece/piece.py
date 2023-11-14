@@ -94,19 +94,21 @@ class InstagramPostImagePiece(BasePiece):
 
     def piece_function(self, input_data: InputModel, secrets_data: SecretsModel):
         
-        app_id = secrets_data.APP_ID
-        app_secret = secrets_data.APP_SECRET
-        access_token = secrets_data.ACCESS_TOKEN
+        app_id = secrets_data.INSTAGRAM_APP_ID
+        app_secret = secrets_data.INSTAGRAM_APP_SECRET
+        access_token = secrets_data.INSTAGRAM_ACCESS_TOKEN
 
-        long_lived_access_token = secrets_data.ACCESS_TOKEN = self.get_long_lived_access_token(app_id=app_id, app_secret=app_secret, access_token=access_token)
+        long_lived_access_token  = self.get_long_lived_access_token(app_id=app_id, app_secret=app_secret, access_token=access_token)
 
         self.logger.info("Getting information about the Instagram Account")
         page_id = self.get_page_id(access_token=long_lived_access_token, facebook_page_name=input_data.facebook_page_name)
 
         instagram_business_account = self.get_instagram_business_account(access_token=long_lived_access_token, page_id=page_id)
 
-        caption = f"{input_data.caption_header}\n{input_data.caption}" if input_data.caption_header else input_data.caption
-        caption += f"\n{input_data.caption_footer}" if input_data.caption_footer else ""
+        caption = input_data.caption
+        joined_hashtags = " ".join(input_data.hashtags).strip()
+        if joined_hashtags:
+            caption += f"\n\n{joined_hashtags}"
 
         self.logger.info("Creating the post")        
         container_id = self.create_container(access_token=long_lived_access_token, instagram_business_account=instagram_business_account, image_url=input_data.image_url, caption=caption)

@@ -10,13 +10,13 @@
             "InstagramGetMediaPiece"
         ],
         "secrets": [
-            "APP_ID",
-            "APP_SECRET",
-            "EMAIL_SENDER_PASSWORD",
+            "INSTAGRAM_APP_SECRET",
+            "INSTAGRAM_ACCESS_TOKEN",
             "EMAIL_SENDER_ACCOUNT",
-            "ACCESS_TOKEN"
+            "EMAIL_SENDER_PASSWORD",
+            "INSTAGRAM_APP_ID"
         ],
-        "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:0.4.4-group0"
+        "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:dev-group0"
     },
     "group1": {
         "dependency": {
@@ -29,9 +29,9 @@
         ],
         "secrets": [
             "IMGUR_ACCESS_TOKEN",
-            "CLIENT_ID"
+            "IMGUR_CLIENT_ID"
         ],
-        "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:0.4.4-group1"
+        "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:dev-group1"
     },
     "group2": {
         "dependency": {
@@ -45,6 +45,6 @@
         "secrets": [
             "YOUTUBE_API_KEY"
         ],
-        "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:0.4.4-group2"
+        "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:dev-group2"
     }
 }
