@@ -8,7 +8,7 @@ import json
 
 class ImgurImageUploaderPiece(BasePiece):
     def piece_function(self, input_data: InputModel, secrets_data: SecretsModel):
-        client_id = secrets_data.CLIENT_ID
+        client_id = secrets_data.IMGUR_CLIENT_ID
 
         with open(input_data.image_path, "rb") as image_file:
             encoded_string = base64.b64encode(image_file.read())

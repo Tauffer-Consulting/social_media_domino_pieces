@@ -5,7 +5,7 @@ def run_piece(
         image_delete_hash: str
 ):
     
-    ACCESS_TOKEN = os.environ.get("ACESS_TOKEN")
+    ACCESS_TOKEN = os.environ.get("IMGUR_ACESS_TOKEN")
 
     return piece_dry_run(
         #name of the piece

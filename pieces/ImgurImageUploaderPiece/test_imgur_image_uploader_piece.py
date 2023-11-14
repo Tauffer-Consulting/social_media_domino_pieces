@@ -13,7 +13,7 @@ def run_piece(
         url_as_output: bool = True
 ):
 
-    CLIENT_ID = os.environ.get("CLIENT_ID")
+    CLIENT_ID = os.environ.get("IMGUR_CLIENT_ID")
 
     return piece_dry_run(
         #name of the piece

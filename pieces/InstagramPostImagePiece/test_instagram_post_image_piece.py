@@ -13,9 +13,9 @@ def run_piece(
 ):
     
     
-    APP_ID = os.environ.get("APP_ID")
-    APP_SECRET = os.environ.get("APP_SECRET")
-    ACCESS_TOKEN = os.environ.get("ACCESS_TOKEN")
+    APP_ID = os.environ.get("INSTAGRAM_APP_ID")
+    APP_SECRET = os.environ.get("INSTAGRAM_APP_SECRET")
+    ACCESS_TOKEN = os.environ.get("INSTAGRAM_ACCESS_TOKEN")
 
     return piece_dry_run(    
         #name of the piece
