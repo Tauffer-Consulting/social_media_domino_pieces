@@ -935,12 +935,14 @@
             "description": "Secrets data for YoutubeListVideosPiece",
             "properties": {
                 "YOUTUBE_API_KEY": {
-                    "default": null,
                     "description": "The Youtube Data API Key.",
                     "title": "Youtube Api Key",
                     "type": "string"
                 }
             },
+            "required": [
+                "YOUTUBE_API_KEY"
+            ],
             "title": "SecretsModel",
             "type": "object"
         },
