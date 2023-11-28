@@ -17,9 +17,9 @@ class VideoDuration(str, Enum):
     """
     The duration of the video.
     """
-    any = "any" 
+    any = "any"
     # Only include videos longer than 20 minutes
-    long = "long" 
+    long = "long"
     # Only include videos that are between 4 and 20 minutes long (inclusive)
     medium = "medium"
     # Only include videos that are less than four minutes long
@@ -37,7 +37,7 @@ class InputModel(BaseModel):
         default=10,
         description='The maximum number of videos to be returned',
         gt=0,
-        
+
     )
     published_at_or_after: Optional[date] = Field(
         default=None,
@@ -51,12 +51,12 @@ class InputModel(BaseModel):
         default=OrderBy.date,
         description='The order in which the videos are returned',
         title="Order By",
-        
+
     )
     video_duration: VideoDuration = Field(
         default=VideoDuration.any,
         description='The duration of the video',
-        title="Video Duration", 
+        title="Video Duration",
     )
     return_only_urls: bool = Field(
         default=False,
@@ -83,14 +83,5 @@ class SecretsModel(BaseModel):
     Secrets data for YoutubeListVideosPiece
     """
     YOUTUBE_API_KEY: str = Field(
-        default=None,
         description="The Youtube Data API Key."
     )
-
-
-if __name__ == '__main__':
-    piece_input_kwargs={'channel_username': '', 'max_videos': 10, 'published_at_or_after': '2023-11-08', 'published_at_or_before': None, 'order_by': 'date', 'video_duration': 'any'}
-
-
-    input_model = InputModel(**piece_input_kwargs)
-    print(input_model)
