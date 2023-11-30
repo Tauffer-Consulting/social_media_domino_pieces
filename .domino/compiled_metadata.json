@@ -330,12 +330,12 @@
         "container_resources": {
             "use_gpu": false,
             "requests": {
-                "cpu": "100m",
-                "memory": "100Mi"
+                "cpu": 100,
+                "memory": 100
             },
             "limits": {
-                "cpu": "500m",
-                "memory": "200Mi"
+                "cpu": 500,
+                "memory": 200
             }
         },
         "input_schema": {
@@ -535,12 +535,12 @@
         "description": "Downloads content from youtube videos as audio or video files.",
         "container_resources": {
             "requests": {
-                "cpu": "100m",
-                "memory": "128Mi"
+                "cpu": 100,
+                "memory": 128
             },
             "limits": {
-                "cpu": "500m",
-                "memory": "512Mi"
+                "cpu": 500,
+                "memory": 512
             }
         },
         "input_schema": {
@@ -802,12 +802,12 @@
         "description": "List videos from youtube channel.",
         "container_resources": {
             "requests": {
-                "cpu": "100m",
-                "memory": "128Mi"
+                "cpu": 100,
+                "memory": 128
             },
             "limits": {
-                "cpu": "500m",
-                "memory": "512Mi"
+                "cpu": 500,
+                "memory": 512
             }
         },
         "input_schema": {
