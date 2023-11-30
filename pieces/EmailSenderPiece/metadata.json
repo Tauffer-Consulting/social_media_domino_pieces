@@ -4,12 +4,12 @@
     "container_resources": {
         "use_gpu": false,
         "requests": {
-            "cpu": "100m",
-            "memory": "100Mi"
+            "cpu": 100,
+            "memory": 100
         },
         "limits": {
-            "cpu": "500m",
-            "memory": "200Mi"
+            "cpu": 500,
+            "memory": 200
         }
     },
     "style": {
