@@ -8,6 +8,7 @@ from typing import Union
 import ssl
 import smtplib
 import os
+from pathlib import Path
 
 
 servers = {
@@ -40,7 +41,15 @@ class EmailSenderPiece(BasePiece):
         str_email_receivers = input_data.email_receivers
 
         email_subject = input_data.email_subject.format(**{arg.arg_name: arg.arg_value for arg in input_data.subject_args}) if input_data.subject_args else input_data.email_subject
-        email_body = input_data.email_body.format(**{arg.arg_name: arg.arg_value for arg in input_data.body_args}) if input_data.body_args else input_data.email_body
+
+        # Check if body is a file path, if so, read the file and use its content as the email body
+        if Path(input_data.email_body).exists():
+            with open(input_data.email_body, "r") as f:
+                plain_email_body = f.read()
+        else:
+            plain_email_body = input_data.email_body
+
+        email_body = plain_email_body.format(**{arg.arg_name: arg.arg_value for arg in input_data.body_args}) if input_data.body_args else plain_email_body
 
         email_attachment = input_data.attachment_path
 
@@ -55,7 +64,7 @@ class EmailSenderPiece(BasePiece):
             attachment = self.create_attachment(email_attachment)
             email_message.attach(attachment)
 
-        context = ssl.create_default_context()        
+        context = ssl.create_default_context()
         self.logger.info("Sending email")
         try:
             with smtplib.SMTP_SSL(email_server, 465, context=context) as service:
@@ -72,7 +81,7 @@ class EmailSenderPiece(BasePiece):
             error = str(e)
             print(error)
             raise e
-        
+
         self.format_display_result(email_account, str_email_receivers, email_subject, email_body, email_attachment)
 
         return OutputModel(
@@ -80,17 +89,17 @@ class EmailSenderPiece(BasePiece):
             success=success,
             error=error
         )
-    
+
     def format_display_result(self, email_account: str, str_email_receivers: str, email_subject: str, email_body: str, email_attachment_path: Union[str, None]):
         md_text = f"""
 ## Email Sender:  \n
 {email_account}  \n
-## Email Receivers:  \n 
+## Email Receivers:  \n
 {str_email_receivers}  \n
 ## Email Subject:  \n
 {email_subject}  \n
 ## Email Body:  \n
-{email_body}  \n 
+{email_body}  \n
 """
         if  email_attachment_path:
             md_text += f"""## Email Attachment File Name:  \n{os.path.basename(email_attachment_path)}  \n"""
