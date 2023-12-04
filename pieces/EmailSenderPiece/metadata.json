@@ -5,7 +5,7 @@
         "use_gpu": false,
         "requests": {
             "cpu": 100,
-            "memory": 100
+            "memory": 128
         },
         "limits": {
             "cpu": 500,
