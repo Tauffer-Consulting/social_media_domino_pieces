@@ -86,6 +86,9 @@ class InstagramGetMediaPiece(BasePiece):
         else:
             output_data = [i for i in response['json_content']['data'] if i['media_type'] == filter_media_type.value]
 
+        if not output_data:
+            return output_data
+
         while response['json_content'].get('paging').get('next') and len(output_data) < max_items:
             response = cls.make_api_call(url=response['json_content']['paging']['next'], endpoint_query_params='', request_method='get')
 
@@ -107,8 +110,6 @@ class InstagramGetMediaPiece(BasePiece):
         filter_media_type = input_data.filter_media_type
         if filter_media_type != "ALL":
             input_data.media_type_field = True
-
-
 
         fields = {
             "id_field": "id",
@@ -155,13 +156,14 @@ class InstagramGetMediaPiece(BasePiece):
                 selected_media[field] = value
             selected_media_fields.append(selected_media)
 
+        # API Default order is date descending
         # Order results by like_count
         if input_data.order_by.value == OrderBy.like_count.value:
             selected_media_fields = sorted(selected_media_fields, key=lambda x: x['like_count'], reverse=True)
+        # Order by comments_count
         elif input_data.order_by.value == OrderBy.comments.value:
             selected_media_fields = sorted(selected_media_fields, key=lambda x: len(x.get('comments', {}).get('data', [])), reverse=True)
-        elif input_data.order_by.value == OrderBy.timestamp.value:
-            selected_media_fields = sorted(selected_media_fields, key=lambda x: x['timestamp'], reverse=True)
+
 
 
         #selected_media_fields = [dict((field, value) for field, value in media.items() if field in selected_fields) for media in media_list]
