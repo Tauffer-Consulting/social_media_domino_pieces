@@ -5,35 +5,20 @@
             "requirements_file": null
         },
         "pieces": [
-            "InstagramGetMediaPiece",
             "EmailSenderPiece",
-            "InstagramPostImagePiece"
+            "InstagramPostImagePiece",
+            "InstagramGetMediaPiece"
         ],
         "secrets": [
+            "INSTAGRAM_APP_ID",
             "EMAIL_SENDER_ACCOUNT",
             "INSTAGRAM_ACCESS_TOKEN",
             "EMAIL_SENDER_PASSWORD",
-            "INSTAGRAM_APP_ID",
             "INSTAGRAM_APP_SECRET"
         ],
-        "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:0.5.2-group0"
+        "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:dev-group0"
     },
     "group1": {
-        "dependency": {
-            "dockerfile": null,
-            "requirements_file": "requirements.txt"
-        },
-        "pieces": [
-            "ImgurImageUploaderPiece",
-            "ImgurDeleteImagePiece"
-        ],
-        "secrets": [
-            "IMGUR_ACCESS_TOKEN",
-            "IMGUR_CLIENT_ID"
-        ],
-        "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:0.5.2-group1"
-    },
-    "group2": {
         "dependency": {
             "dockerfile": "Dockerfile_youtube",
             "requirements_file": null
@@ -45,6 +30,21 @@
         "secrets": [
             "YOUTUBE_API_KEY"
         ],
-        "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:0.5.2-group2"
+        "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:dev-group1"
+    },
+    "group2": {
+        "dependency": {
+            "dockerfile": null,
+            "requirements_file": "requirements.txt"
+        },
+        "pieces": [
+            "ImgurImageUploaderPiece",
+            "ImgurDeleteImagePiece"
+        ],
+        "secrets": [
+            "IMGUR_CLIENT_ID",
+            "IMGUR_ACCESS_TOKEN"
+        ],
+        "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:dev-group2"
     }
 }
