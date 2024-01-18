@@ -1,5 +1,5 @@
 from domino.base_piece import BasePiece
-from .models import InputModel, OutputModel, SecretsModel
+from .models import InputModel, OutputModel, SecretsModel, FilterMediaTypes
 from typing import List, Optional
 from datetime import date, datetime, time as dt_time
 import requests
@@ -69,7 +69,8 @@ class InstagramGetMediaPiece(BasePiece):
         instagram_business_account: str,
         media_fields: List,
         max_items: int,
-        since_timestamp: Optional[int] = None
+        since_timestamp: Optional[int] = None,
+        filter_media_type: FilterMediaTypes = FilterMediaTypes.ALL
     ):
         url = f'{cls.endpoint_base_path}{instagram_business_account}/media'
         str_fields = ','.join(media_fields)
@@ -83,6 +84,11 @@ class InstagramGetMediaPiece(BasePiece):
         output_data = response['json_content']['data']
         while response['json_content'].get('paging').get('next') and len(output_data) < max_items:
             response = cls.make_api_call(url=response['json_content']['paging']['next'], endpoint_query_params='', request_method='get')
+
+            if filter_media_type != FilterMediaTypes.ALL:
+                output_data += [i for i in response['json_content']['data'] if i['media_type'] == filter_media_type.value]
+                continue
+
             output_data += response['json_content']['data']
 
         return output_data
@@ -96,10 +102,15 @@ class InstagramGetMediaPiece(BasePiece):
         # order_by: - likes, comments, date, etc
         #
 
-
         app_id = secrets_data.INSTAGRAM_APP_ID
         app_secret = secrets_data.INSTAGRAM_APP_SECRET
         access_token = secrets_data.INSTAGRAM_ACCESS_TOKEN
+
+        # Force API to return media_type
+        user_selected_media_type_field = input_data.media_type_field
+        filter_media_type = input_data.filter_media_type
+        if filter_media_type != "ALL":
+            input_data.media_type_field = True
 
         fields = {
             "id_field": "id",
@@ -130,9 +141,20 @@ class InstagramGetMediaPiece(BasePiece):
             media_fields=selected_fields,
             max_items=input_data.max_items,
             since_timestamp=since_timestamp,
+            filter_media_type=filter_media_type
         )
 
-        selected_media_fields = [dict((field, value) for field, value in media.items() if field in selected_fields) for media in media_list]
+        selected_media_fields = []
+        for media in media_list:
+            selected_media = {}
+            for field, value in media.items():
+                if (field == 'media_type' and not user_selected_media_type_field) or field not in selected_fields:
+                    continue
+                selected_media[field] = value
+            selected_media_fields.append(selected_media)
+
+
+        #selected_media_fields = [dict((field, value) for field, value in media.items() if field in selected_fields) for media in media_list]
 
         # Display result in the Domino GUI
         self.format_display_result(input_data, selected_media_fields)
