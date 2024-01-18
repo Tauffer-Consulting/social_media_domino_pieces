@@ -1,7 +1,7 @@
 from domino.base_piece import BasePiece
 from .models import InputModel, OutputModel, SecretsModel
 from typing import List, Optional
-from datetime import date, datetime
+from datetime import date, datetime, time as dt_time
 import requests
 import json
 
@@ -107,24 +107,24 @@ class InstagramGetMediaPiece(BasePiece):
             "comments_field": "comments"
         }
 
-        inputs = json.loads(input_data.model_dump())
+        inputs = json.loads(input_data.model_dump_json())
         selected_fields = [fields.get(key) for key, value in inputs.items() if value == True]
 
         long_lived_access_token = secrets_data.INSTAGRAM_ACCESS_TOKEN = self.get_long_lived_access_token(app_id=app_id, app_secret=app_secret, access_token=access_token)
         page_id = self.get_page_id(access_token=long_lived_access_token, facebook_page_name=input_data.facebook_page_name)
         instagram_business_account = self.get_instagram_business_account(access_token=long_lived_access_token, page_id=page_id)
 
-        #since_timestamp = None
-        #if input_data.after_publish_date:
-            #since_timestamp = int(datetime.timestamp(input_data.after_publish_date))
-
+        since_timestamp = None
+        if input_data.after_publish_date:
+            datetime_publish_date = datetime.combine(input_data.after_publish_date, dt_time(0, 0, 0))
+            since_timestamp = int(datetime_publish_date.timestamp())
 
         media_list = self.get_media_list(
             access_token=long_lived_access_token,
             instagram_business_account=instagram_business_account,
             media_fields=selected_fields,
             max_items=input_data.max_items,
-            after_publish_date=input_data.after_publish_date,
+            since_timestamp=since_timestamp,
         )
 
         selected_media_fields = [dict((field, value) for field, value in media.items() if field in selected_fields) for media in media_list]
