@@ -81,7 +81,11 @@ class InstagramGetMediaPiece(BasePiece):
 
         response = cls.make_api_call(url=url, endpoint_query_params=endpoint_query_params, request_method='get')
 
-        output_data = response['json_content']['data']
+        if filter_media_type == FilterMediaTypes.ALL:
+            output_data = response['json_content']['data']
+        else:
+            output_data = [i for i in response['json_content']['data'] if i['media_type'] == filter_media_type.value]
+
         while response['json_content'].get('paging').get('next') and len(output_data) < max_items:
             response = cls.make_api_call(url=response['json_content']['paging']['next'], endpoint_query_params='', request_method='get')
 
