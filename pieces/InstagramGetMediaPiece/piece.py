@@ -80,7 +80,12 @@ class InstagramGetMediaPiece(BasePiece):
 
         response = cls.make_api_call(url=url, endpoint_query_params=endpoint_query_params, request_method='get')
 
-        return response['json_content']['data']
+        output_data = response['json_content']['data']
+        while response['json_content'].get('paging').get('next') and len(output_data) < max_items:
+            response = cls.make_api_call(url=response['json_content']['paging']['next'], endpoint_query_params='', request_method='get')
+            output_data += response['json_content']['data']
+
+        return output_data
 
     def piece_function(self, input_data: InputModel, secrets_data: SecretsModel):
         # TODO PAGINATION
