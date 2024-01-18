@@ -16,9 +16,9 @@ class FilterMediaTypes(str, Enum):
     CAROUSEL_ALBUM = "CAROUSEL_ALBUM"
 
 class OrderBy(str, Enum):
-    likes = "likes"
-    comments = "comments"
-    date = "date"
+    likes = "Likes"
+    comments = "Comments"
+    date_descending = "Date Descending"
 
 class InputModel(BaseModel):
     """

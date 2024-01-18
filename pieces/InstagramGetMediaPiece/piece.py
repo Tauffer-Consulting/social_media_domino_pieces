@@ -98,14 +98,6 @@ class InstagramGetMediaPiece(BasePiece):
         return output_data
 
     def piece_function(self, input_data: InputModel, secrets_data: SecretsModel):
-        # TODO PAGINATION
-        # TODO type filter
-        # type: - reels, image, videos, etc
-        # publication_date: date
-        # max_items: int
-        # order_by: - likes, comments, date, etc
-        #
-
         app_id = secrets_data.INSTAGRAM_APP_ID
         app_secret = secrets_data.INSTAGRAM_APP_SECRET
         access_token = secrets_data.INSTAGRAM_ACCESS_TOKEN
