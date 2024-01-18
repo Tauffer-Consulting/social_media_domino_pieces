@@ -432,6 +432,25 @@
         "description": "Get all media information about the instagram account",
         "input_schema": {
             "$defs": {
+                "FilterMediaTypes": {
+                    "enum": [
+                        "ALL",
+                        "IMAGE",
+                        "VIDEO",
+                        "CAROUSEL_ALBUM"
+                    ],
+                    "title": "FilterMediaTypes",
+                    "type": "string"
+                },
+                "OrderBy": {
+                    "enum": [
+                        "likes",
+                        "comments",
+                        "date"
+                    ],
+                    "title": "OrderBy",
+                    "type": "string"
+                },
                 "OutputTypeType": {
                     "enum": [
                         "python_list",
@@ -454,6 +473,24 @@
                     "description": "Max items to return",
                     "title": "Max Items",
                     "type": "integer"
+                },
+                "filter_media_type": {
+                    "allOf": [
+                        {
+                            "$ref": "#/$defs/FilterMediaTypes"
+                        }
+                    ],
+                    "default": "ALL",
+                    "description": "Select the media media types to return."
+                },
+                "order_by": {
+                    "allOf": [
+                        {
+                            "$ref": "#/$defs/OrderBy"
+                        }
+                    ],
+                    "default": "date",
+                    "description": "Order response results by a field. This is a post processing step."
                 },
                 "after_publish_date": {
                     "anyOf": [
