@@ -1,5 +1,5 @@
 from domino.base_piece import BasePiece
-from .models import InputModel, OutputModel, SecretsModel, FilterMediaTypes
+from .models import InputModel, OutputModel, SecretsModel, FilterMediaTypes, OrderBy
 from typing import List, Optional
 from datetime import date, datetime, time as dt_time
 import requests
@@ -108,6 +108,8 @@ class InstagramGetMediaPiece(BasePiece):
         if filter_media_type != "ALL":
             input_data.media_type_field = True
 
+
+
         fields = {
             "id_field": "id",
             "media_type_field":"media_type",
@@ -121,6 +123,10 @@ class InstagramGetMediaPiece(BasePiece):
 
         inputs = json.loads(input_data.model_dump_json())
         selected_fields = [fields.get(key) for key, value in inputs.items() if value == True]
+
+        if input_data.order_by.value != OrderBy.date_descending.value:
+            if not inputs.get(input_data.order_by.name):
+                raise ValueError(f"Field {input_data.order_by.name} must be selected to order by it")
 
         long_lived_access_token = secrets_data.INSTAGRAM_ACCESS_TOKEN = self.get_long_lived_access_token(app_id=app_id, app_secret=app_secret, access_token=access_token)
         page_id = self.get_page_id(access_token=long_lived_access_token, facebook_page_name=input_data.facebook_page_name)
@@ -148,6 +154,14 @@ class InstagramGetMediaPiece(BasePiece):
                     continue
                 selected_media[field] = value
             selected_media_fields.append(selected_media)
+
+        # Order results by like_count
+        if input_data.order_by.value == OrderBy.like_count.value:
+            selected_media_fields = sorted(selected_media_fields, key=lambda x: x['like_count'], reverse=True)
+        elif input_data.order_by.value == OrderBy.comments.value:
+            selected_media_fields = sorted(selected_media_fields, key=lambda x: len(x.get('comments', {}).get('data', [])), reverse=True)
+        elif input_data.order_by.value == OrderBy.date.value:
+            selected_media_fields = sorted(selected_media_fields, key=lambda x: x['timestamp'], reverse=True)
 
 
         #selected_media_fields = [dict((field, value) for field, value in media.items() if field in selected_fields) for media in media_list]
