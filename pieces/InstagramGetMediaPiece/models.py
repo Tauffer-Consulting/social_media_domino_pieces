@@ -1,5 +1,7 @@
 from pydantic import BaseModel, Field
 from enum import Enum
+from typing import Optional
+from datetime import date
 
 class OutputTypeType(str, Enum):
     python_list = "python_list"
@@ -14,6 +16,14 @@ class InputModel(BaseModel):
     facebook_page_name: str = Field(
         ...,
         description = "Facebook page connected to the Instagram account",
+    )
+    max_items: int = Field(
+        default=25,
+        description="Max items to return",
+    )
+    after_publish_date: Optional[date] = Field(
+        default=None,
+        description="After publish date.",
     )
     output_type: OutputTypeType = Field(
         default=OutputTypeType.string,

@@ -1,6 +1,7 @@
 from domino.base_piece import BasePiece
 from .models import InputModel, OutputModel, SecretsModel
-from typing import List
+from typing import List, Optional
+from datetime import date, datetime
 import requests
 import json
 
@@ -29,7 +30,7 @@ class InstagramGetMediaPiece(BasePiece):
         response['url'] = url
         response['endpoint_query_params'] = endpoint_query_params
         response['json_content'] = json.loads(data.content)
-    
+
         return response
 
     @classmethod
@@ -49,9 +50,9 @@ class InstagramGetMediaPiece(BasePiece):
         for i in response['json_content']['data']:
             if i['name'] == facebook_page_name:
                 return i['id']
-        
+
         raise Exception(f'Page "{facebook_page_name}" not found')
-    
+
     @classmethod
     def get_instagram_business_account(cls, access_token:str, page_id:str):
         url = f'{cls.endpoint_base_path}{page_id}'
@@ -62,39 +63,69 @@ class InstagramGetMediaPiece(BasePiece):
         return response['json_content']['instagram_business_account']['id']
 
     @classmethod
-    def get_media_list(cls, access_token:str, instagram_business_account:str, media_fields: List):
+    def get_media_list(
+        cls,
+        access_token: str,
+        instagram_business_account: str,
+        media_fields: List,
+        max_items: int,
+        since_timestamp: Optional[int] = None
+    ):
         url = f'{cls.endpoint_base_path}{instagram_business_account}/media'
         str_fields = ','.join(media_fields)
-        endpoint_query_params = f'access_token={access_token}&fields={str_fields}'
+        endpoint_query_params = f'access_token={access_token}&fields={str_fields}&limit={max_items}'
+
+        if since_timestamp:
+            endpoint_query_params += f'&since={since_timestamp}'
 
         response = cls.make_api_call(url=url, endpoint_query_params=endpoint_query_params, request_method='get')
 
         return response['json_content']['data']
 
     def piece_function(self, input_data: InputModel, secrets_data: SecretsModel):
-        
+        # TODO PAGINATION
+        # TODO type filter
+        # type: - reels, image, videos, etc
+        # publication_date: date
+        # max_items: int
+        # order_by: - likes, comments, date, etc
+        #
+
+
         app_id = secrets_data.INSTAGRAM_APP_ID
         app_secret = secrets_data.INSTAGRAM_APP_SECRET
         access_token = secrets_data.INSTAGRAM_ACCESS_TOKEN
 
         fields = {
-            "id_field": "id", 
-            "media_type_field":"media_type", 
-            "caption_field": "caption", 
-            "like_count_field": "like_count", 
-            "comments_count_field": "comments_count", 
-            "permalink_field": "permalink", 
-            "timestamp_field": "timestamp", 
+            "id_field": "id",
+            "media_type_field":"media_type",
+            "caption_field": "caption",
+            "like_count_field": "like_count",
+            "comments_count_field": "comments_count",
+            "permalink_field": "permalink",
+            "timestamp_field": "timestamp",
             "comments_field": "comments"
         }
 
-        inputs = json.loads(input_data.json())
+        inputs = json.loads(input_data.model_dump())
         selected_fields = [fields.get(key) for key, value in inputs.items() if value == True]
 
         long_lived_access_token = secrets_data.INSTAGRAM_ACCESS_TOKEN = self.get_long_lived_access_token(app_id=app_id, app_secret=app_secret, access_token=access_token)
         page_id = self.get_page_id(access_token=long_lived_access_token, facebook_page_name=input_data.facebook_page_name)
         instagram_business_account = self.get_instagram_business_account(access_token=long_lived_access_token, page_id=page_id)
-        media_list = self.get_media_list(access_token=long_lived_access_token, instagram_business_account=instagram_business_account, media_fields=selected_fields)
+
+        #since_timestamp = None
+        #if input_data.after_publish_date:
+            #since_timestamp = int(datetime.timestamp(input_data.after_publish_date))
+
+
+        media_list = self.get_media_list(
+            access_token=long_lived_access_token,
+            instagram_business_account=instagram_business_account,
+            media_fields=selected_fields,
+            max_items=input_data.max_items,
+            after_publish_date=input_data.after_publish_date,
+        )
 
         selected_media_fields = [dict((field, value) for field, value in media.items() if field in selected_fields) for media in media_list]
 
@@ -109,7 +140,7 @@ class InstagramGetMediaPiece(BasePiece):
             return OutputModel(
                 media_string=media_string
             )
-        
+
         if input_data.output_type == "python_list":
             python_list = []
             for i in media_list:
