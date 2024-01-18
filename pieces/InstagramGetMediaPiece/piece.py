@@ -125,7 +125,7 @@ class InstagramGetMediaPiece(BasePiece):
         selected_fields = [fields.get(key) for key, value in inputs.items() if value == True]
 
         if input_data.order_by.value != OrderBy.timestamp.value:
-            if not inputs.get(input_data.order_by.name):
+            if not input_data.order_by.name in selected_fields:
                 raise ValueError(f"Field {input_data.order_by.name} must be selected to order by it")
 
         long_lived_access_token = secrets_data.INSTAGRAM_ACCESS_TOKEN = self.get_long_lived_access_token(app_id=app_id, app_secret=app_secret, access_token=access_token)
