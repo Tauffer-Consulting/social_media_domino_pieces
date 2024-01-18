@@ -444,9 +444,9 @@
                 },
                 "OrderBy": {
                     "enum": [
-                        "likes",
-                        "comments",
-                        "date"
+                        "Likes Descending",
+                        "Comments Descending",
+                        "Date Descending"
                     ],
                     "title": "OrderBy",
                     "type": "string"
@@ -489,7 +489,7 @@
                             "$ref": "#/$defs/OrderBy"
                         }
                     ],
-                    "default": "date",
+                    "default": "Date Descending",
                     "description": "Order response results by a field. This is a post processing step."
                 },
                 "after_publish_date": {
