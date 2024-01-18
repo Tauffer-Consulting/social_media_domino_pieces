@@ -1,11 +1,24 @@
 from pydantic import BaseModel, Field
 from enum import Enum
+from typing import Optional
+from datetime import date
 
 class OutputTypeType(str, Enum):
     python_list = "python_list"
     string = "string"
     json_string = "json_string"
 
+
+class FilterMediaTypes(str, Enum):
+    ALL = "ALL"
+    IMAGE = "IMAGE"
+    VIDEO = "VIDEO"
+    CAROUSEL_ALBUM = "CAROUSEL_ALBUM"
+
+class OrderBy(str, Enum):
+    like_count = "Likes Descending"
+    comments = "Comments Descending"
+    timestamp = "Date Descending"
 
 class InputModel(BaseModel):
     """
@@ -14,6 +27,22 @@ class InputModel(BaseModel):
     facebook_page_name: str = Field(
         ...,
         description = "Facebook page connected to the Instagram account",
+    )
+    max_items: int = Field(
+        default=25,
+        description="Max items to return",
+    )
+    filter_media_type: FilterMediaTypes = Field(
+        default=FilterMediaTypes.ALL,
+        description="Select the media media types to return.",
+    )
+    order_by: OrderBy = Field(
+        default=OrderBy.timestamp.value,
+        description="Order response results by a field. This is a post processing step."
+    )
+    after_publish_date: Optional[date] = Field(
+        default=None,
+        description="After publish date.",
     )
     output_type: OutputTypeType = Field(
         default=OutputTypeType.string,

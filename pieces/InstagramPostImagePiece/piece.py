@@ -31,7 +31,7 @@ class InstagramPostImagePiece(BasePiece):
         response['json_content_pretty'] = json.dumps(json.loads(data.content), indent=2)
         response['url'] = url
         response['endpoint_query_params'] = endpoint_query_params
-    
+
         return response
 
     @classmethod
@@ -51,9 +51,9 @@ class InstagramPostImagePiece(BasePiece):
         for i in response['json_content']['data']:
             if i['name'] == facebook_page_name:
                 return i['id']
-        
+
         raise Exception(f'Page "{facebook_page_name}" not found')
-    
+
     @classmethod
     def get_instagram_business_account(cls, access_token:str, page_id:str):
         url = urljoin(cls.endpoint_base_path, page_id)
@@ -62,18 +62,19 @@ class InstagramPostImagePiece(BasePiece):
         response = cls.make_api_call(url=url, endpoint_query_params=endpoint_query_params, request_method='get')
 
         return response['json_content']['instagram_business_account']['id']
-    
+
     @classmethod
     def create_container(cls, access_token:str, instagram_business_account:str, image_url:str, caption:str):
         caption = quote(caption, safe='') #HTML URL encode for the caption parameter
 
-        url = urljoin(cls.endpoint_base_path, f'{instagram_business_account}/media') 
+        url = urljoin(cls.endpoint_base_path, f'{instagram_business_account}/media')
         endpoint_query_params = f'image_url={image_url}&caption={caption}&access_token={access_token}'
 
         response = cls.make_api_call(url=url, endpoint_query_params=endpoint_query_params, request_method='post')
-        
+
+
         return response['json_content']['id']
-    
+
     @classmethod
     def publish_container(cls, access_token:str, instagram_business_account:str, container_id:str):
         url = urljoin(cls.endpoint_base_path, f'{instagram_business_account}/media_publish')
@@ -82,18 +83,18 @@ class InstagramPostImagePiece(BasePiece):
         response = cls.make_api_call(url=url, endpoint_query_params=endpoint_query_params, request_method='post')
 
         return response['json_content']['id']
-    
+
     @classmethod
     def get_post_permalink(cls, access_token:str, post_id: str):
         url = urljoin(cls.endpoint_base_path, f'{post_id}')
         endpoint_query_params = f'fields=permalink&access_token={access_token}'
-        
+
         response = cls.make_api_call(url=url, endpoint_query_params=endpoint_query_params, request_method='get')
 
         return response['json_content']['permalink']
 
     def piece_function(self, input_data: InputModel, secrets_data: SecretsModel):
-        
+
         app_id = secrets_data.INSTAGRAM_APP_ID
         app_secret = secrets_data.INSTAGRAM_APP_SECRET
         access_token = secrets_data.INSTAGRAM_ACCESS_TOKEN
@@ -110,7 +111,7 @@ class InstagramPostImagePiece(BasePiece):
         if joined_hashtags:
             caption += f"\n\n{joined_hashtags}"
 
-        self.logger.info("Creating the post")        
+        self.logger.info("Creating the post")
         container_id = self.create_container(access_token=long_lived_access_token, instagram_business_account=instagram_business_account, image_url=input_data.image_url, caption=caption)
 
         self.logger.info("Publishing the post")
@@ -125,7 +126,7 @@ class InstagramPostImagePiece(BasePiece):
             post_id=post_id,
             post_link=permalink
         )
-    
+
     def format_display_result(self, input_data: InputModel, permalink: str):
         md_text = f"""
 ## Link of the post
