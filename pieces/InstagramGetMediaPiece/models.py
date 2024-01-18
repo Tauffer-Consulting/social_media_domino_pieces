@@ -37,7 +37,7 @@ class InputModel(BaseModel):
         description="Select the media media types to return.",
     )
     order_by: OrderBy = Field(
-        default=OrderBy.date_descending,
+        default=OrderBy.timestamp.value,
         description="Order response results by a field. This is a post processing step."
     )
     after_publish_date: Optional[date] = Field(
