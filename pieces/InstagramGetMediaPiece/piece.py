@@ -124,7 +124,7 @@ class InstagramGetMediaPiece(BasePiece):
         inputs = json.loads(input_data.model_dump_json())
         selected_fields = [fields.get(key) for key, value in inputs.items() if value == True]
 
-        if input_data.order_by.value != OrderBy.date_descending.value:
+        if input_data.order_by.value != OrderBy.timestamp.value:
             if not inputs.get(input_data.order_by.name):
                 raise ValueError(f"Field {input_data.order_by.name} must be selected to order by it")
 
@@ -160,7 +160,7 @@ class InstagramGetMediaPiece(BasePiece):
             selected_media_fields = sorted(selected_media_fields, key=lambda x: x['like_count'], reverse=True)
         elif input_data.order_by.value == OrderBy.comments.value:
             selected_media_fields = sorted(selected_media_fields, key=lambda x: len(x.get('comments', {}).get('data', [])), reverse=True)
-        elif input_data.order_by.value == OrderBy.date.value:
+        elif input_data.order_by.value == OrderBy.timestamp.value:
             selected_media_fields = sorted(selected_media_fields, key=lambda x: x['timestamp'], reverse=True)
 
 
