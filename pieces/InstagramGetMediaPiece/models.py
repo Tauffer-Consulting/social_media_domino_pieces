@@ -9,6 +9,17 @@ class OutputTypeType(str, Enum):
     json_string = "json_string"
 
 
+class FilterMediaTypes(str, Enum):
+    ALL = "ALL"
+    IMAGE = "IMAGE"
+    VIDEO = "VIDEO"
+    CAROUSEL_ALBUM = "CAROUSEL_ALBUM"
+
+class OrderBy(str, Enum):
+    likes = "likes"
+    comments = "comments"
+    date = "date"
+
 class InputModel(BaseModel):
     """
     Get Instagram Media Input
@@ -20,6 +31,14 @@ class InputModel(BaseModel):
     max_items: int = Field(
         default=25,
         description="Max items to return",
+    )
+    filter_media_type: FilterMediaTypes = Field(
+        default=FilterMediaTypes.ALL,
+        description="Select the media media types to return.",
+    )
+    order_by: OrderBy = Field(
+        default=OrderBy.date,
+        description="Order response results by a field. This is a post processing step."
     )
     after_publish_date: Optional[date] = Field(
         default=None,
