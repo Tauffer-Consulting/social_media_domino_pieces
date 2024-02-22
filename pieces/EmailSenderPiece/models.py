@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 from enum import Enum
-from typing import List, Optional, Union
+from typing import List, Optional, Union, Field
 
 
 class ProviderType(str, Enum):
@@ -15,7 +15,11 @@ class InnerArgModel(BaseModel):
     Inner argument model to use in the body and subject texts
     """
     arg_name: str
-    arg_value: Union[str, int, float, bool]
+    arg_value: Union[str, int, float, bool] = Field(
+        json_schema_extra={
+            "from_upstream": "always"
+        }
+    )
 
 
 class InputModel(BaseModel):
@@ -30,7 +34,7 @@ class InputModel(BaseModel):
         description='The receivers of the email, as comma-separated values',
     )
     email_subject: str = Field(
-        description='The subject of the email.',  
+        description='The subject of the email.',
     )
     subject_args: Optional[List[InnerArgModel]] = Field(
         default=None,
