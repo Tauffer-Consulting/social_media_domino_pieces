@@ -1,6 +1,7 @@
 from pydantic import BaseModel, Field
 from enum import Enum
-from typing import List, Optional, Union, Field
+from typing import List, Optional, Union
+
 
 
 class ProviderType(str, Enum):
@@ -15,11 +16,7 @@ class InnerArgModel(BaseModel):
     Inner argument model to use in the body and subject texts
     """
     arg_name: str
-    arg_value: Union[str, int, float, bool] = Field(
-        json_schema_extra={
-            "from_upstream": "always"
-        }
-    )
+    arg_value: Optional[str] = Field(default='arg value')
 
 
 class InputModel(BaseModel):
