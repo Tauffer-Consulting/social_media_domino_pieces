@@ -449,21 +449,15 @@
                                     "type": "string"
                                 },
                                 {
-                                    "type": "integer"
-                                },
-                                {
-                                    "type": "number"
-                                },
-                                {
-                                    "type": "boolean"
+                                    "type": "null"
                                 }
                             ],
+                            "default": "arg value",
                             "title": "Arg Value"
                         }
                     },
                     "required": [
-                        "arg_name",
-                        "arg_value"
+                        "arg_name"
                     ],
                     "title": "InnerArgModel",
                     "type": "object"

@@ -3,6 +3,7 @@ from enum import Enum
 from typing import List, Optional, Union
 
 
+
 class ProviderType(str, Enum):
     gmail = "gmail"
     outlook = "outlook"
@@ -15,7 +16,7 @@ class InnerArgModel(BaseModel):
     Inner argument model to use in the body and subject texts
     """
     arg_name: str
-    arg_value: Union[str, int, float, bool]
+    arg_value: Optional[str] = Field(default='arg value')
 
 
 class InputModel(BaseModel):
@@ -30,7 +31,7 @@ class InputModel(BaseModel):
         description='The receivers of the email, as comma-separated values',
     )
     email_subject: str = Field(
-        description='The subject of the email.',  
+        description='The subject of the email.',
     )
     subject_args: Optional[List[InnerArgModel]] = Field(
         default=None,
