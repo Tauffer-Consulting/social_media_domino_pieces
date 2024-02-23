@@ -41,9 +41,9 @@
         "secrets": [
             "INSTAGRAM_APP_SECRET",
             "INSTAGRAM_APP_ID",
-            "INSTAGRAM_ACCESS_TOKEN",
+            "EMAIL_SENDER_ACCOUNT",
             "EMAIL_SENDER_PASSWORD",
-            "EMAIL_SENDER_ACCOUNT"
+            "INSTAGRAM_ACCESS_TOKEN"
         ],
         "source_image": "ghcr.io/tauffer-consulting/social_media_domino_pieces:0.5.4-group2"
     }
