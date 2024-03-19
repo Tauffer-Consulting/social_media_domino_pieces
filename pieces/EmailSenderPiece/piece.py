@@ -42,8 +42,9 @@ class EmailSenderPiece(BasePiece):
 
         email_subject = input_data.email_subject.format(**{arg.arg_name: arg.arg_value for arg in input_data.subject_args}) if input_data.subject_args else input_data.email_subject
 
+        max_file_path_size = os.pathconf('/', 'PC_NAME_MAX')
         # Check if body is a file path, if so, read the file and use its content as the email body
-        if Path(input_data.email_body).exists():
+        if len(input_data.email_body) < max_file_path_size and Path(input_data.email_body).exists():
             with open(input_data.email_body, "r") as f:
                 plain_email_body = f.read()
         else:
